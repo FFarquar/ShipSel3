@@ -1,0 +1,91 @@
+﻿@using ShipSel3.Services.UnitsandListsServiceClient
+@using ShipSel3.Models
+
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@inject IWebAssemblyHostEnvironment Env
+
+@inject IUnitsandListsServiceClient ULSC 
+
+
+@if (routeData.PageType != typeof(ShipSel3.Pages.PrintPage))
+{
+    <div class="top-row ps-3 navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Ship Selector Ver  @Settings.version</a>
+            <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+}
+
+
+@if (routeData.PageType == typeof(ShipSel3.Pages.Index))
+{
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <nav class="flex-column">
+
+            @foreach (var item in RuleSets)
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="@($"unitselectionrules2/{@item.Id}")"  >
+
+                        <span aria-hidden="true"></span> @item.RulesetName
+                    </NavLink>
+                </div>
+            }
+
+            <div class="nav-item px-3">
+                <NavLink href="broadsideSD_Mockup"> Broadside SD Mockup
+
+                </NavLink>
+            </div>
+
+
+
+
+            <div class="nav-item px-3" hidden="@Env.IsProduction()">
+                @* //only want this visible in dev *@
+                <NavLink class="nav-link" href="unitsDB">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Unit DB
+
+                </NavLink>
+
+            </div>
+
+
+
+        </nav>
+    </div>
+}
+
+@code {
+    private bool collapseNavMenu = true;
+    private bool inDevelopmentMode = false;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private static List<RuleSet> RuleSets = new List<RuleSet>();
+
+    [CascadingParameter] 
+    private RouteData routeData { get; set; } = default!;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await ULSC.GetRuleSets();
+        RuleSets = response.Data;
+
+    }
+
+
+    protected override void OnInitialized()
+    {
+        if (routeData is null)
+            throw new NullReferenceException("No Cascaded RouteData - You must cascade RouteData in App");
+    }
+}

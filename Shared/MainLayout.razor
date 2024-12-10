@@ -1,0 +1,61 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JS
+
+@if (routeData.PageType != typeof(ShipSel3.Pages.PrintPage))
+{
+        <div class="page">
+            <div class="sidebar">
+                <NavMenu />
+            </div>
+
+            <main>
+
+            @if (routeData.PageType != typeof(ShipSel3.Pages.PrintPage))
+                {
+                    <div class="top-row px-4">
+                        <a @onclick="() => Openabout()"  target="_blank">Read me</a>
+                        <HomeButton />
+                    </div>
+
+                }
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+    </div>
+}
+else
+{
+                <article class="content px-4">
+                    @Body
+                </article>
+    
+}
+
+@code {
+
+    [CascadingParameter] 
+    private RouteData routeData { get; set; } = default!;
+    private IJSObjectReference? _jsModule;
+
+    protected override void OnInitialized()
+    {
+        if (routeData is null)
+            throw new NullReferenceException("No Cascaded RouteData - You must cascade RouteData in App");
+    }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./css/fileScripts.js");
+        }
+    }
+
+    private async void Openabout()
+    {
+
+        await JS.InvokeAsync<object>("open", "readme");
+
+    }
+}

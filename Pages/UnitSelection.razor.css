@@ -1,0 +1,26 @@
+﻿
+.div-img {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 20%;
+}
+
+img {
+    transition: transform .2s;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: rgb(173, 173, 237);
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+    img:hover {
+        top:50px;
+        transform: scale(4);
+    }
+
+.alignrowTop {
+    vertical-align: top;
+}
