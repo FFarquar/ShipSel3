@@ -15,21 +15,21 @@
 <h3>Select units for @ruleSet.RulesetName</h3>
 <EditForm Model="request" OnValidSubmit="getListOfUnits">
     <div class="form-check" hidden=@HideCollectionOption>
-      <input class="form-check-input" type="checkbox" id="flexCheckDefault" @bind-value=@request.OnlyReturnUnitsInCollection>
-      <label class="form-check-label" for="flexCheckDefault">
-        Choose only from owned units?
-      </label>
+        <input class="form-check-input" type="checkbox" id="flexCheckDefault" @bind-value=@request.OnlyReturnUnitsInCollection>
+        <label class="form-check-label" for="flexCheckDefault">
+            Choose only from owned units?
+        </label>
     </div>
-        <button type="submit" class="btn btn-primary" hidden=@HideCollectionOption>Get units</button>
+    <button type="submit" class="btn btn-primary" hidden=@HideCollectionOption>Get units</button>
 </EditForm>
 
 
 <div id="mainselection" hidden=@HideMainForm>
-    
+
     <div style="display:inline-block">
         <select class="form-select" aria-label="Default select example" @onchange="HandleChangeCountry" >
 
-          <option value="" selected disabled hidden>Choose Country</option>
+            <option value="" selected disabled hidden>Choose Country</option>
             @foreach(var country in Countries)
             {
                 <option value="@country.Id"> @country.CountryName</option>
@@ -49,27 +49,27 @@
     </div>
 </div>
 
-                                
-    <div hidden=@HideMainForm>
-        
-       @if(CompleteUnitList == null || CompleteUnitList.Count == 0)
-        {
-            <span>
-                <p class="lead">
-                    Waiting on selection/No records found
-                </p>
-            
 
-            </span>
-        }
-        else
-        {
-            
-            <table hidden=@HideMainForm>
-                
-              @*<tr style="vertical-align:top">*@
-                <tr class="alignrowTop">
-                  
+<div hidden=@HideMainForm>
+
+    @if(CompleteUnitList == null || CompleteUnitList.Count == 0)
+    {
+        <span>
+            <p class="lead">
+                Waiting on selection/No records found
+            </p>
+
+
+        </span>
+    }
+    else
+    {
+
+        <table hidden=@HideMainForm>
+
+            @*<tr style="vertical-align:top">*@
+            <tr class="alignrowTop">
+
                 @*<td class="vertalignCell">*@
                 <td>
 
@@ -77,62 +77,62 @@
                         Units available for selection
                     </p>
 
-                       <table class="table table-striped table-bordered">
-       
-                            <thead class="thead-dark">
+                    <table class="table table-striped table-bordered">
+
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Unit Type</th>
+                                <th scope="col">Class</th>
+                                @if(request.OnlyReturnUnitsInCollection)
+                                {
+                                    <th>Name</th>
+                                }
+                                else
+                                {
+                                    <th># available</th>    
+                                    <th>Selected</th>    
+                                }
+                                <th scope="col" width=@ruleSet.ImagePreviewWidth>Image</th>
+                                <th scope="col">Cost</th>
+                                <th scope="col">Add unit</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+
+                            @{int i = 0;}
+                            @foreach (var unit in CompleteUnitList)
+                            @*@foreach (var unit in ULSC.UnitList)*@
+                            {
+
+                                @if (unit.FilterVisible == true && unit.AddButtonDisabled == false)
+                                {
+                                    i = i + 1;
                                     <tr>
-                                        <th scope="col">Unit Type</th>
-                                        <th scope="col">Class</th>
+                                        <td>@unit.subUnitTypeObj.SubUnitName</td>
+                                        <td>@unit.Name_ClassName</td>
+
                                         @if(request.OnlyReturnUnitsInCollection)
                                         {
-                                            <th>Name</th>
+                                            <td>@unit.ShipsSubsInClass</td>
                                         }
                                         else
                                         {
-                                            <th># available</th>    
-                                            <th>Selected</th>    
+                                            <td>@unit.NumberinClass_shipSub</td>
+                                            <td>@unit.NumberSelected</td>
                                         }
-                                        <th scope="col" width=@ruleSet.ImagePreviewWidth>Image</th>
-                                        <th scope="col">Cost</th>
-                                        <th scope="col">Add unit</th>
-                                    </tr>
-                            </thead>
-
-                            <tbody>
 
 
-                                @{int i = 0;}
-                                @foreach (var unit in CompleteUnitList)
-                                @*@foreach (var unit in ULSC.UnitList)*@
-                                {
-
-                                @if (unit.FilterVisible == true && unit.AddButtonDisabled == false)
-                                                {
-                                    i = i + 1;
-                                    <tr>
-                                            <td>@unit.subUnitTypeObj.SubUnitName</td>
-                                            <td>@unit.Name_ClassName</td>
-
-                                            @if(request.OnlyReturnUnitsInCollection)
-                                            {
-                                                <td>@unit.ShipsSubsInClass</td>
-                                            }
-                                            else
-                                            {
-                                                <td>@unit.NumberinClass_shipSub</td>
-                                                <td>@unit.NumberSelected</td>
-                                            }
-
-
-                                            @{var imagename = "Image_" + i;}
-                                            @*THIS SECTION OF THE CODE IS USED IF THE images are taken from the Server
+                                        @{var imagename = "Image_" + i;}
+                                        @*THIS SECTION OF THE CODE IS USED IF THE images are taken from the Server
                                             @{var srcRef = @ViewFIle(@unit,@imagename);}
                                             <td>
                                               <img class="img" srcRef style="border:5px solid #000000; max-width:200px;max-height:200px"  id=@imagename/>
                                             </td>*@
-                                            <td>
-                                                
-                                              @*THIS SECTION IS USED IF WANT TO READ THE FILES LOCALLY*@
+                                        <td>
+
+                                            @*THIS SECTION IS USED IF WANT TO READ THE FILES LOCALLY*@
                                             @{
                                                 var srcLocationLocal = "ShipImages/" + @RuleSetId + "/" + unit.Countryobj.Id + "/"+ unit.ImagePath;
                                             }
@@ -141,21 +141,21 @@
                                             @*<img class="img" src=@srcLocationLocal style=@imageStyle id=@imagename/>*@
                                             @*<img class="img" src=@srcLocationLocal style="width:75%; height:75%" id=@imagename/>*@
                                             <img class="img" src=@srcLocationLocal style=@imageStyle id=@imagename/>
-                                            </td>
+                                        </td>
 
-                                            <td>@unit.Cost</td>
-                                            <td>
-                                                    <fieldset disabled=@unit.AddButtonDisabled>
-                                                        <button class=@unit.styleForAddButton @onclick="() => AddToList(unit)">
-                                                            <i class="oi oi-plus"></i>&nbsp;&nbsp;&nbsp;Add
-                                                        </button>
-                                                    </fieldset>
-                                            </td>
-                                        </tr>
-                                    }
+                                        <td>@unit.Cost</td>
+                                        <td>
+                                            <fieldset disabled=@unit.AddButtonDisabled>
+                                                <button class=@unit.styleForAddButton @onclick="() => AddToList(unit)">
+                                                    <i class="oi oi-plus"></i>&nbsp;&nbsp;&nbsp;Add
+                                                </button>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
                                 }
-                            </tbody>
-                       </table>
+                            }
+                        </tbody>
+                    </table>
 
                 </td>
 
@@ -166,99 +166,99 @@
                     <p class="lead">
                         Selected units. Cost of selected units = @costOfSelectedUnits
                     </p>
-                 
-                       <table class="table table-striped table-success table-bordered">
-       
-                            <thead class="thead-dark">  
+
+                    <table class="table table-striped table-success table-bordered">
+
+                        <thead class="thead-dark">  
+                            <tr>
+                                <th scope="col">Country</th>
+                                <th scope="col">Unit type</th>
+                                <th scope="col">Class</th>
+                                @if(!request.OnlyReturnUnitsInCollection)
+                                {
+                                    <th># selected</th>
+                                }
+                                else
+                                {
+                                    <th>Name</th>
+                                }
+                                <th scope="col">Cost</th>
+                                <th scope="col" width=@ruleSet.ImagePreviewWidth>Image</th>
+                                <th scope="col">Remove</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var unit in CompleteUnitList)
+
+                            {
+                                @if(unit.NumberSelected > 0)
+                                {
                                     <tr>
-                                        <th scope="col">Country</th>
-                                        <th scope="col">Unit type</th>
-                                        <th scope="col">Class</th>
+                                        <td>@unit.Countryobj.CountryName</td>
+                                        <td>@unit.subUnitTypeObj.SubUnitName</td>
+                                        <td> @unit.Name_ClassName</td>
+
                                         @if(!request.OnlyReturnUnitsInCollection)
                                         {
-                                            <th># selected</th>
+                                            <td>@unit.NumberSelected</td>
                                         }
                                         else
                                         {
-                                            <th>Name</th>
-                                        }
-                                <th scope="col">Cost</th>
-                                        <th scope="col" width=@ruleSet.ImagePreviewWidth>Image</th>
-                                        <th scope="col">Remove</th>
-                                    </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach (var unit in CompleteUnitList)
-
-                                {
-                                    @if(unit.NumberSelected > 0)
-                                    {
-                                        <tr>
-                                            <td>@unit.Countryobj.CountryName</td>
-                                            <td>@unit.subUnitTypeObj.SubUnitName</td>
-                                            <td> @unit.Name_ClassName</td>
-
-                                            @if(!request.OnlyReturnUnitsInCollection)
-                                            {
-                                            <td>@unit.NumberSelected</td>
-                                            }
-                                            else
-                                            {
                                             <td>@unit.ShipsSubsInClass</td>                                            
-                                            }
+                                        }
 
-                                            <td>@unit.Cost</td>
+                                        <td>@unit.Cost</td>
 
-                                            @{var imagename = "Image_" + i;}
-                                            @*THIS SECTION OF THE CODE IS USED IF THE images are taken from the Server*@
-@*                                            
+                                        @{var imagename = "Image_" + i;}
+                                        @*THIS SECTION OF THE CODE IS USED IF THE images are taken from the Server*@
+                                        @*                                            
                                             @{var srcRef = @ViewFIle(@unit,@imagename);}
                                            <td>
                                               <img class="img" srcRef style="border:5px solid #000000; max-width:200px;max-height:200px"  id=@imagename/>
                                             </td>
 *@
-                                            <td>
-                                                
-                                              @*THIS SECTION IS USED IF WANT TO READ THE FILES LOCALLY*@
+                                        <td>
+
+                                            @*THIS SECTION IS USED IF WANT TO READ THE FILES LOCALLY*@
                                             @{
                                                 var srcLocationLocal = "ShipImages/" + @RuleSetId + "/" + unit.Countryobj.Id + "/"+ unit.ImagePath;
-                                                }
-                                                @*<img class="img" src=@srcLocationLocal style="border:5px solid #000000; max-width:200px;max-height:200px"  id=@imagename/>*@
-                                                <img class="img" src=@srcLocationLocal style=@imageStyle id=@imagename/>
-                                            </td>
-                                            <td>
-                                                    <fieldset disabled=@unit.RemoveButtonDisabled>
-                                                        <button class=@unit.styleForRemoveButton @onclick="() => RemoveFromList(unit)">
-                                                            <i class="oi oi-minus"></i>&nbsp;&nbsp;&nbsp;Remove
-                                                        </button>
-                                                    </fieldset>
-                                            </td>
-                                        </tr>
-                                    }
+                                            }
+                                            @*<img class="img" src=@srcLocationLocal style="border:5px solid #000000; max-width:200px;max-height:200px"  id=@imagename/>*@
+                                            <img class="img" src=@srcLocationLocal style=@imageStyle id=@imagename/>
+                                        </td>
+                                        <td>
+                                            <fieldset disabled=@unit.RemoveButtonDisabled>
+                                                <button class=@unit.styleForRemoveButton @onclick="() => RemoveFromList(unit)">
+                                                    <i class="oi oi-minus"></i>&nbsp;&nbsp;&nbsp;Remove
+                                                </button>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
                                 }
-                            </tbody>
-                            <tr>
+                            }
+                        </tbody>
+                        <tr>
 
-                                <button hidden=@CreateListHidden class="btn btn-danger" @onclick="() => CreateList()">
-                                    <i class="oi oi-document"></i>&nbsp;&nbsp;&nbsp;Create list
-                                </button>
+                            <button hidden=@CreateListHidden class="btn btn-danger" @onclick="() => CreateList()">
+                                <i class="oi oi-document"></i>&nbsp;&nbsp;&nbsp;Create list
+                            </button>
 
-                                <button hidden=@CreateListHidden class="btn btn-danger" @onclick="() => CreateSDS()">
-                                    <i class="oi oi-document"></i>&nbsp;&nbsp;&nbsp;Ship Displays
-                                </button>
+                            <button hidden=@CreateListHidden class="btn btn-danger" @onclick="() => CreateSDS()">
+                                <i class="oi oi-document"></i>&nbsp;&nbsp;&nbsp;Ship Displays
+                            </button>
 
-                            </tr>
-                       </table>
+                        </tr>
+                    </table>
                 </td>
-              </tr>
-            </table>
+            </tr>
+        </table>
 
 
-       }
+    }
 
 
-    </div>
+</div>
 
 @code {
     [Parameter]
@@ -513,8 +513,8 @@
         var result = await StorServ.AddUnitsToStorage(CompleteUnitList);
 
 
-        await JS.InvokeAsync<object>("open", "printpage/"+RuleSetId+"/"+@request.OnlyReturnUnitsInCollection, "_blank");
-
+        // await JS.InvokeAsync<object>("open", "printpage/"+RuleSetId+"/"+@request.OnlyReturnUnitsInCollection, "_blank");
+        await JS.InvokeVoidAsync("open", "printpage/" + RuleSetId + "/" + @request.OnlyReturnUnitsInCollection, "_blank");
     }
 
     private async void CreateSDS()
@@ -522,10 +522,13 @@
         //Create a new page so that electronic Ship Displays can be used instead of paper\
         //Starting with Broadsides 
         var result = await StorServ.AddUnitsToStorage(CompleteUnitList);
-        
+
         //todo Need to make this available only if broadsides is being used
 
-        await JS.InvokeAsync<object>("open", "broadsideSD" , "_blank");
+        // await JS.InvokeAsync<object>("open", "broadsideSD" , "_blank");
+
+         // await JS.InvokeAsync<object>("open", "broadsideSD/ "+@request.OnlyReturnUnitsInCollection, "_blank");
+        await JS.InvokeVoidAsync("open", "broadsideSD/ " + @request.OnlyReturnUnitsInCollection, "_blank");
     }
 
 }

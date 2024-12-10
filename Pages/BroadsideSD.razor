@@ -1,5 +1,6 @@
 ﻿
-@page "/broadsideSD"
+@* @page "/broadsideSD" *@
+@page "/broadsideSD/{ChooseFromOwnedColleciton:bool}"
 @layout NoMenuLayout
 @inject IStorageService StorServ
 @using ShipSel3.Services.UnitsandListsServiceClient
@@ -156,6 +157,9 @@
 </main>
 
 @code {
+    [Parameter]
+    public bool ChooseFromOwnedColleciton { get; set; } = false;
+
     [Inject] IJSRuntime? JsRuntime { get; set; }
     private List<BroadsideSDS> BroadsideSDSList = new List<BroadsideSDS>();  //A list of all items that have been selected
 
@@ -196,7 +200,11 @@
 
         await CreateDamageDeck();
 
+
     }
+
+
+
     #region  Damage card stuff
 
     private async Task RemoveDamageCard(int response)
@@ -337,12 +345,20 @@
 
                 Console.WriteLine("UnitForGameSystemDTO.ShipsSubsInClass = " + UnitForGameSystemDTO.ShipsSubsInClass);
                 // if (UnitForGameSystemDTO.NumberSelected >= 1)
-                if (UnitForGameSystemDTO.ShipsSubsInClass == null)
+                if ((UnitForGameSystemDTO.ShipsSubsInClass == null) || (ChooseFromOwnedColleciton==false))
                 {
+                    if (UnitForGameSystemDTO.ShipsSubsInClass==null)
+                    {
+                        UnitForGameSystemDTO.ShipsSubsInClass = "Enter ship name";
+                    }
                     newItem.renameHidden = false;
+                     
                     newItem.ShipName = UnitForGameSystemDTO.Name_ClassName;
                 }
                 else
+                {
+                    
+                }
                 {
 
                     newItem.ShipName = UnitForGameSystemDTO.ShipsSubsInClass;
