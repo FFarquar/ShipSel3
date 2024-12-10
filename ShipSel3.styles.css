@@ -1,19 +1,480 @@
-/* /Layout/MainLayout.razor.rz.scp.css */
-.page[b-jfm1mq82z4] {
+/* /Pages/BroadsideSD.razor.rz.scp.css */
+.main[b-hnjj89poea] {
+    width: 100%;
+    /*    background-color:blue;*/
+    margin: 0px;
+}
+
+.main_heading[b-hnjj89poea]{
+    display:flex;
+    flex:100%;
+    width:800px;
+}
+
+
+.main_container[b-hnjj89poea] {
+    /*This is the main layout that has a column of buttons for each ship in the left column
+    and the main layout on the right that has the ship image and holds
+    current damage, current speed, current order, current damage cards
+*/
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    margin: 0px;
+    flex: 100%;
+    /*    background-color:green;*/
+}
+
+.ship_name_heading[b-hnjj89poea] {
+    display: inline;
+    width: 65%;
+    font-size:xx-large;
+    justify-content:center;
+    margin-left:210px;
+}
+.ship_list_nav_bar_left_container[b-hnjj89poea] {
+    min-width: 190px;
+    background-color: darkslategrey;
+    margin: 5px;
+    margin-top:-40px;
+}
+
+.ship_sds_status_right_container[b-hnjj89poea] {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.ship_button[b-hnjj89poea] {
+    display: block;
+    min-width: 150px;
+    margin: 5px;
+}
+
+.ship_button_advanced[b-hnjj89poea] {
+    display: block;
+    min-width: 150px;
+    margin: 2px;
+    padding-top:5px;
+    background-color:burlywood;
+}
+
+.ship_label_adanced[b-hnjj89poea] {
+    margin-left:4px;
+    font-size:14px;
+    background-color:white;
+    margin-bottom:2px;
+}
+
+
+.toggle_advanced_list[b-hnjj89poea] {
+    margin-top: 50px;
+    margin-left:5px;
+    height: 30px;
+    width: 150px;
+    background-color:aquamarine;
+}
+
+.advanced_ship_view[b-hnjj89poea] {
+/*    background-color: aqua;*/
+margin:2px;
+border:ridge;
+
+}
+.ship_image[b-hnjj89poea] {
+}
+
+.ship_current_stats_and_order[b-hnjj89poea] {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    max-width: 200px;
+    margin-left:10px;
+    /*    background-color: black;*/
+}
+
+
+.ship_stats[b-hnjj89poea] {
+    display:block;
+}
+.rename_ship[b-hnjj89poea] {
+    display:flex;
+    flex-direction:column;
+}
+.input_field[b-hnjj89poea] {
+    margin-top:2px;
+}
+.rename_ship_input_cl[b-hnjj89poea] {
+    width: 100%;
+}
+
+.ship_order[b-hnjj89poea] {
+    margin-top: 5px;
+    border-style: solid;
+    /*    background-color: red;*/
+    /*    max-width:200px;*/
+    display: flex;
+    flex-direction: column;
+}
+
+.ship_order h5[b-hnjj89poea]{
+    margin-left:2px;
+}
+
+.ship_order_card_container[b-hnjj89poea] {
+}
+
+.ship_order_card[b-hnjj89poea] {
+    max-width: 100%;
+    max-height: 100%;
+    /*    margin: auto;
+    display: block;*/
+}
+
+.checkbox_option[b-hnjj89poea] {
+    background-color:lightgray;
+    margin-top:2px;
+}
+.torpedos[b-hnjj89poea] {
+}
+
+.ship_order .checkbox_option[b-hnjj89poea]{
+    margin: 2px;
+}
+
+.ship_order_select[b-hnjj89poea] {
+    margin: 2px;
+}
+
+.SDS_and_Stats[b-hnjj89poea] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: solid;
+    padding: 2px;
+    /*    background-color: pink;*/
+}
+
+
+.stat_input[b-hnjj89poea] {
+    max-width: 50px;
+    float: right;
+    margin-right:5px;
+    height: 20px;
+}
+
+.damage_cards[b-hnjj89poea] {
+    margin-top: 5px;
+    border: solid;
+    max-width: 100%;
+    padding: 2px;
+    /*    background-color: aqua;*/
+}
+
+.damage_cards_container[b-hnjj89poea] {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.damage_card_and_delete[b-hnjj89poea] {
+    flex-direction: column;
+}
+
+.add_damage_card[b-hnjj89poea] {
+    padding:0px;
+    background-color:lightcoral;
+}
+
+.damage_card[b-hnjj89poea] {
+    width: 140px;
+}
+
+@media only screen and (max-width: 1130px) {
+    .main[b-hnjj89poea] {
+/*        background-color: lightblue;*/
+    }
+
+    .ship_current_stats_and_order[b-hnjj89poea] {
+        flex-direction: row;
+    }
+
+    .ship_order[b-hnjj89poea] {
+        margin-top: 0px;
+        min-width:200px;
+    }
+
+    .ship_stats[b-hnjj89poea] {
+        min-width: 180px;
+        margin-right: 30px;
+    }
+    .torpedos[b-hnjj89poea] {
+        min-width:200px;
+    }
+    .ship_list_nav_bar_left_container[b-hnjj89poea] {
+        min-width: 190px;
+    }
+}
+/* /Pages/BroadsideSD_Mockup.razor.rz.scp.css */
+.main_container[b-l57cy302vw] {
+    /*This is the main layout that has a column of buttons for each ship in the left column
+    and the main layout on the right that has the ship image and holds
+    current damage, current speed, current order, current damage cards
+*/
+    display: flex;
+    height:100%;
+    flex-direction: row;
+    margin: 0px;
+    flex: 100%;
+/*    background-color:green;*/
+    }
+
+.ship_list_nav_bar_left_container[b-l57cy302vw] {
+    min-width: 150px;
+    background-color: purple;
+    margin: 5px;
+}
+
+.ship_sds_status_right_container[b-l57cy302vw] {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+/*.ship_container {
+    position: absolute;
+    display: grid;
+    grid-template-areas:
+        "SDS SDS curr_speed"
+        "SDS SDS curr_damage";
+}*/
+
+/*.main_container .ship_sds_status_right_container .SDS {
+    color: pink;
+    min-width:400px;
+    background-color: orange;
+}*/
+
+
+.ship_button[b-l57cy302vw] {
+    display: block;
+    min-width: 150px;
+    margin: 5px;
+}
+
+.main[b-l57cy302vw] {
+    width:100%;
+/*    background-color:blue;*/
+    margin:0px;
+}
+
+.ship_image[b-l57cy302vw] {
+
+}
+
+.ship_current_stats_and_order[b-l57cy302vw] {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    max-width:200px;
+    /*    background-color: black;*/
+}
+
+.ship_stats[b-l57cy302vw] {
+
+}
+
+.ship_order[b-l57cy302vw] {
+    margin-top: 5px;
+    border-style: solid;
+    background-color:red;
+/*    max-width:200px;*/
+    display:flex;
+    flex-direction:column;
+}
+
+
+.ship_order_card_container[b-l57cy302vw] {
+    
+}
+.ship_order_card[b-l57cy302vw] {
+    max-width: 100%;
+    max-height: 100%;
+/*    margin: auto;
+    display: block;*/
+}*/
+.damage_cards[b-l57cy302vw] {
+    margin-top: 5px;
+    border: solid;
+}
+
+
+.SDS_and_Stats[b-l57cy302vw] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: pink;
+}
+
+.stat_input[b-l57cy302vw]{
+    max-width:50px;
+    float:right;
+    height:20px;
+}
+
+.damage_cards_container[b-l57cy302vw] {
+    display:flex;
+}
+
+.damage_card_and_delete[b-l57cy302vw]{
+    flex-direction:column;
+}
+
+.damage_card[b-l57cy302vw] {
+    width: 120px;
+}
+
+@media only screen and (max-width: 1130px) {
+    .main[b-l57cy302vw] {
+        background-color: lightblue;
+    }
+
+    .ship_current_stats_and_order[b-l57cy302vw] {
+        flex-direction: row;
+    }
+
+    .ship_order[b-l57cy302vw] {
+        margin-top: 0px;
+    }
+
+    .ship_stats[b-l57cy302vw] {
+        min-width:180px;
+        margin-right:30px;
+    }
+}
+/* /Pages/PrintPage.razor.rz.scp.css */
+/*all this styling came from https://medium.com/@karthikricssion/how-to-design-a-printable-html-page-layout-802bc9ea61dd*/
+
+body[b-3n4n50cilx] {margin: 0}
+
+.sheet-outer[b-3n4n50cilx] {
+    margin: 0;
+}
+
+.sheet[b-3n4n50cilx] {
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+/*    box-sizing: border-box;*/
+    page-break-after: always;
+}
+@media screen {
+    body[b-3n4n50cilx] {
+        background: #e0e0e0
+    }
+
+    .sheet[b-3n4n50cilx] {
+        background: white;
+        box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+        margin: 5mm auto;
+    }
+}
+/*.sheet-outer.A4 .sheet {
+    width: 210mm;
+    height: 296mm;
+    border-style: solid;
+    border-color:black;
+}
+*/
+/*.sheet-outer.A4 .sheet{
+    width: 285mm;
+    height: 200mm;
+    border-style: solid;
+    border-color: black;
+}*/
+
+/*Landscape settings*/
+.sheet-outer.A4 .sheet[b-3n4n50cilx] {
+    width: 285mm;
+    height: 200mm;
+}
+
+/*A4 Portrait settings*/
+.sheet-outer.Portrait .sheet[b-3n4n50cilx] {
+    width: 210mm;
+    height: 297mm;
+}
+
+.sheet.padding-5mm[b-3n4n50cilx] {
+    padding: 5mm
+}
+
+@page {
+    size: A4;
+    margin: 0
+}
+
+
+    /*@media print {
+        @page {*/
+            /*size: landscape;*/
+    
+        }*/[b-3n4n50cilx]
+}
+/* /Pages/UnitsDB.razor.rz.scp.css */
+p[b-8s93uby1jn] {
+    margin: 1px 1px;
+}
+/* /Pages/UnitSelection.razor.rz.scp.css */
+
+.div-img[b-381z0ar6n3] {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 20%;
+}
+
+img[b-381z0ar6n3] {
+    transition: transform .2s;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: rgb(173, 173, 237);
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+    img:hover[b-381z0ar6n3] {
+        top:50px;
+        transform: scale(4);
+    }
+
+.alignrowTop[b-381z0ar6n3] {
+    vertical-align: top;
+}
+/* /Shared/HomeButton.razor.rz.scp.css */
+.home-button[b-g3mf1p5des] {
+    white-space: nowrap;
+    margin-right: 10px;
+    transform: rotate(-5deg);
+}
+/* /Shared/MainLayout.razor.rz.scp.css */
+.page[b-x5csc42tgt] {
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-main[b-jfm1mq82z4] {
+main[b-x5csc42tgt] {
     flex: 1;
 }
 
-.sidebar[b-jfm1mq82z4] {
+.sidebar[b-x5csc42tgt] {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
 }
 
-.top-row[b-jfm1mq82z4] {
+.top-row[b-x5csc42tgt] {
     background-color: #f7f7f7;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
@@ -22,110 +483,181 @@ main[b-jfm1mq82z4] {
     align-items: center;
 }
 
-    .top-row[b-jfm1mq82z4]  a, .top-row[b-jfm1mq82z4]  .btn-link {
+    .top-row[b-x5csc42tgt]  a, .top-row[b-x5csc42tgt]  .btn-link {
         white-space: nowrap;
         margin-left: 1.5rem;
         text-decoration: none;
     }
 
-    .top-row[b-jfm1mq82z4]  a:hover, .top-row[b-jfm1mq82z4]  .btn-link:hover {
+    .top-row[b-x5csc42tgt]  a:hover, .top-row[b-x5csc42tgt]  .btn-link:hover {
         text-decoration: underline;
     }
 
-    .top-row[b-jfm1mq82z4]  a:first-child {
+    .top-row[b-x5csc42tgt]  a:first-child {
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
 @media (max-width: 640.98px) {
-    .top-row[b-jfm1mq82z4] {
+    .top-row:not(.auth)[b-x5csc42tgt] {
+        display: none;
+    }
+
+    .top-row.auth[b-x5csc42tgt] {
         justify-content: space-between;
     }
 
-    .top-row[b-jfm1mq82z4]  a, .top-row[b-jfm1mq82z4]  .btn-link {
+    .top-row[b-x5csc42tgt]  a, .top-row[b-x5csc42tgt]  .btn-link {
         margin-left: 0;
     }
 }
 
 @media (min-width: 641px) {
-    .page[b-jfm1mq82z4] {
+    .page[b-x5csc42tgt] {
         flex-direction: row;
     }
 
-    .sidebar[b-jfm1mq82z4] {
+    .sidebar[b-x5csc42tgt] {
         width: 250px;
         height: 100vh;
         position: sticky;
         top: 0;
     }
 
-    .top-row[b-jfm1mq82z4] {
+    .top-row[b-x5csc42tgt] {
         position: sticky;
         top: 0;
         z-index: 1;
     }
 
-    .top-row.auth[b-jfm1mq82z4]  a:first-child {
+    .top-row.auth[b-x5csc42tgt]  a:first-child {
         flex: 1;
         text-align: right;
         width: 0;
     }
 
-    .top-row[b-jfm1mq82z4], article[b-jfm1mq82z4] {
+    .top-row[b-x5csc42tgt], article[b-x5csc42tgt] {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
 }
-/* /Layout/NavMenu.razor.rz.scp.css */
-.navbar-toggler[b-icta9y9k05] {
+/* /Shared/MainLayout_original.razor.rz.scp.css */
+.page[b-6vpoofefm4] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main[b-6vpoofefm4] {
+    flex: 1;
+}
+
+.sidebar[b-6vpoofefm4] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-6vpoofefm4] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-6vpoofefm4]  a, .top-row[b-6vpoofefm4]  .btn-link {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+        text-decoration: none;
+    }
+
+    .top-row[b-6vpoofefm4]  a:hover, .top-row[b-6vpoofefm4]  .btn-link:hover {
+        text-decoration: underline;
+    }
+
+    .top-row[b-6vpoofefm4]  a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-6vpoofefm4] {
+        display: none;
+    }
+
+    .top-row.auth[b-6vpoofefm4] {
+        justify-content: space-between;
+    }
+
+    .top-row[b-6vpoofefm4]  a, .top-row[b-6vpoofefm4]  .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-6vpoofefm4] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-6vpoofefm4] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-6vpoofefm4] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row.auth[b-6vpoofefm4]  a:first-child {
+        flex: 1;
+        text-align: right;
+        width: 0;
+    }
+
+    .top-row[b-6vpoofefm4], article[b-6vpoofefm4] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* /Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-jtthag5a52] {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.top-row[b-icta9y9k05] {
+.top-row[b-jtthag5a52] {
     height: 3.5rem;
     background-color: rgba(0,0,0,0.4);
 }
 
-.navbar-brand[b-icta9y9k05] {
+.navbar-brand[b-jtthag5a52] {
     font-size: 1.1rem;
 }
 
-.bi[b-icta9y9k05] {
-    display: inline-block;
-    position: relative;
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-right: 0.75rem;
-    top: -1px;
-    background-size: cover;
+.oi[b-jtthag5a52] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
 }
 
-.bi-house-door-fill-nav-menu[b-icta9y9k05] {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-house-door-fill' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z'/%3E%3C/svg%3E");
-}
-
-.bi-plus-square-fill-nav-menu[b-icta9y9k05] {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-plus-square-fill' viewBox='0 0 16 16'%3E%3Cpath d='M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z'/%3E%3C/svg%3E");
-}
-
-.bi-list-nested-nav-menu[b-icta9y9k05] {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-list-nested' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z'/%3E%3C/svg%3E");
-}
-
-.nav-item[b-icta9y9k05] {
+.nav-item[b-jtthag5a52] {
     font-size: 0.9rem;
     padding-bottom: 0.5rem;
 }
 
-    .nav-item:first-of-type[b-icta9y9k05] {
+    .nav-item:first-of-type[b-jtthag5a52] {
         padding-top: 1rem;
     }
 
-    .nav-item:last-of-type[b-icta9y9k05] {
+    .nav-item:last-of-type[b-jtthag5a52] {
         padding-bottom: 1rem;
     }
 
-    .nav-item[b-icta9y9k05]  a {
+    .nav-item[b-jtthag5a52]  a {
         color: #d7d7d7;
         border-radius: 4px;
         height: 3rem;
@@ -134,29 +666,107 @@ main[b-jfm1mq82z4] {
         line-height: 3rem;
     }
 
-.nav-item[b-icta9y9k05]  a.active {
-    background-color: rgba(255,255,255,0.37);
+.nav-item[b-jtthag5a52]  a.active {
+    background-color: rgba(255,255,255,0.25);
     color: white;
 }
 
-.nav-item[b-icta9y9k05]  a:hover {
+.nav-item[b-jtthag5a52]  a:hover {
     background-color: rgba(255,255,255,0.1);
     color: white;
 }
 
 @media (min-width: 641px) {
-    .navbar-toggler[b-icta9y9k05] {
+    .navbar-toggler[b-jtthag5a52] {
         display: none;
     }
 
-    .collapse[b-icta9y9k05] {
+    .collapse[b-jtthag5a52] {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
-    
-    .nav-scrollable[b-icta9y9k05] {
-        /* Allow sidebar to scroll for tall menus */
-        height: calc(100vh - 3.5rem);
-        overflow-y: auto;
+}
+/* /Shared/NavMenu_Original.razor.rz.scp.css */
+.navbar-toggler[b-nsyr2wcy3k] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-nsyr2wcy3k] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-nsyr2wcy3k] {
+    font-size: 1.1rem;
+}
+
+.oi[b-nsyr2wcy3k] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-nsyr2wcy3k] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-nsyr2wcy3k] {
+        padding-top: 1rem;
     }
+
+    .nav-item:last-of-type[b-nsyr2wcy3k] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-nsyr2wcy3k]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-nsyr2wcy3k]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-nsyr2wcy3k]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-nsyr2wcy3k] {
+        display: none;
+    }
+
+    .collapse[b-nsyr2wcy3k] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}
+/* /Shared/PopContainer.razor.rz.scp.css */
+.pop-container[b-z9ktra34fy] {
+    position: relative;
+}
+
+.popconfirm[b-z9ktra34fy] {
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightblue;
+    width: 250px;
+    position: absolute;
+    top: -100px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.deleteButtton[b-z9ktra34fy] {
+    margin-top:1px;
+    margin-left:2px;
 }
