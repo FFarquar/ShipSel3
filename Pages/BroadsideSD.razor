@@ -336,7 +336,8 @@
                 BroadsideSDS newItem = new BroadsideSDS();
 
                 Console.WriteLine("UnitForGameSystemDTO.ShipsSubsInClass = " + UnitForGameSystemDTO.ShipsSubsInClass);
-                if (UnitForGameSystemDTO.NumberSelected > 1)
+                // if (UnitForGameSystemDTO.NumberSelected >= 1)
+                if (UnitForGameSystemDTO.ShipsSubsInClass == null)
                 {
                     newItem.renameHidden = false;
                     newItem.ShipName = UnitForGameSystemDTO.Name_ClassName;

@@ -1398,5 +1398,13 @@
     "NumberinClass_shipSub": 5,
     "Name_ClassName": "Bristol",
     "ShipsSubsInClass": "HMS Glasgow"
+  },
+  {
+    "Id": 189,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 4,
+    "Name_ClassName": "Konig",
+    "ShipsSubsInClass": null
   }
 ]

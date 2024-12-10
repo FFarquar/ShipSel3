@@ -519,6 +519,8 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
                     foreach (var ship in shipList)
                     {
+
+
                         //assign all details from returned server value
                         UnitForGameSystemDTO newUnit = new UnitForGameSystemDTO()
                         {
@@ -559,7 +561,11 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
                     //TODO: have to deal with the allowunlimited selection issue
                     //AllowUnlimitedSelection = false,
-                    listToReturn.Add(unit);
+                    //TODO DOnt know how to deal with this
+                    if(onlyReturnUnitsInCollection == false || (onlyReturnUnitsInCollection == true && unit.ShipsSubsInClass != null)) {
+                        listToReturn.Add(unit);
+                    }
+
                 }
             }
 
