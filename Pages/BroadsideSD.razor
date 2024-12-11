@@ -58,8 +58,41 @@
                 <div class="SDS">
                     @* Contains only the ship image *@
                     @* <img class="ship_image" src="ShipImages/3/5/Pillau.jpg" /> *@
-                    <img class="ship_image" src=@selectedShip.ImagePath/>
+                    <div>
+                        <img class="ship_image" src=@selectedShip.ImagePath/>
+                    </div>
+                    <div class="qrs_tables">
+                        <div class="qrs_divs">
+                            <label class="qrs_label">Ship Size</label>
+                            <img class="qrs_battery_image" src="rules/3/ship_size_table.jpg" />
+                        </div>
 
+                        <div class="qrs_divs">
+                            <label class="qrs_label">Battery Ranges</label>
+                            <img class="qrs_battery_image" src="rules/3/battery_ranges_table.jpg" />
+                        </div>
+
+                        <div class="qrs_divs">
+                            <label class="qrs_label">Gun Modifiers</label>
+                            <img class="qrs_gun_modifiers" src="rules/3/directed_gunnery_mod_table.jpg" />
+                        </div>
+
+                        <div class="qrs_divs">
+                            <label class="qrs_label">Damage Table</label>
+                            <img class="qrs_damage_modifiers" src="rules/3/damage_table.jpg" />
+                        </div>
+
+                        <div class="qrs_divs">
+                            <label class="qrs_label">Torpedo Modifiers</label>
+                            <img class="qrs_damage_modifiers" src="rules/3/torpedo_attack_modifier.jpg" />
+                        </div>
+
+                        <div class="qrs_divs">
+                            <label class="qrs_label">Change orders</label>
+                            <img class="qrs_damage_modifiers" src="rules/3/changing_orders_table.jpg" />
+                        </div>
+
+                    </div>
                 </div>
                 <div class="ship_current_stats_and_order">
                     @* Contains editiable fields for the ship *@

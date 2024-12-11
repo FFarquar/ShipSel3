@@ -154,12 +154,61 @@ border:ridge;
     padding: 2px;
     /*    background-color: pink;*/
 }
+.qrs_tables {
+    margin-top:2px;
+    border: 1px solid #000001;
+    display:flex;
+}
 
+.qrs_divs{
+    margin:2px;
+}
 
+.qrs_battery_image:hover {
+    top: 50px;
+    transform: scale(8) translate(20px,0px);
+}
+
+.qrs_battery_image {
+    transition: transform .2s;
+    border: 1px solid #000001;
+    width: 100px;
+    height: 25px;
+    display: block;
+}
+
+.qrs_gun_modifiers:hover {
+/*    top: 50px;*/
+    transform: scale(8) translate(20px,0px);
+}
+
+.qrs_gun_modifiers {
+    transition: transform .2s;
+    border: 1px solid #000001;
+    width: 80px;
+    height: 25px;
+    display: block;
+}
+
+.qrs_damage_modifiers {
+    transition: transform .2s;
+    border: 1px solid #000001;
+    width: 80px;
+    height: 25px;
+    display: block;
+}
+
+.qrs_damage_modifiers:hover {
+    transform: scale(8) translate(-20px,0px);
+}
+
+.qrs_label {
+    font-size: small;
+}
 .stat_input {
     max-width: 50px;
     float: right;
-    margin-right:5px;
+    margin-right: 5px;
     height: 20px;
 }
 

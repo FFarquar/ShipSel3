@@ -74,20 +74,22 @@
     protected override async Task OnInitializedAsync()
     {
 
-        Console.WriteLine("In OnInitializedAsync in unitsdb");
+        // Console.WriteLine("In OnInitializedAsync in unitsdb");
         var resUnits = await ULSC.GetListofAllGameUnitsWithGameSpecDetails();
-        Console.WriteLine("resUnits data = " + resUnits.Data.Count());
+        // Console.WriteLine("resUnits data = " + resUnits.Data.Count());
         listOfUnitsWIthGSDetail = resUnits.Data;
 
-        Console.WriteLine("listOfUnitsWIthGSDetail length = " + listOfUnitsWIthGSDetail.Count());
+        // Console.WriteLine("listOfUnitsWIthGSDetail length = " + listOfUnitsWIthGSDetail.Count());
 
         foreach (var u in listOfUnitsWIthGSDetail)
         {
             Console.WriteLine(u.Unit.Country.CountryName + " " + u.Unit.SubUnitType.SubUnitName + "  " + u.Unit.Name_ClassName
             + "  " + u.Unit.ShipsSubsInClass);
+        }
 
-     
-            }
+        List<UnitWithGameSystemDetails> SortedList = listOfUnitsWIthGSDetail.OrderBy(o => o.Unit.Country.CountryName).ToList();
+        listOfUnitsWIthGSDetail = SortedList;
+
         //StateHasChanged();
     }
 

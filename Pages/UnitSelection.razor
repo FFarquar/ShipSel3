@@ -350,6 +350,7 @@
         Countries = resultCountries.Data;
 
         var resultUnitTypes = await ULSC.GetListOfUnitTypes();
+
         UnitTypes = resultUnitTypes.Data;
     }
 
@@ -406,27 +407,13 @@
         }
 
         foreach (var unit in CompleteUnitList)
-        //foreach (var unit in ULSC.UnitList)
+
         {
             if((unit.Countryobj.Id == viewFilter.CountryId) && (unit.subUnitTypeObj.UnitTypeId == viewFilter.UnitTypeId))
 
             {
                 unit.FilterVisible = true;
 
-                ////If the image hasnt been retrieved, get it 
-                //if (unit.imageStream is null)
-                //{
-                //    var resultOfService = await UDSC.GetFileAsStream(unit, RuleSetId);
-
-                //    if (resultOfService.Success)
-                //    {
-                //        unit.imageStream = resultOfService.Data;
-                //    }
-                //    else
-                //    {
-                //        Console.WriteLine($"Image {unit.ImagePath} {unit.Name_ClassName} not reuturned from API");
-                //    }
-                //}
             }
             else
             {
