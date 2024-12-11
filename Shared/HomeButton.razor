@@ -1,11 +1,12 @@
 ﻿@inject NavigationManager NavigationManager
 
 <button @onclick="GoToHome"
-    class="btn btn-outline-primary home-button">
+class="btn btn-outline-primary home-button">
     Ship Selector
 </button>
 
 @code {
+    
     private void GoToHome()
     {
         NavigationManager.NavigateTo("");

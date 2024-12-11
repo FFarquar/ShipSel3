@@ -92,7 +92,7 @@ else
     private List<Country> countryList = new List<Country>();
 
     string message = string.Empty;
-    Unit request = new Unit();
+    ShipSel3.Models.Unit request = new ShipSel3.Models.Unit();
 
 
     protected override async Task OnInitializedAsync()
@@ -119,12 +119,12 @@ else
             }
             else
             {
-                request = new Unit();
+                request = new ShipSel3.Models.Unit();
             }
         }
         else
         {
-            request = new Unit();
+            request = new ShipSel3.Models.Unit();
         }
     }
 

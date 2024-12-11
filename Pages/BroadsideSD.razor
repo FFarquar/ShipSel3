@@ -19,14 +19,23 @@
 @* <label for="confirm-external-navigation-checkbox">Confirm External Navigation</label>
 <input id="confirm-external-navigation-checkbox" type="checkbox" @bind="@ConfirmExternalNavigation">
  *@
+<div class="nav_row">
+    <div class="settings_menu_row">
 
+        <button class="settings_button" @onclick="() => ChangeSettingsFlag()">Settings </button>
+        <div class="settings_option" hidden="@(!@showSettings)">
+            <label for="setting_1">Hide QRS</label>
+            <input class="settings_input" id="setting_1" type="checkbox" @bind-value=@hideQRSTables />
+        </div>
 
+    </div>
+</div>
 
 <main class="main">
+
     <div class="main_heading">
         @* <h4>Select a Ship</h4> *@
         <h2 class="ship_name_heading">@selectedShip.ShipName</h2>
-
     </div>
 
     <div class="main_container">
@@ -61,7 +70,7 @@
                     <div>
                         <img class="ship_image" src=@selectedShip.ImagePath/>
                     </div>
-                    <div class="qrs_tables">
+                    <div class="qrs_tables" hidden="@hideQRSTables">
                         <div class="qrs_divs">
                             <label class="qrs_label">Ship Size</label>
                             <img class="qrs_battery_image" src="Rules/3/ship_size_table.jpg" />
@@ -208,6 +217,10 @@
 
     private bool ShowSimpleListOfShips { get; set; } = true;
     private string toggleShipViewName { get; set; } = "Show Summary";
+
+    private bool showSettings { get; set; } = false;
+    private bool hideQRSTables { get; set; } = false;
+
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext locationChangingContext)
     {
@@ -385,12 +398,12 @@
                         UnitForGameSystemDTO.ShipsSubsInClass = "Enter ship name";
                     }
                     newItem.renameHidden = false;
-                     
+
                     newItem.ShipName = UnitForGameSystemDTO.Name_ClassName;
                 }
                 else
                 {
-                    
+
                 }
                 {
 
@@ -420,6 +433,10 @@
         StateHasChanged();
     }
 
+    private async void ChangeSettingsFlag()
+    {
+        showSettings = !showSettings;
+    }
     private async void ToggleAdvancedShipView()
     {
         // Console.WriteLine("in toggleadvancedShipview");
