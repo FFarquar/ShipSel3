@@ -155,12 +155,61 @@ border:ridge;
     padding: 2px;
     /*    background-color: pink;*/
 }
+.qrs_tables[b-hnjj89poea] {
+    margin-top:2px;
+    border: 1px solid #000001;
+    display:flex;
+}
 
+.qrs_divs[b-hnjj89poea]{
+    margin:2px;
+}
 
+.qrs_battery_image:hover[b-hnjj89poea] {
+    top: 50px;
+    transform: scale(8) translate(20px,0px);
+}
+
+.qrs_battery_image[b-hnjj89poea] {
+    transition: transform .2s;
+    border: 1px solid #000001;
+    width: 100px;
+    height: 25px;
+    display: block;
+}
+
+.qrs_gun_modifiers:hover[b-hnjj89poea] {
+/*    top: 50px;*/
+    transform: scale(8) translate(20px,0px);
+}
+
+.qrs_gun_modifiers[b-hnjj89poea] {
+    transition: transform .2s;
+    border: 1px solid #000001;
+    width: 80px;
+    height: 25px;
+    display: block;
+}
+
+.qrs_damage_modifiers[b-hnjj89poea] {
+    transition: transform .2s;
+    border: 1px solid #000001;
+    width: 80px;
+    height: 25px;
+    display: block;
+}
+
+.qrs_damage_modifiers:hover[b-hnjj89poea] {
+    transform: scale(8) translate(-20px,0px);
+}
+
+.qrs_label[b-hnjj89poea] {
+    font-size: small;
+}
 .stat_input[b-hnjj89poea] {
     max-width: 50px;
     float: right;
-    margin-right:5px;
+    margin-right: 5px;
     height: 20px;
 }
 
