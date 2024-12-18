@@ -14,6 +14,11 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Runtime.InteropServices;
 using System.Security.AccessControl;
+using System.IO;
+using System.Text.Json;
+using System.Runtime.CompilerServices;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ShipSel3.Services.UnitsandListsServiceClient
 {
@@ -29,11 +34,69 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
         }
         public List<UnitForGameSystemDTO> UnitList { get; set; } = new List<UnitForGameSystemDTO>(); //a list that contains all units. The printpage will have access to this
 
+        private class cutDownUnit
+        {
+            public int Id { get; set; }
+            public int SubInitTypeId { get; set; }
+            public int CountryId { get;set; }
+            public int NumberinClass_shipSub { get; set; }
+            public string Name_ClassName { get; set; } = string.Empty;
+            public string ShipsSubsInClass { get; set; } = string.Empty;
+        }
         public async Task<ServiceResponse<int>> AddUnit(Unit unitToAdd)
         {
-            var result = await _http.PostAsJsonAsync("api/unitdetails/addUnit", unitToAdd);
 
-            return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
+            
+            //TODO this isnt working. Not suree how to construct the method to write to the json file
+
+            var simplteUnit = new cutDownUnit { 
+                Id = 1000, 
+                SubInitTypeId=unitToAdd.SubUnitTypeId, 
+                CountryId=unitToAdd.CountryId,
+                NumberinClass_shipSub=unitToAdd.NumberinClass_shipSub,
+                Name_ClassName = unitToAdd.Name_ClassName, 
+                ShipsSubsInClass = unitToAdd.ShipsSubsInClass
+           };
+
+            //var UnitJS = await _http.GetFromJsonAsync<Unit[]>("Data/units.json");
+            //List<Unit> unitList = UnitJS.ToList();      //test to see if I can ge a response from theJSON
+
+            ////////
+            ///
+            string jsonObject = System.Text.Json.JsonSerializer.Serialize(simplteUnit);
+            //TextWriter writer;
+            //using (writer = new StreamWriter(@"E:\ProjectsForGit\ShipSel3\ShipSel3\wwwroot\Data\units.json", append: true))
+            //{
+            //    writer.WriteLine(jsonObject);
+            //}
+
+
+            //using (StreamWriter outputFile = new StreamWriter(@"E:\ProjectsForGit\ShipSel3\ShipSel3\wwwroot\Data\units.json",append:false))
+            //using (StreamWriter outputFile = new StreamWriter(@"C:\Temp\units.json", append: false))
+            //{
+            //    await outputFile.WriteAsync(jsonObject);
+            //}
+
+
+
+            //string jsonObject = System.Text.Json.JsonSerializer.Serialize(simplteUnit);
+            //var content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
+
+
+            //var response = await _http.PutAsync("/Data/units.json", content);
+
+            //if (response.IsSuccessStatusCode) Console.Write("Success");
+            //else Console.Write("Error");
+            ////////
+
+
+
+
+            return new ServiceResponse<int>();
+
+            //var result = await _http.PostAsJsonAsync($"data/units.json", jsonString);
+
+          //  return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
         }
 
         public async Task<ServiceResponse<int>> AddGameSystemUnitSpecificDetail(GameSystemUnitSpecificDetail gamespefic, List<FileUploadDTO> browserFiles, int countryId)
