@@ -1244,5 +1244,12 @@
     "Cost": 199,
     "ImagePath": "konig.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 213,
+    "UnitId": 190,
+    "Cost": 68,
+    "ImagePath": "Scharnhorst.jpg",
+    "RulesetId": 3
   }
 ]
