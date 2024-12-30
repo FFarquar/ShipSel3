@@ -16,17 +16,28 @@
     float:right;
     background-color:white;
     border:none;
+    display:block;
 }
 
-.settings_option {
-/*    float:right;*/
-
+.settings_options {
+    /*    float:right;*/
+    float: right;
+    width:200px;
 }
+
+/*.settings_option {
+    display:block;
+}*/
+
+/*.setting_1 {
+    display: block;
+}*/
 
 .settings_input {
-    float:right;
-    margin-top:5px;
-/*    align-self:flex-end;*/
+    float: right;
+    margin-top: 5px;
+    display: block;
+    /*    align-self:flex-end;*/
 }
 .main {
     width: 100%;
@@ -253,10 +264,16 @@ border:ridge;
 .damage_cards_container {
     display: flex;
     flex-wrap: wrap;
+
 }
 
 .damage_card_and_delete {
     flex-direction: column;
+    border: solid;
+    border-width:1px;
+    margin:2px;
+    background-color:lightgray;
+
 }
 
 .add_damage_card {
@@ -266,6 +283,12 @@ border:ridge;
 
 .damage_card {
     width: 140px;
+}
+
+.damage_card_text {
+    display: block;
+    width: 140px;
+    height:160px;
 }
 
 @media only screen and (max-width: 1130px) {

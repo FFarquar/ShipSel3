@@ -22,10 +22,18 @@
 <div class="nav_row">
     <div class="settings_menu_row">
 
-        <button class="settings_button" @onclick="() => ChangeSettingsFlag()">Settings </button>
-        <div class="settings_option" hidden="@(!@showSettings)">
-            <label for="setting_1">Hide QRS</label>
-            <input class="settings_input" id="setting_1" type="checkbox" @bind-value=@hideQRSTables />
+        <div>
+            <button class="settings_button" @onclick="() => ChangeSettingsFlag()">Settings </button>
+        </div>
+        <div class="settings_options" hidden="@(!@showSettings)">
+            <div class="settings_option">
+                <label for="setting_1">Hide QRS</label>
+                <input class="settings_input" id="setting_1" type="checkbox" @bind-value=@hideQRSTables />
+            </div>
+            <div class="settings_option">
+                <label for="setting_2">Show Damage card text</label>
+                <input class="settings_input" id="setting_2" type="checkbox" @bind-value=@hideDamageCards/>
+            </div>
         </div>
 
     </div>
@@ -184,7 +192,11 @@
                     {
                         <div class="damage_card_and_delete">
 
-                            <img id="@item.id" class="damage_card" src=@item.ImagePath />
+                            <img hidden="@hideDamageCards"  id="@item.id" class="damage_card" src=@item.ImagePath />
+                            <div hidden="@(!@hideDamageCards)">
+                                <label class="damage_card_text ">@item.card_text</label>
+                            </div>
+                            
                             <PopContainer idOfelement="@item.id" ConfirmedChanged2="RemoveDamageCard" />
                         </div>
                     }
@@ -220,6 +232,8 @@
 
     private bool showSettings { get; set; } = false;
     private bool hideQRSTables { get; set; } = false;
+    private bool hideDamageCards { get; set; } = false;
+
 
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext locationChangingContext)
@@ -290,6 +304,7 @@
                 dc.id = dcCount;
                 dc.ImagePath = item.ImagePath;
                 dc.Name = item.Name;
+                dc.card_text = item.card_text;
                 DamageCardDeck.Add(dc);
             }
         }
@@ -313,6 +328,7 @@
             dc.ImagePath = item.ImagePath;
             dc.number_cards = item.number_cards;
             dc.id = item.id;
+            dc.card_text = item.card_text;
             totalNumberOfCardsInDeck = totalNumberOfCardsInDeck + dc.number_cards;
             DamageCardList.Add(dc);
         }

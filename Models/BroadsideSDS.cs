@@ -100,6 +100,7 @@ namespace ShipSel3.Models
         public string ImagePath { get; set; }
         public int id { get; set; }
         public int number_cards { get; set; }
+        public string card_text { get; set; }
     }
 
     public class DamageCard
@@ -108,6 +109,7 @@ namespace ShipSel3.Models
         public string Name { get; set; }
         public string ImagePath { get; set; }
         public int id { get; set; }
+        public string card_text { get; set; }
     }
 
     public class OrderCard
