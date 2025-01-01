@@ -35,8 +35,7 @@
                 </div>
             }
 
-
-
+            <p> @testClass.ReturnTestMessage() </p>
 
 
 
@@ -64,6 +63,9 @@
 
     [CascadingParameter] 
     private RouteData routeData { get; set; } = default!;
+    TestClass testClass = new TestClass();
+
+
 
     private void ToggleNavMenu()
     {

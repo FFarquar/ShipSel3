@@ -1,9 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipSel3", "ShipSel3.csproj", "{D7C1B5F6-8D14-456A-A5EE-915460CE1978}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E2CB6950-51F7-4709-B6CD-F2ADA1FC3267} = {E2CB6950-51F7-4709-B6CD-F2ADA1FC3267}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_ShipDataBase", "..\WPF_ShipDataBase\WPF_ShipDataBase.csproj", "{CF5D460F-5692-40F3-ACF2-4A9807544C6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "..\SharedLibrary\SharedLibrary.csproj", "{E2CB6950-51F7-4709-B6CD-F2ADA1FC3267}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +22,14 @@ Global
 		{D7C1B5F6-8D14-456A-A5EE-915460CE1978}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7C1B5F6-8D14-456A-A5EE-915460CE1978}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7C1B5F6-8D14-456A-A5EE-915460CE1978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5D460F-5692-40F3-ACF2-4A9807544C6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5D460F-5692-40F3-ACF2-4A9807544C6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5D460F-5692-40F3-ACF2-4A9807544C6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5D460F-5692-40F3-ACF2-4A9807544C6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2CB6950-51F7-4709-B6CD-F2ADA1FC3267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2CB6950-51F7-4709-B6CD-F2ADA1FC3267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2CB6950-51F7-4709-B6CD-F2ADA1FC3267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2CB6950-51F7-4709-B6CD-F2ADA1FC3267}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

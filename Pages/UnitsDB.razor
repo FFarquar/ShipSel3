@@ -2,6 +2,8 @@
 
 @using ShipSel3.Services.UnitsandListsServiceClient
 @using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+
+
 @inject IWebAssemblyHostEnvironment Env
 
 @inject IUnitsandListsServiceClient ULSC
@@ -70,10 +72,10 @@
 
     public List<UnitWithGameSystemDetails> listOfUnitsWIthGSDetail { get; set; } = new List<UnitWithGameSystemDetails>();
 
-
     protected override async Task OnInitializedAsync()
     {
 
+        
         // Console.WriteLine("In OnInitializedAsync in unitsdb");
         var resUnits = await ULSC.GetListofAllGameUnitsWithGameSpecDetails();
         // Console.WriteLine("resUnits data = " + resUnits.Data.Count());
