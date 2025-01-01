@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharedLibrary.Models;
 
-namespace ShipSel3.Shared
+namespace SharedLibrary.Shared
 {
     public class FileUploadDTO
     {
