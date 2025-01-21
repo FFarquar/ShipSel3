@@ -1251,5 +1251,12 @@
     "Cost": 68,
     "ImagePath": "Scharnhorst.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 214,
+    "UnitId": 191,
+    "Cost": 262,
+    "ImagePath": "Bayern.jpg",
+    "RulesetId": 3
   }
 ]
