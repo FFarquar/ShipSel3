@@ -388,8 +388,8 @@
     "SubUnitTypeId": 7,
     "CountryId": 7,
     "NumberinClass_shipSub": 2,
-    "Name_ClassName": "Duca d'Aosta",
-    "ShipsSubsInClass": "Emanuele Filiberto Duca d'Aosta, Eugenio di Savoia"
+    "Name_ClassName": "Duca d\u0027Aosta",
+    "ShipsSubsInClass": "Emanuele Filiberto Duca d\u0027Aosta, Eugenio di Savoia"
   },
   {
     "Id": 63,
@@ -429,7 +429,7 @@
     "CountryId": 7,
     "NumberinClass_shipSub": 12,
     "Name_ClassName": "Navigatori",
-    "ShipsSubsInClass": "Alvise Da Mosto, Antonio da Noli, Nicoloso da Recco, Nicolò Zeno, Antonio Pigafetta, Luca Tarigo, Leone Pancaldo, Ugolino Vivaldi"
+    "ShipsSubsInClass": "Alvise Da Mosto, Antonio da Noli, Nicoloso da Recco, Nicol\u00F2 Zeno, Antonio Pigafetta, Luca Tarigo, Leone Pancaldo, Ugolino Vivaldi"
   },
   {
     "Id": 68,
@@ -1149,7 +1149,7 @@
     "CountryId": 15,
     "NumberinClass_shipSub": 175,
     "Name_ClassName": "Fletcher",
-    "ShipsSubsInClass": "USS Nicholas, USS Radford, USS Taylor, USS La Vallett, USS Abbot, USS Jenkins, USS Black, USS Cowell, USS Bullard, USS Hoel, USS Fletcher, USS O'Bannon, USS Kidd, USS Safley, USS Chevalier, USS Dyson"
+    "ShipsSubsInClass": "USS Nicholas, USS Radford, USS Taylor, USS La Vallett, USS Abbot, USS Jenkins, USS Black, USS Cowell, USS Bullard, USS Hoel, USS Fletcher, USS O\u0027Bannon, USS Kidd, USS Safley, USS Chevalier, USS Dyson"
   },
   {
     "Id": 158,
@@ -1414,7 +1414,13 @@
     "NumberinClass_shipSub": 2,
     "Name_ClassName": "Scharnhorst",
     "ShipsSubsInClass": "SMS Scharnhorst, SMS Gneisenau"
+  },
+  {
+    "Id": 191,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Bayern",
+    "ShipsSubsInClass": "SMS Bayern"
   }
-
-  
 ]

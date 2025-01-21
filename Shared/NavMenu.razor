@@ -1,6 +1,8 @@
 ﻿@* @using ShipSel3.Services.UnitsandListsServiceClient *@
 @using ShipSel3.Models
+@using SharedLibrary.Services.TestService
 
+@inject ITestInterface TI
 @using Microsoft.AspNetCore.Components.WebAssembly.Hosting
 @inject IWebAssemblyHostEnvironment Env
 
@@ -37,6 +39,9 @@
 
             <p> @testClass.ReturnTestMessage() </p>
 
+            @* 2 different ways on how to consume the service from the test service *@
+            <p> @resultFromTestInterface</p>
+            <p> @TI.ReturnTestMEssageFromInterface("From NavMenu direct call to TI object").Result.Data.ToString()</p>
 
 
             <div class="nav-item px-3" hidden="@Env.IsProduction()">
@@ -65,7 +70,7 @@
     private RouteData routeData { get; set; } = default!;
     TestClass testClass = new TestClass();
 
-
+    private string resultFromTestInterface;
 
     private void ToggleNavMenu()
     {
@@ -78,6 +83,8 @@
         var response = await ULSC.GetRuleSets();
         RuleSets = response.Data;
 
+        var response2 = await TI.ReturnTestMEssageFromInterface("From NavMenu OnInitializedAsync");
+        resultFromTestInterface = response2.Data;
     }
 
 

@@ -30,5 +30,8 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
 
 
         Task<ShMod.ServiceResponse<int>> AddGameSystemUnitSpecificDetail(ShMod.GameSystemUnitSpecificDetail gamespefic, List<FileUploadDTO> filesToUploadDTO, int countryId);
+        Task<ShMod.ServiceResponse<int>> UpdateGameSystemUnitSpecificDetail(ShMod.GameSystemUnitSpecificDetail gamespefic, int countryId);
+
+        Task<ShMod.ServiceResponse<bool>> DeleteGameSystemUnitSpecifiDetails(int gameSystemSpecId);
     }
 }

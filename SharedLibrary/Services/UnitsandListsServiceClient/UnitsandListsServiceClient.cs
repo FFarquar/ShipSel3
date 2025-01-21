@@ -6,6 +6,9 @@ using SharedLibrary.Shared;
 using ShMod = SharedLibrary.Models;
 using SharedLibrary.Services.UploadDownloadService;
 using Newtonsoft.Json;
+using System.Text.Json;
+using System.Collections.Generic;
+using File = System.IO.File;
 
 namespace SharedLibrary.Services.UnitsandListsServiceClient
 {
@@ -24,91 +27,221 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
         private class cutDownUnit
         {
             public int Id { get; set; }
-            public int SubInitTypeId { get; set; }
+            public int SubUnitTypeId { get; set; }
             public int CountryId { get;set; }
             public int NumberinClass_shipSub { get; set; }
             public string Name_ClassName { get; set; } = string.Empty;
             public string ShipsSubsInClass { get; set; } = string.Empty;
         }
+
+        private class cutDownGameSystemSpecific
+        {
+            public int Id { get; set; }
+            public int UnitId { get; set; }
+            public int Cost { get; set; }
+            public string ImagePath { get; set; }
+            public int RulesetId { get; set; }
+        }
         public async Task<ShMod.ServiceResponse<int>> AddUnit(ShMod.Unit unitToAdd)
         {
 
-            
-            //TODO this isnt working. Not suree how to construct the method to write to the json file
-
-            var simplteUnit = new cutDownUnit { 
-                Id = 1000, 
-                SubInitTypeId=unitToAdd.SubUnitTypeId, 
-                CountryId=unitToAdd.CountryId,
-                NumberinClass_shipSub=unitToAdd.NumberinClass_shipSub,
-                Name_ClassName = unitToAdd.Name_ClassName, 
-                ShipsSubsInClass = unitToAdd.ShipsSubsInClass
-           };
-
-            //var UnitJS = await _http.GetFromJsonAsync<Unit[]>("Data/units.json");
-            //List<Unit> unitList = UnitJS.ToList();      //test to see if I can ge a response from theJSON
-
-            ////////
-            ///
-            string jsonObject = System.Text.Json.JsonSerializer.Serialize(simplteUnit);
-            //TextWriter writer;
-            //using (writer = new StreamWriter(@"E:\ProjectsForGit\ShipSel3\ShipSel3\wwwroot\Data\units.json", append: true))
-            //{
-            //    writer.WriteLine(jsonObject);
-            //}
+            //Have to read in the entire unit list and then de-serialize it so I can add the new item to the list and seriailze
 
 
-            //using (StreamWriter outputFile = new StreamWriter(@"E:\ProjectsForGit\ShipSel3\ShipSel3\wwwroot\Data\units.json",append:false))
-            //using (StreamWriter outputFile = new StreamWriter(@"C:\Temp\units.json", append: false))
-            //{
-            //    await outputFile.WriteAsync(jsonObject);
-            //}
+            var UnitJS = await _http.GetFromJsonAsync<cutDownUnit[]>("Data/units.json");
+            List<cutDownUnit> unitList = UnitJS.ToList();
 
-
-
-            //string jsonObject = System.Text.Json.JsonSerializer.Serialize(simplteUnit);
-            //var content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
-
-
-            //var response = await _http.PutAsync("/Data/units.json", content);
-
-            //if (response.IsSuccessStatusCode) Console.Write("Success");
-            //else Console.Write("Error");
-            ////////
-
-
-
-
-            return new ShMod.ServiceResponse<int>();
-
-            //var result = await _http.PostAsJsonAsync($"data/units.json", jsonString);
-
-          //  return await result.Content.ReadFromJsonAsync<ShMod.ServiceResponse<int>>();
-        }
-
-        public async Task<ShMod.ServiceResponse<int>> AddGameSystemUnitSpecificDetail(ShMod.GameSystemUnitSpecificDetail gamespefic, List<FileUploadDTO> browserFiles, int countryId)
-        {
-
-            var filesUpload = new ShMod.ServiceResponse<List<UploadResult>>();
-            if (browserFiles.Count > 0)
+            var simplteUnit = new cutDownUnit
             {
-                filesUpload = await _UDSC.UploadFiles(browserFiles, gamespefic.RulesetId, countryId);
-                if (!filesUpload.Success)
+                Id = unitList.Last().Id+1,
+                SubUnitTypeId = unitToAdd.SubUnitTypeId,
+                CountryId = unitToAdd.CountryId,
+                NumberinClass_shipSub = unitToAdd.NumberinClass_shipSub,
+                Name_ClassName = unitToAdd.Name_ClassName,
+                ShipsSubsInClass = unitToAdd.ShipsSubsInClass
+            };
+
+            unitList.Add(simplteUnit);
+            
+            string json = System.Text.Json.JsonSerializer.Serialize(unitList, new JsonSerializerOptions { WriteIndented = true });
+
+            try
+            {
+                await System.IO.File.WriteAllTextAsync("E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\Data\\units.json", json);
+
+                var sr = new ShMod.ServiceResponse<int>
                 {
-                    //the files weren't uploaded
+                    Message = "All good",
+                    Success = true
+                };
+                return sr;
+
+            }
+            catch (Exception ex) {
+            {
                     var sr = new ShMod.ServiceResponse<int>
                     {
-                        Message = "The files weren't uploaded correctly. Image not added " + filesUpload.Message,
+                        Message = "The files weren't uploaded correctly. Image not added " + ex.Message,
+                        Success = false
+                    };
+                    return sr;
+                }
+            }
+            
+
+          //  var result = await _http.PostAsJsonAsync($"data/units.json", jsonObject);
+
+            //return await result.Content.ReadFromJsonAsync<ShMod.ServiceResponse<int>>();
+        }
+
+        public async Task<ShMod.ServiceResponse<int>> UpdateGameSystemUnitSpecificDetail(ShMod.GameSystemUnitSpecificDetail gamespefic, int countryId)
+        {
+            string basePath = "E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\ShipImages\\" + gamespefic.RulesetId.ToString() + "\\" + countryId + "\\";
+
+            bool exists = Directory.Exists(basePath);
+
+            if (!exists)
+               Directory.CreateDirectory(basePath);
+
+            try
+            {
+                File.Copy(gamespefic.ImagePath, basePath + Path.GetFileName(gamespefic.ImagePath), true);
+            }
+            catch (Exception)
+            {
+                //a test value to return data
+                var srfail1 = new ShMod.ServiceResponse<int>
+                {
+                    Message = "Couldnt copy file",
+                    Success = true
+                };
+                return srfail1;
+            }
+
+            //TODO, have to save the game spec details to the json
+
+            var jsGameSpecList = await _http.GetFromJsonAsync<cutDownGameSystemSpecific[]>("Data/gameSystemSpecific.json");
+            List<cutDownGameSystemSpecific> gameSpecList = jsGameSpecList.ToList();
+
+            int index = -1;
+            index = gameSpecList.FindIndex(item => item.Id == gamespefic.Id);
+
+            string fileName =  Path.GetFileName(gamespefic.ImagePath);
+
+
+            if (index >= 0)
+            {
+                //this means the item exists. Want to replace it 
+                cutDownGameSystemSpecific replacemeant = new cutDownGameSystemSpecific();
+
+                replacemeant.UnitId = gamespefic.UnitId;
+                replacemeant.Id = gamespefic.Id;
+                replacemeant.Cost = gamespefic.Cost;
+                replacemeant.ImagePath = fileName;
+                replacemeant.RulesetId = gamespefic.RulesetId;
+
+                gameSpecList[index] = replacemeant;
+            }
+            else
+            {
+                //add a new item
+                cutDownGameSystemSpecific newItem = new cutDownGameSystemSpecific();
+
+                newItem = new cutDownGameSystemSpecific();
+
+                newItem.Id = gameSpecList[gameSpecList.Count - 1].Id + 1;
+                newItem.UnitId= gamespefic.UnitId;
+                newItem.Cost = gamespefic.Cost;
+                newItem.ImagePath = fileName;
+                newItem.RulesetId = gamespefic.RulesetId;
+
+                gameSpecList.Add(newItem);
+
+            }
+
+
+            string json = System.Text.Json.JsonSerializer.Serialize(gameSpecList, new JsonSerializerOptions { WriteIndented = true });
+
+            try
+            {
+                await System.IO.File.WriteAllTextAsync("E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\Data\\gameSystemSpecific.json", json);
+
+                var sr = new ShMod.ServiceResponse<int>
+                {
+                    Message = "Unit saved",
+                    Success = true
+                };
+                return sr;
+
+            }
+            catch (Exception ex)
+            {
+                {
+                    var sr = new ShMod.ServiceResponse<int>
+                    {
+                        Message = "GameSystemSpecific not saved" + ex.Message,
                         Success = false
                     };
                     return sr;
                 }
             }
 
-            var result = await _http.PostAsJsonAsync("api/unitdetails/addgamespecificDetailsForUnit", gamespefic);
-
-            return await result.Content.ReadFromJsonAsync<ShMod.ServiceResponse<int>>();
+            
         }
+
+        public async Task<ShMod.ServiceResponse<int>> AddGameSystemUnitSpecificDetail(ShMod.GameSystemUnitSpecificDetail gamespefic, List<FileUploadDTO> browserFiles, int countryId)
+        {
+
+            // This doesnt work. Replaced with simpler UpdateGameSystemUnitSpecificDetail method that creates and modifies in one function
+            string basePath = "E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\ShipImages\\" + gamespefic.RulesetId.ToString() + "\\" + countryId+"\\";
+
+
+            //instead of using the upload client, just going to do a copy for the files. Will onlyt be one in this implementation (not multiple files)
+            foreach (var file in browserFiles) {
+            
+                string fileToCopy = file.FileName;
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                
+            }
+
+
+
+            //a test value to return data
+            var sr = new ShMod.ServiceResponse<int>
+            {
+                Message = "Done",
+                Success = true
+            };
+            return sr;
+
+                //var filesUpload = new ShMod.ServiceResponse<List<UploadResult>>();
+                //if (browserFiles.Count > 0)
+                //{
+                //    filesUpload = await _UDSC.UploadFiles(browserFiles, gamespefic.RulesetId, countryId);
+                //    if (!filesUpload.Success)
+                //    {
+                //        //the files weren't uploaded
+                //        var sr = new ShMod.ServiceResponse<int>
+                //        {
+                //            Message = "The files weren't uploaded correctly. Image not added " + filesUpload.Message,
+                //            Success = false
+                //        };
+                //        return sr;
+                //    }
+                //}
+
+                //var result = await _http.PostAsJsonAsync("api/unitdetails/addgamespecificDetailsForUnit", gamespefic);
+
+                //return await result.Content.ReadFromJsonAsync<ShMod.ServiceResponse<int>>();
+         }
 
         public async Task<ShMod.ServiceResponse<List<ShMod.Country>>> GetListOfCountriesForSelectedUnitsInGameSystem(int ruleSetId)
         {
@@ -791,20 +924,138 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
 
         public async Task<ShMod.ServiceResponse<int>> UpdateUnit(ShMod.Unit unit)
         {
-            var result = await _http.PutAsJsonAsync("api/UnitDetails/updateUnit", unit);
+            //var result = await _http.PutAsJsonAsync("api/UnitDetails/updateUnit", unit);
 
-            return await result.Content.ReadFromJsonAsync<ShMod.ServiceResponse<int>>();
+            //return await result.Content.ReadFromJsonAsync<ShMod.ServiceResponse<int>>();
 
+            //Have to read in the entire unit list and then de-serialize it so I can add the new item to the list and seriailze
+
+
+            var UnitJS = await _http.GetFromJsonAsync<cutDownUnit[]>("Data/units.json");
+            List<cutDownUnit> unitList = UnitJS.ToList();
+
+            var simplteUnit = new cutDownUnit
+            {
+                Id = unit.Id,
+                SubUnitTypeId = unit.SubUnitTypeId,
+                CountryId = unit.CountryId,
+                NumberinClass_shipSub = unit.NumberinClass_shipSub,
+                Name_ClassName = unit.Name_ClassName,
+                ShipsSubsInClass = unit.ShipsSubsInClass
+            };
+
+
+            //find the item in the list and replace it
+            int index = unitList.FindIndex(item => item.Id == simplteUnit.Id);
+
+            if (index != -1)
+            {
+                unitList[index] = simplteUnit;
+            }
+
+
+            string json = System.Text.Json.JsonSerializer.Serialize(unitList, new JsonSerializerOptions { WriteIndented = true });
+
+            try
+            {
+                await System.IO.File.WriteAllTextAsync("E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\Data\\units.json", json);
+
+                var sr = new ShMod.ServiceResponse<int>
+                {
+                    Message = "All good",
+                    Success = true
+                };
+                return sr;
+
+            }
+            catch (Exception ex)
+            {
+                {
+                    var sr = new ShMod.ServiceResponse<int>
+                    {
+                        Message = "The files weren't uploaded correctly. Image not added " + ex.Message,
+                        Success = false
+                    };
+                    return sr;
+                }
+            }
         }
 
         public async Task<ShMod.ServiceResponse<bool>> DeleteUnit(int unitId)
         {
             //TODO: Not tested yet
-            var result = await _http.DeleteAsync("/api/unitDetails/" + unitId);
+            //var result = await _http.DeleteAsync("/api/unitDetails/" + unitId);
 
-            return await result.Content.ReadFromJsonAsync<ShMod.ServiceResponse<bool>>();
+            //return await result.Content.ReadFromJsonAsync<ShMod.ServiceResponse<bool>>();
+
+            //get a list
+            var UnitJS = await _http.GetFromJsonAsync<cutDownUnit[]>("Data/units.json");
+            List<cutDownUnit> unitList = UnitJS.ToList();
+
+            int index = -1;
+            index = unitList.FindIndex(item => item.Id == unitId);
+
+
+            if (index >= 0)
+            {
+                unitList.RemoveAt(index);
+            }
+            else
+            {
+
+                var sr = new ShMod.ServiceResponse<bool>
+                {
+                    Message = "Couldnt find the item in the list",
+                    Success = false
+                };
+                return sr;
+
+            }
+
+            string json = System.Text.Json.JsonSerializer.Serialize(unitList, new JsonSerializerOptions { WriteIndented = true });
+
+            try
+            {
+                await System.IO.File.WriteAllTextAsync("E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\Data\\units.json", json);
+
+
+                var sr = new ShMod.ServiceResponse<bool>
+                {
+                    Message = "All good",
+                    Success = true
+                };
+
+
+
+                //get a list of gameSpecUnitDetails for the unit being deleted
+                var jsGameSpecList = await _http.GetFromJsonAsync<cutDownGameSystemSpecific[]>("Data/gameSystemSpecific.json");
+                List<cutDownGameSystemSpecific> gameSpecList = jsGameSpecList.ToList();
+
+                foreach (var item in gameSpecList)
+                {
+                    if (item.UnitId == unitId)
+                    {
+                            await DeleteGameSystemUnitSpecifiDetails(item.Id);
+                            //TODO: Have to delete images as well
+
+                    }
+                }
+                return sr;
+
+            }
+            catch (Exception ex)
+            {
+                {
+                    var sr = new ShMod.ServiceResponse<bool>
+                    {
+                        Message = "Couldnt serialise the collection " + ex.Message,
+                        Success = false
+                    };
+                    return sr;
+                }
+            }
+
         }
-
 
         public async Task<ShMod.ServiceResponse<List<ShMod.OrderCard>>> GetBroadSideOrderCards()
         {
@@ -851,6 +1102,62 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
                 };
             }
         }
+
+        public async Task<ShMod.ServiceResponse<bool>> DeleteGameSystemUnitSpecifiDetails(int gameSystemSpecId)
+        {
+            //method will go through the gameSystemSpecific.json file and delete any references that match the UnitId
+            //get a list
+            var jsGameSpecList = await _http.GetFromJsonAsync<cutDownGameSystemSpecific[]>("Data/gameSystemSpecific.json");
+            List<cutDownGameSystemSpecific> gameSpecList = jsGameSpecList.ToList();
+
+            int index = -1;
+            index = gameSpecList.FindIndex(item => item.Id == gameSystemSpecId);
+
+
+            if (index >= 0)
+            {
+                gameSpecList.RemoveAt(index);
+            }
+            else
+            {
+                var sr = new ShMod.ServiceResponse<bool>
+                {
+                    Message = "Couldnt find the item in the list",
+                    Success = false
+                };
+                return sr;
+
+            }
+
+            string json = System.Text.Json.JsonSerializer.Serialize(gameSpecList, new JsonSerializerOptions { WriteIndented = true });
+
+            try
+            {
+                await System.IO.File.WriteAllTextAsync("E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\Data\\gameSystemSpecific.json", json);
+
+
+                var sr = new ShMod.ServiceResponse<bool>
+                {
+                    Message = "All good",
+                    Success = true
+                };
+
+                return sr;
+            }
+            catch (Exception ex)
+            {
+                {
+                    var sr = new ShMod.ServiceResponse<bool>
+                    {
+                        Message = "Couldnt re-serialise the collection " + ex.Message,
+                        Success = false
+                    };
+                    return sr;
+                }
+            }
+        }
+
+
     }
 
     class ColorConverter : JsonConverter

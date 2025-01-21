@@ -1406,5 +1406,13 @@
     "NumberinClass_shipSub": 4,
     "Name_ClassName": "Konig",
     "ShipsSubsInClass": null
+  },
+  {
+    "Id": 190,
+    "SubUnitTypeId": 19,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 2,
+    "Name_ClassName": "Scharnhorst",
+    "ShipsSubsInClass": "SMS Scharnhorst, SMS Gneisenau"
   }
 ]
