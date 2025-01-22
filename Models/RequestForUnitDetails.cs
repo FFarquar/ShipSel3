@@ -11,6 +11,6 @@ namespace ShipSel3.Models
         public int CountryId { get; set; }
         public int UnitTypeId { get; set; }
         public bool OnlyReturnUnitsInCollection { get; set; } = false;
-        public int  RuleSetId { get; set; }
+        public int RuleSetId { get; set; }
     }
 }

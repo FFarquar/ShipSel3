@@ -5,7 +5,8 @@ namespace SharedLibrary.Models
     public class BroadsideSDS
     {
         private int hullhits;
-        public int HullHits {
+        public int HullHits
+        {
             get
             {
                 return hullhits;
@@ -22,7 +23,8 @@ namespace SharedLibrary.Models
         public int FloodingHits
         {
             get { return floodingHits; }
-            set { 
+            set
+            {
                 floodingHits = value;
                 setSummaryText();
             }
@@ -33,9 +35,10 @@ namespace SharedLibrary.Models
         public string ShipName
         {
             get { return shipName; }
-            set { 
+            set
+            {
                 shipName = value;
-                setSummaryText() ;
+                setSummaryText();
             }
         }
 
@@ -44,7 +47,8 @@ namespace SharedLibrary.Models
         public int CurrentSpeed
         {
             get { return currentSpeed; }
-            set { 
+            set
+            {
                 currentSpeed = value;
                 setSummaryText();
             }
@@ -66,7 +70,8 @@ namespace SharedLibrary.Models
         public string DirectedGunTag
         {
             get { return directedGunTag; }
-            set { 
+            set
+            {
                 directedGunTag = value;
                 setSummaryText();
             }
@@ -89,7 +94,7 @@ namespace SharedLibrary.Models
 
         public void setSummaryText()
         {
-            summaryText = "S:" + CurrentSpeed.ToString() + " HH:" + HullHits.ToString() +" F:" + FloodingHits.ToString() + " DC:" + DamageCards.Count.ToString() + " ID:" + DirectedGunTag;     
+            summaryText = "S:" + CurrentSpeed.ToString() + " HH:" + HullHits.ToString() + " F:" + FloodingHits.ToString() + " DC:" + DamageCards.Count.ToString() + " ID:" + DirectedGunTag;
         }
     }
 

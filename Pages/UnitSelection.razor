@@ -1,6 +1,7 @@
 ﻿@page "/unitselectionrules2/{rulesetid:int}"
 @* @using ShipSel3.Services.UnitsandListsServiceClient *@
 @using ShipSel3.Services.UploadDownloadService
+@* @using SH = SharedLibrary.Models *@
 @inject IUnitsandListsServiceClient ULSC
 @inject IStorageService StorServ
 @inject NavigationManager NM
@@ -269,12 +270,12 @@
     private bool HideMainForm { get; set; } = true;
 
 
-    private RuleSet ruleSet { get; set; } = new RuleSet();
+    private SH.RuleSet ruleSet { get; set; } = new SH.RuleSet();
 
     RequestForUnitDetails request = new RequestForUnitDetails();
 
-    private List<Country> Countries = new List<Country>();
-    private List<UnitType> UnitTypes = new List<UnitType>();
+    private List<SH.Country> Countries = new List<SH.Country>();
+    private List<SH.UnitType> UnitTypes = new List<SH.UnitType>();
     private IJSObjectReference? _jsModule;
 
     private ViewFilter viewFilter = new ViewFilter();
@@ -282,11 +283,11 @@
     private int costOfSelectedUnits = 0;
     private bool CreateListHidden = true;
 
-    private List<UnitForGameSystemDTO> CompleteUnitList = new List<UnitForGameSystemDTO>();  //A list of all items that are selectable
+    private List<SH.UnitForGameSystemDTO> CompleteUnitList = new List<SH.UnitForGameSystemDTO>();  //A list of all items that are selectable
     private string imageStyle;
 
 
-    private async Task ViewFIle(UnitForGameSystemDTO unit, string imageId)
+    private async Task ViewFIle(SH.UnitForGameSystemDTO unit, string imageId)
     {
         Console.WriteLine("___ViewFile =" + unit.Name_ClassName);
 
@@ -426,7 +427,7 @@
 
     }
 
-    private async void RemoveFromList(UnitForGameSystemDTO unitToRemove)
+    private async void RemoveFromList(SH.UnitForGameSystemDTO unitToRemove)
     {
         //remove from selection
         unitToRemove.NumberSelected --;
@@ -436,7 +437,7 @@
         StateHasChanged();
     }
 
-    private async void AddToList(UnitForGameSystemDTO unitToAdd)
+    private async void AddToList(SH.UnitForGameSystemDTO unitToAdd)
     {
         //Add unit to selection
         unitToAdd.NumberSelected ++;
@@ -444,29 +445,29 @@
         UpdateCostOfSelecton();
     }
 
-    private async void SetAddRemoveButtonStyle(UnitForGameSystemDTO unitToAdd)
+    private async void SetAddRemoveButtonStyle(SH.UnitForGameSystemDTO unitToAdd)
     {
 
         if(unitToAdd.NumberSelected >= unitToAdd.NumberinClass_shipSub)
         {
             unitToAdd.AddButtonDisabled = true;
-            unitToAdd.styleForAddButton = Settings.styleForButonNotAvailable; 
+            unitToAdd.styleForAddButton = @SH.Settings.styleForButonNotAvailable;
         }
         else
         {
             unitToAdd.AddButtonDisabled = false;
-            unitToAdd.styleForAddButton = Settings.styleForButtonAvailable;
+            unitToAdd.styleForAddButton = @SH.Settings.styleForButtonAvailable;
         }
 
         if(unitToAdd.NumberSelected >= 1)
         {
             unitToAdd.RemoveButtonDisabled = false;
-            unitToAdd.styleForRemoveButton = Settings.styleForButtonAvailable;
+            unitToAdd.styleForRemoveButton = @SH.Settings.styleForButtonAvailable;
         }
         else
         {
             unitToAdd.RemoveButtonDisabled = true;
-            unitToAdd.styleForRemoveButton = Settings.styleForButonNotAvailable;
+            unitToAdd.styleForRemoveButton = @SH.Settings.styleForButonNotAvailable;
         }
     }
 

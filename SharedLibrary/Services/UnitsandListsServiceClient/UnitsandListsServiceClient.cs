@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using System.Drawing;
 using SharedLibrary.Models;
 using SharedLibrary.Shared;
+
 using ShMod = SharedLibrary.Models;
 using SharedLibrary.Services.UploadDownloadService;
 using Newtonsoft.Json;
@@ -96,26 +97,32 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
 
         public async Task<ShMod.ServiceResponse<int>> UpdateGameSystemUnitSpecificDetail(ShMod.GameSystemUnitSpecificDetail gamespefic, int countryId)
         {
-            string basePath = "E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\ShipImages\\" + gamespefic.RulesetId.ToString() + "\\" + countryId + "\\";
 
-            bool exists = Directory.Exists(basePath);
-
-            if (!exists)
-               Directory.CreateDirectory(basePath);
-
-            try
+            if(gamespefic.ImagePath!= "not changing")
             {
-                File.Copy(gamespefic.ImagePath, basePath + Path.GetFileName(gamespefic.ImagePath), true);
-            }
-            catch (Exception)
-            {
-                //a test value to return data
-                var srfail1 = new ShMod.ServiceResponse<int>
+                //if a file is being replaced, the original will need to be deleted
+
+                string basePath = "E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\ShipImages\\" + gamespefic.RulesetId.ToString() + "\\" + countryId + "\\";
+
+                bool exists = Directory.Exists(basePath);
+
+                if (!exists)
+                    Directory.CreateDirectory(basePath);
+
+                try
                 {
-                    Message = "Couldnt copy file",
-                    Success = true
-                };
-                return srfail1;
+                    File.Copy(gamespefic.ImagePath, basePath + Path.GetFileName(gamespefic.ImagePath), true);
+                }
+                catch (Exception)
+                {
+                    //a test value to return data
+                    var srfail1 = new ShMod.ServiceResponse<int>
+                    {
+                        Message = "Couldnt copy file",
+                        Success = true
+                    };
+                    return srfail1;
+                }
             }
 
             //TODO, have to save the game spec details to the json
@@ -995,9 +1002,11 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
             int index = -1;
             index = unitList.FindIndex(item => item.Id == unitId);
 
+            int countryID;
 
             if (index >= 0)
             {
+                countryID = unitList[index].CountryId;
                 unitList.RemoveAt(index);
             }
             else
@@ -1035,7 +1044,7 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
                 {
                     if (item.UnitId == unitId)
                     {
-                            await DeleteGameSystemUnitSpecifiDetails(item.Id);
+                            await DeleteGameSystemUnitSpecifiDetails(item.Id, countryID, item.RulesetId);
                             //TODO: Have to delete images as well
 
                     }
@@ -1103,20 +1112,29 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
             }
         }
 
-        public async Task<ShMod.ServiceResponse<bool>> DeleteGameSystemUnitSpecifiDetails(int gameSystemSpecId)
+        public async Task<ShMod.ServiceResponse<bool>> DeleteGameSystemUnitSpecifiDetails(int gameSystemSpecId, int countryID, int rulesetId)
         {
             //method will go through the gameSystemSpecific.json file and delete any references that match the UnitId
-            //get a list
+
             var jsGameSpecList = await _http.GetFromJsonAsync<cutDownGameSystemSpecific[]>("Data/gameSystemSpecific.json");
             List<cutDownGameSystemSpecific> gameSpecList = jsGameSpecList.ToList();
 
             int index = -1;
             index = gameSpecList.FindIndex(item => item.Id == gameSystemSpecId);
 
-
+            
             if (index >= 0)
             {
+
+                //delete the associate image too
+                string pathToDelete = "E:\\ProjectsForGit\\ShipSel3\\ShipSel3\\wwwroot\\ShipImages\\" + rulesetId.ToString() + "\\" + countryID.ToString() + "\\"
+                    + gameSpecList[index].ImagePath;
+
                 gameSpecList.RemoveAt(index);
+
+
+                File.Delete(pathToDelete);
+
             }
             else
             {

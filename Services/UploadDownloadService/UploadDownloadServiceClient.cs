@@ -21,11 +21,11 @@ namespace ShipSel3.Services.UploadDownloadService
             _logger = logger;
         }
 
-        public async Task<ServiceResponse<Stream>> GetFileAsStream(UnitForGameSystemDTO unit, int ruleSetId)
+        public async Task<SH.ServiceResponse<Stream>> GetFileAsStream(SH.UnitForGameSystemDTO unit, int ruleSetId)
         {
 
             //TODO: copy the file proces sfrom the server code
-            return new ServiceResponse<Stream>
+            return new SH.ServiceResponse<Stream>
             {
                 Success = false,
                 Message = "NOT implemented yet"
@@ -38,14 +38,14 @@ namespace ShipSel3.Services.UploadDownloadService
 
             if (imageStreamRes is not null)
             {
-                return new ServiceResponse<Stream>
+                return new SH.ServiceResponse<Stream>
                 {
                     Data = imageStreamRes.Content.ReadAsStream()
                 };
             }
             else
             {
-                return new ServiceResponse<Stream>
+                return new SH.ServiceResponse<Stream>
                 {
                     Success = false,
                     Message = "Some issue getting file"
@@ -83,11 +83,11 @@ namespace ShipSel3.Services.UploadDownloadService
 
         //}
 
-        public async Task<ServiceResponse<List<UploadResult>>> UploadFiles(List<FileUploadDTO> e, int rulesetId, int countryId)
+        public async Task<SH.ServiceResponse<List<UploadResult>>> UploadFiles(List<FileUploadDTO> e, int rulesetId, int countryId)
         {
             //This task uses a list of broswerFiles. It is not tirggered as soon as the dialog box is closed, but later in the process
             List<File> files = new List<File>();
-            long maxFileSize = Settings.maxFileSize;
+            long maxFileSize = SH.Settings.maxFileSize;
 
             bool upload = false;
             List<UploadResult> uploadResults = new();
@@ -156,7 +156,7 @@ namespace ShipSel3.Services.UploadDownloadService
                 else
                 {
                     _logger.LogInformation("Got a response from FileSaveController");
-                    var newUploadResults = await response.Content.ReadFromJsonAsync<ServiceResponse<List<UploadResult>>>();
+                    var newUploadResults = await response.Content.ReadFromJsonAsync<SH.ServiceResponse<List<UploadResult>>>();
 
                     if (newUploadResults is not null)
                     {
@@ -164,7 +164,7 @@ namespace ShipSel3.Services.UploadDownloadService
                     }
                     else
                     {
-                        return new ServiceResponse<List<UploadResult>>
+                        return new SH.ServiceResponse<List<UploadResult>>
                         {
                             Success = false,
                             Message = "Null response from service on server"
@@ -173,7 +173,7 @@ namespace ShipSel3.Services.UploadDownloadService
                 }
             }
 
-            return new ServiceResponse<List<UploadResult>>
+            return new SH.ServiceResponse<List<UploadResult>>
             {
                 Success = false,
                 Message = "Some issue creating file content to pass to server"

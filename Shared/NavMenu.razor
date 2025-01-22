@@ -37,23 +37,14 @@
                 </div>
             }
 
-            <p> @testClass.ReturnTestMessage() </p>
+            @* <p> @testClass.ReturnTestMessage() </p> *@
 
             @* 2 different ways on how to consume the service from the test service *@
-            <p> @resultFromTestInterface</p>
-            <p> @TI.ReturnTestMEssageFromInterface("From NavMenu direct call to TI object").Result.Data.ToString()</p>
+            @* <p> @resultFromTestInterface</p> *@
+            @* <p> @TI.ReturnTestMEssageFromInterface("From NavMenu direct call to TI object").Result.Data.ToString()</p> *@
 
 
-            <div class="nav-item px-3" hidden="@Env.IsProduction()">
-                @* //only want this visible in dev *@
-                <NavLink class="nav-link" href="unitsDB">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Unit DB
-
-                </NavLink>
-
-            </div>
-
-
+ 
 
         </nav>
     </div>
@@ -64,7 +55,7 @@
     private bool inDevelopmentMode = false;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-    private static List<RuleSet> RuleSets = new List<RuleSet>();
+    private static List<SH.RuleSet> RuleSets = new List<SH.RuleSet>();
 
     [CascadingParameter] 
     private RouteData routeData { get; set; } = default!;

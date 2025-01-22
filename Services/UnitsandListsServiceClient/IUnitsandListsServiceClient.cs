@@ -1,34 +1,34 @@
-﻿using ShipSel3.Models;
+﻿//using ShipSel3.Models;
 using ShipSel3.Shared;
 
 namespace ShipSel3.Services.UnitsandListsServiceClient
 {
     public interface IUnitsandListsServiceClient
     {
-        Task<ServiceResponse<List<RuleSet>>> GetRuleSets();
-        Task<ServiceResponse<RuleSet>> GetRuleSet(int rulesetId);
-        Task<ServiceResponse<List<Country>>> GetListOfCountries();
-        Task<ServiceResponse<List<Country>>> GetListOfCountriesForSelectedUnitsInGameSystem(int gameSystem);
-        Task<ServiceResponse<List<UnitType>>> GetListOfUnitTypes();
+        Task<SH.ServiceResponse<List<SH.RuleSet>>> GetRuleSets();
+        Task<SH.ServiceResponse<SH.RuleSet>> GetRuleSet(int rulesetId);
+        Task<SH.ServiceResponse<List<SH.Country>>> GetListOfCountries();
+        Task<SH.ServiceResponse<List<SH.Country>>> GetListOfCountriesForSelectedUnitsInGameSystem(int gameSystem);
+        Task<SH.ServiceResponse<List<SH.UnitType>>> GetListOfUnitTypes();
 
-        Task<ServiceResponse<List<SubUnitTypeDTO>>> GetListOfSubUnits();
-        Task<ServiceResponse<int>> AddUnit(Unit unitToAdd);
+        Task<SH.ServiceResponse<List<SH.SubUnitTypeDTO>>> GetListOfSubUnits();
+        Task<SH.ServiceResponse<int>> AddUnit(SH.Unit unitToAdd);
 
 
 
-        Task<ServiceResponse<Unit>> GetUnitWithoutChildObjects(int unitId);
-        Task<ServiceResponse<List<GameSystemUnitSpecificDetail>>> GetGameSystemUnitSpecificDetails(int unitId);
-        Task<ServiceResponse<List<UnitForGameSystemDTO>>> GetListofAllGameUnitsForRuleset(int rulesetId, bool onlyReturnUnitsInCollection);
+        Task<SH.ServiceResponse<SH.Unit>> GetUnitWithoutChildObjects(int unitId);
+        Task<SH.ServiceResponse<List<SH.GameSystemUnitSpecificDetail>>> GetGameSystemUnitSpecificDetails(int unitId);
+        Task<SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>> GetListofAllGameUnitsForRuleset(int rulesetId, bool onlyReturnUnitsInCollection);
         Task SetListOfUnits(int rulesetId, bool onlyReturnUnitsInCollection);
 
-        List<UnitForGameSystemDTO> UnitList { get; set; }
-        Task<ServiceResponse<List<UnitWithGameSystemDetails>>> GetListofAllGameUnitsWithGameSpecDetails();
-        Task<ServiceResponse<int>> UpdateUnit(Unit unit);
-        Task<ServiceResponse<bool>> DeleteUnit(int unitId);
-        Task<ServiceResponse<List<OrderCard>>> GetBroadSideOrderCards();
-        Task<ServiceResponse<List<DamageCardData>>> GetBroadSideDamageCards();
+        List<SH.UnitForGameSystemDTO> UnitList { get; set; }
+        Task<SH.ServiceResponse<List<SH.UnitWithGameSystemDetails>>> GetListofAllGameUnitsWithGameSpecDetails();
+        Task<SH.ServiceResponse<int>> UpdateUnit(SH.Unit unit);
+        Task<SH.ServiceResponse<bool>> DeleteUnit(int unitId);
+        Task<SH.ServiceResponse<List<SH.OrderCard>>> GetBroadSideOrderCards();
+        Task<SH.ServiceResponse<List<SH.DamageCardData>>> GetBroadSideDamageCards();
 
 
-        Task<ServiceResponse<int>> AddGameSystemUnitSpecificDetail(GameSystemUnitSpecificDetail gamespefic, List<FileUploadDTO> filesToUploadDTO, int countryId);
+        Task<SH.ServiceResponse<int>> AddGameSystemUnitSpecificDetail(SH.GameSystemUnitSpecificDetail gamespefic, List<FileUploadDTO> filesToUploadDTO, int countryId);
     }
 }

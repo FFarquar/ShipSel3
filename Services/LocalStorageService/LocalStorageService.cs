@@ -13,11 +13,11 @@ namespace ShipSel3.Services.LocalStorageService
         }
 
 
-        public async Task<ServiceResponse<int>> AddUnitsToStorage(List<UnitForGameSystemDTO> units)
+        public async Task<SH.ServiceResponse<int>> AddUnitsToStorage(List<SH.UnitForGameSystemDTO> units)
         {
-            var exsitItems = await _localStorage.GetItemAsync<List<UnitForGameSystemDTO>>("units");
+            var exsitItems = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
 
-            ServiceResponse<bool> LocStorageCleared = new ServiceResponse<bool>();
+            SH.ServiceResponse<bool> LocStorageCleared = new SH.ServiceResponse<bool>();
             if (exsitItems != null)
             {
                 //have to remove the items from the storage service
@@ -27,7 +27,7 @@ namespace ShipSel3.Services.LocalStorageService
             if (LocStorageCleared.Success == true)
             {
                 //Only saving the units selected by the units
-                List<UnitForGameSystemDTO> newUnits = new List<UnitForGameSystemDTO>();
+                List<SH.UnitForGameSystemDTO> newUnits = new List<SH.UnitForGameSystemDTO>();
 
                 newUnits = units
                     .FindAll(x => x.NumberSelected > 0)
@@ -39,14 +39,14 @@ namespace ShipSel3.Services.LocalStorageService
 
                 if (countOfUnitsInStorage.Data > 0)
                 {
-                    return new ServiceResponse<int>
+                    return new SH.ServiceResponse<int>
                     {
                         Data = countOfUnitsInStorage.Data,
                     };
                 }
                 else
                 {
-                    return new ServiceResponse<int>
+                    return new SH.ServiceResponse<int>
                     {
                         Data = 0,
                         Message = "Items not added to storage",
@@ -58,7 +58,7 @@ namespace ShipSel3.Services.LocalStorageService
             else
             {
                 //storage wasnt deleted. Dont write the values
-                return new ServiceResponse<int>
+                return new SH.ServiceResponse<int>
                 {
                     Data = 0,
                     Success = false,
@@ -68,13 +68,13 @@ namespace ShipSel3.Services.LocalStorageService
 
         }
 
-        public async Task<ServiceResponse<bool>> RemoveAllUnitsFromStorage()
+        public async Task<SH.ServiceResponse<bool>> RemoveAllUnitsFromStorage()
         {
-            var units = await _localStorage.GetItemAsync<List<UnitForGameSystemDTO>>("units");
+            var units = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
 
             if (units == null)
             {
-                return new ServiceResponse<bool>
+                return new SH.ServiceResponse<bool>
                 {
                     Data = true,
                 };
@@ -84,17 +84,17 @@ namespace ShipSel3.Services.LocalStorageService
                 await _localStorage.ClearAsync();
 
                 //Checking to make sure the clear worked
-                var unitsLeft = await _localStorage.GetItemAsync<List<UnitForGameSystemDTO>>("units");
+                var unitsLeft = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
                 if (unitsLeft == null)
                 {
-                    return new ServiceResponse<bool>
+                    return new SH.ServiceResponse<bool>
                     {
                         Data = true,
                     };
                 }
                 else
                 {
-                    return new ServiceResponse<bool>
+                    return new SH.ServiceResponse<bool>
                     {
                         Data = false,
                         Success = false,
@@ -107,16 +107,16 @@ namespace ShipSel3.Services.LocalStorageService
             }
         }
 
-        public async Task<ServiceResponse<int>> GetCountOfUnitsStored()
+        public async Task<SH.ServiceResponse<int>> GetCountOfUnitsStored()
         {
-            var units = await _localStorage.GetItemAsync<List<UnitForGameSystemDTO>>("units");
+            var units = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
             if (units != null)
             {
-                return new ServiceResponse<int> { Data = units.Count };
+                return new SH.ServiceResponse<int> { Data = units.Count };
             }
             else
             {
-                return new ServiceResponse<int>
+                return new SH.ServiceResponse<int>
                 {
                     Data = 0,
                     Message = "Nothing found",
@@ -125,21 +125,21 @@ namespace ShipSel3.Services.LocalStorageService
             }
         }
 
-        public async Task<ServiceResponse<List<UnitForGameSystemDTO>>> RetrieveAllUnits()
+        public async Task<SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>> RetrieveAllUnits()
         {
-            var units = await _localStorage.GetItemAsync<List<UnitForGameSystemDTO>>("units");
+            var units = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
             if (units == null)
             {
-                return new ServiceResponse<List<UnitForGameSystemDTO>>
+                return new SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>
                 {
-                    Data = new List<UnitForGameSystemDTO>(),
+                    Data = new List<SH.UnitForGameSystemDTO>(),
                     Success = false,
                     Message = "No units found"
                 };
             }
             else
             {
-                return new ServiceResponse<List<UnitForGameSystemDTO>>
+                return new SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>
                 {
                     Data = units
                 };
@@ -147,5 +147,6 @@ namespace ShipSel3.Services.LocalStorageService
             }
 
         }
+
     }
 }

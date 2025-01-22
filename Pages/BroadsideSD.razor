@@ -215,17 +215,17 @@
     public bool ChooseFromOwnedColleciton { get; set; } = false;
 
     [Inject] IJSRuntime? JsRuntime { get; set; }
-    private List<BroadsideSDS> BroadsideSDSList = new List<BroadsideSDS>();  //A list of all items that have been selected
+    private List<SH.BroadsideSDS> BroadsideSDSList = new List<SH.BroadsideSDS>();  //A list of all items that have been selected
 
     //selectedShip is the ship that the user has selected. The first ship in the list will be selected upon creation of this list
-    private BroadsideSDS selectedShip { get; set; } = new BroadsideSDS();
+    private SH.BroadsideSDS selectedShip { get; set; } = new SH.BroadsideSDS();
     private bool ConfirmExternalNavigation { get; set; } = true;
 
 
-    private List<OrderCard> OrderCardList = new List<OrderCard>();  //a list of order cards
+    private List<SH.OrderCard> OrderCardList = new List<SH.OrderCard>();  //a list of order cards
 
-    private List<DamageCardData> DamageCardList = new List<DamageCardData>();  //a list of all damage cards. Used to create DamageCardDeck
-    private List<DamageCard> DamageCardDeck = new List<DamageCard>();   //the deck of damage cards to be drawn from
+    private List<SH.DamageCardData> DamageCardList = new List<SH.DamageCardData>();  //a list of all damage cards. Used to create DamageCardDeck
+    private List<SH.DamageCard> DamageCardDeck = new List<SH.DamageCard>();   //the deck of damage cards to be drawn from
 
     private bool ShowSimpleListOfShips { get; set; } = true;
     private string toggleShipViewName { get; set; } = "Show Summary";
@@ -394,16 +394,16 @@
         Console.WriteLine("Selected ship order image path " + selectedShip.selectedOrderImagePath);
         StateHasChanged();
     }
-    private void CreateSDSObjects(List<UnitForGameSystemDTO> data)
+    private void CreateSDSObjects(List<SH.UnitForGameSystemDTO> data)
     {
-        BroadsideSDSList = new List<BroadsideSDS>();
+        BroadsideSDSList = new List<SH.BroadsideSDS>();
 
         foreach (var UnitForGameSystemDTO in data)
         {
 
             for (int i = 0; i < UnitForGameSystemDTO.NumberSelected; i++)
             {
-                BroadsideSDS newItem = new BroadsideSDS();
+                SH.BroadsideSDS newItem = new SH.BroadsideSDS();
 
                 Console.WriteLine("UnitForGameSystemDTO.ShipsSubsInClass = " + UnitForGameSystemDTO.ShipsSubsInClass);
                 // if (UnitForGameSystemDTO.NumberSelected >= 1)
@@ -442,7 +442,7 @@
         }
     }
 
-    private async void ChangeSelectedShip(BroadsideSDS unitToSelect)
+    private async void ChangeSelectedShip(SH.BroadsideSDS unitToSelect)
     {
         // Console.WriteLine("unit to select = " + unitToSelect.ShipName);
         selectedShip = unitToSelect;

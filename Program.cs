@@ -1,4 +1,5 @@
 global using ShipSel3.Models;
+global using SH = SharedLibrary.Models;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

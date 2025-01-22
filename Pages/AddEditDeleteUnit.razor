@@ -89,11 +89,11 @@ else
     [SupplyParameterFromQuery]
     public string returnUrl { get; set; } = string.Empty;
 
-    private List<SubUnitTypeDTO> subUnitTypes = new List<SubUnitTypeDTO>();
-    private List<Country> countryList = new List<Country>();
+    private List<SH.SubUnitTypeDTO> subUnitTypes = new List<SH.SubUnitTypeDTO>();
+    private List<SH.Country> countryList = new List<SH.Country>();
 
     string message = string.Empty;
-    ShipSel3.Models.Unit request = new ShipSel3.Models.Unit();
+    SH.Unit request = new SH.Unit();
 
 
     protected override async Task OnInitializedAsync()
@@ -120,12 +120,12 @@ else
             }
             else
             {
-                request = new ShipSel3.Models.Unit();
+                request = new SH.Unit();
             }
         }
         else
         {
-            request = new ShipSel3.Models.Unit();
+            request = new SH.Unit();
         }
     }
 

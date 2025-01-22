@@ -32,7 +32,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             _http = http;
             _UDSC = Udsc;
         }
-        public List<UnitForGameSystemDTO> UnitList { get; set; } = new List<UnitForGameSystemDTO>(); //a list that contains all units. The printpage will have access to this
+        public List<SH.UnitForGameSystemDTO> UnitList { get; set; } = new List<SH.UnitForGameSystemDTO>(); //a list that contains all units. The printpage will have access to this
 
         private class cutDownUnit
         {
@@ -43,7 +43,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             public string Name_ClassName { get; set; } = string.Empty;
             public string ShipsSubsInClass { get; set; } = string.Empty;
         }
-        public async Task<ServiceResponse<int>> AddUnit(Unit unitToAdd)
+        public async Task<SH.ServiceResponse<int>> AddUnit(SH.Unit unitToAdd)
         {
 
 
@@ -93,24 +93,24 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
 
 
-            return new ServiceResponse<int>();
+            return new SH.ServiceResponse<int>();
 
             //var result = await _http.PostAsJsonAsync($"data/units.json", jsonString);
 
             //  return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
         }
 
-        public async Task<ServiceResponse<int>> AddGameSystemUnitSpecificDetail(GameSystemUnitSpecificDetail gamespefic, List<FileUploadDTO> browserFiles, int countryId)
+        public async Task<SH.ServiceResponse<int>> AddGameSystemUnitSpecificDetail(SH.GameSystemUnitSpecificDetail gamespefic, List<FileUploadDTO> browserFiles, int countryId)
         {
 
-            var filesUpload = new ServiceResponse<List<UploadResult>>();
+            var filesUpload = new SH.ServiceResponse<List<UploadResult>>();
             if (browserFiles.Count > 0)
             {
                 filesUpload = await _UDSC.UploadFiles(browserFiles, gamespefic.RulesetId, countryId);
                 if (!filesUpload.Success)
                 {
                     //the files weren't uploaded
-                    var sr = new ServiceResponse<int>
+                    var sr = new SH.ServiceResponse<int>
                     {
                         Message = "The files weren't uploaded correctly. Image not added " + filesUpload.Message,
                         Success = false
@@ -121,24 +121,24 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
             var result = await _http.PostAsJsonAsync("api/unitdetails/addgamespecificDetailsForUnit", gamespefic);
 
-            return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
+            return await result.Content.ReadFromJsonAsync<SH.ServiceResponse<int>>();
         }
 
-        public async Task<ServiceResponse<List<Country>>> GetListOfCountriesForSelectedUnitsInGameSystem(int ruleSetId)
+        public async Task<SH.ServiceResponse<List<SH.Country>>> GetListOfCountriesForSelectedUnitsInGameSystem(int ruleSetId)
         {
             //this function will get a list of countries that have actually had units assigned
 
-            ServiceResponse<List<Country>> fullCountryList = await GetListOfCountries();
+            SH.ServiceResponse<List<SH.Country>> fullCountryList = await GetListOfCountries();
 
             var randomid = Guid.NewGuid().ToString();
             var gameSystemSpecificURL = $"Data/gameSystemSpecific.json?{randomid}";
-            var GameSystemUnitJs = await _http.GetFromJsonAsync<GameSystemUnitSpecificDetail[]>(gameSystemSpecificURL);
+            var GameSystemUnitJs = await _http.GetFromJsonAsync<SH.GameSystemUnitSpecificDetail[]>(gameSystemSpecificURL);
             //var GameSystemUnitJs = await _http.GetFromJsonAsync<GameSystemUnitSpecificDetail[]>("Data/gameSystemSpecific.json");
-            var UnitJS = await _http.GetFromJsonAsync<Unit[]>("Data/units.json");
-            List<GameSystemUnitSpecificDetail> gameSpecList = GameSystemUnitJs.ToList();
-            List<Unit> unitList = UnitJS.ToList();
+            var UnitJS = await _http.GetFromJsonAsync<SH.Unit[]>("Data/units.json");
+            List<SH.GameSystemUnitSpecificDetail> gameSpecList = GameSystemUnitJs.ToList();
+            List<SH.Unit> unitList = UnitJS.ToList();
 
-            List<Country> filteredCountryList = new List<Country>();
+            List<SH.Country> filteredCountryList = new List<SH.Country>();
             //TODO: This query works well when joining 2 tables and usign a where clause to filter selections
             foreach (var c in fullCountryList.Data)
             {
@@ -156,28 +156,28 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                 }
             }
 
-            return new ServiceResponse<List<Country>>
+            return new SH.ServiceResponse<List<SH.Country>>
             {
                 Data = filteredCountryList
             };
         }
 
-        public async Task<ServiceResponse<List<Country>>> GetListOfCountries()
+        public async Task<SH.ServiceResponse<List<SH.Country>>> GetListOfCountries()
         {
-            var result = await _http.GetFromJsonAsync<Country[]>("Data/countries.json");
+            var result = await _http.GetFromJsonAsync<SH.Country[]>("Data/countries.json");
 
             if (result != null && result.Length != 0)
             {
-                return new ServiceResponse<List<Country>>
+                return new SH.ServiceResponse<List<SH.Country>>
                 {
                     Data = result.ToList()
                 };
             }
             else
             {
-                return new ServiceResponse<List<Country>>
+                return new SH.ServiceResponse<List<SH.Country>>
                 {
-                    Data = new List<Country>(),
+                    Data = new List<SH.Country>(),
                     Success = false,
                     Message = "No countries found"
                 };
@@ -187,11 +187,11 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             //            return result;
         }
 
-        public async Task<ServiceResponse<List<SubUnitTypeDTO>>> GetListOfSubUnits()
+        public async Task<SH.ServiceResponse<List<SH.SubUnitTypeDTO>>> GetListOfSubUnits()
         {
 
             var rawSubunit = await _http.GetStringAsync("Data/subUnitTypes.json");
-            var subUnits = JsonConvert.DeserializeObject<List<SubUnitType>>(rawSubunit,
+            var subUnits = JsonConvert.DeserializeObject<List<SH.SubUnitType>>(rawSubunit,
 
                new JsonSerializerSettings
                {
@@ -204,9 +204,9 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
             //Need to add the unit type object for subunit
 
-            var unitTypesJS = await _http.GetFromJsonAsync<UnitType[]>("Data/unitTypes.json");
+            var unitTypesJS = await _http.GetFromJsonAsync<SH.UnitType[]>("Data/unitTypes.json");
 
-            List<UnitType> unitTypeList = unitTypesJS.ToList();
+            List<SH.UnitType> unitTypeList = unitTypesJS.ToList();
 
             var _includeUnitType = subUnits
                     .Join(unitTypeList,
@@ -218,16 +218,16 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             if (_includeUnitType != null)
 
             {
-                List<SubUnitTypeDTO> subunitresponse = new List<SubUnitTypeDTO>();
+                List<SH.SubUnitTypeDTO> subunitresponse = new List<SH.SubUnitTypeDTO>();
                 foreach (var item in _includeUnitType)
                 {
-                    var subunit = new SubUnitTypeDTO
+                    var subunit = new SH.SubUnitTypeDTO
                     {
                         Id = item.SubUnitType.Id,
                         SubUnitName = item.SubUnitType.SubUnitName,
                         UnitTypeName = item.UnitType.Name,
                         UnitTypeId = item.UnitType.Id,
-                        RGBDetails = new RGBDetails()
+                        RGBDetails = new SH.RGBDetails()
                         {
                             R = item.SubUnitType.PrintColour.R,
                             G = item.SubUnitType.PrintColour.G,
@@ -237,7 +237,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                     subunitresponse.Add(subunit);
                 }
 
-                return new ServiceResponse<List<SubUnitTypeDTO>>
+                return new SH.ServiceResponse<List<SH.SubUnitTypeDTO>>
                 {
                     Data = subunitresponse
                 };
@@ -246,9 +246,9 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             }
             else
             {
-                return new ServiceResponse<List<SubUnitTypeDTO>>
+                return new SH.ServiceResponse<List<SH.SubUnitTypeDTO>>
                 {
-                    Data = new List<SubUnitTypeDTO>(),
+                    Data = new List<SH.SubUnitTypeDTO>(),
                     Success = false,
                     Message = "No Sub units found"
                 };
@@ -260,23 +260,23 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
         }
 
-        public async Task<ServiceResponse<List<UnitType>>> GetListOfUnitTypes()
+        public async Task<SH.ServiceResponse<List<SH.UnitType>>> GetListOfUnitTypes()
         {
 
-            var result = await _http.GetFromJsonAsync<UnitType[]>("Data/unitTypes.json");
+            var result = await _http.GetFromJsonAsync<SH.UnitType[]>("Data/unitTypes.json");
 
             if (result != null && result.Length != 0)
             {
-                return new ServiceResponse<List<UnitType>>
+                return new SH.ServiceResponse<List<SH.UnitType>>
                 {
                     Data = result.ToList()
                 };
             }
             else
             {
-                return new ServiceResponse<List<UnitType>>
+                return new SH.ServiceResponse<List<SH.UnitType>>
                 {
-                    Data = new List<UnitType>(),
+                    Data = new List<SH.UnitType>(),
                     Success = false,
                     Message = "No Unit types found"
                 };
@@ -286,7 +286,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             //return result;
         }
 
-        public async Task<ServiceResponse<List<RuleSet>>> GetRuleSets()
+        public async Task<SH.ServiceResponse<List<SH.RuleSet>>> GetRuleSets()
         {
             //var result = await _http.GetFromJsonAsync<RuleSet[]>("Data/ruleSets.json");
             //Console.WriteLine("resulet " + result);
@@ -295,14 +295,14 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             //Console.WriteLine("Rule set cout = " + rs.Count);
 
             var response = await _http.GetAsync(($"Data/ruleSets.json"));
-            var jsonResult = await response.Content.ReadFromJsonAsync<List<RuleSet>>();
+            var jsonResult = await response.Content.ReadFromJsonAsync<List<SH.RuleSet>>();
             Console.WriteLine("jsonResult " + jsonResult.ToString());
-            List<RuleSet> rs = jsonResult.ToList();
+            List<SH.RuleSet> rs = jsonResult.ToList();
 
             //if (result != null && result.Length != 0)
             if (jsonResult != null && rs.Count != 0)
             {
-                return new ServiceResponse<List<RuleSet>>
+                return new SH.ServiceResponse<List<SH.RuleSet>>
                 {
                     Data = rs,
                     Message = "all good"
@@ -310,9 +310,9 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             }
             else
             {
-                return new ServiceResponse<List<RuleSet>>
+                return new SH.ServiceResponse<List<SH.RuleSet>>
                 {
-                    Data = new List<RuleSet>(),
+                    Data = new List<SH.RuleSet>(),
                     Success = false,
                     Message = "No rulesets found"
                 };
@@ -321,16 +321,16 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
         }
 
-        public async Task<ServiceResponse<Unit>> GetUnitWithoutChildObjects(int unitId)
+        public async Task<SH.ServiceResponse<SH.Unit>> GetUnitWithoutChildObjects(int unitId)
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<Unit>>("api/unitdetails/getUnitNoChildObjects/" + unitId);
+            var result = await _http.GetFromJsonAsync<SH.ServiceResponse<SH.Unit>>("api/unitdetails/getUnitNoChildObjects/" + unitId);
             return result;
         }
 
-        public async Task<ServiceResponse<List<GameSystemUnitSpecificDetail>>> GetGameSystemUnitSpecificDetails(int unitId)
+        public async Task<SH.ServiceResponse<List<SH.GameSystemUnitSpecificDetail>>> GetGameSystemUnitSpecificDetails(int unitId)
         {
             //Cant call the function to get a list of rule sets
-            List<RuleSet> rs = new List<RuleSet>();
+            List<SH.RuleSet> rs = new List<SH.RuleSet>();
             var response = await GetRuleSets();
             rs = response.Data;
 
@@ -352,7 +352,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
             //Console.WriteLine("RS count  before next data read " + rs.Count.ToString());
 
-            var GameSystemUnitJs = await _http.GetFromJsonAsync<GameSystemUnitSpecificDetail[]>("Data/gameSystemSpecific.json");
+            var GameSystemUnitJs = await _http.GetFromJsonAsync<SH.GameSystemUnitSpecificDetail[]>("Data/gameSystemSpecific.json");
             //Console.WriteLine("RS count  after next data read " + rs.Count.ToString());
 
             //Console.WriteLine("GameSystems  count = {0} id of first ruleset = {1} rulesetname = {2}", rs.Count().ToString(), rs[1].Id.ToString(), rs[1].RulesetName);
@@ -367,10 +367,10 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
             //Console.WriteLine("Query in GetGameSystemUnitSpecificDetails =  " + query.Count());
 
-            List<GameSystemUnitSpecificDetail> result = new List<GameSystemUnitSpecificDetail>();
-            foreach (GameSystemUnitSpecificDetail item in query)
+            List<SH.GameSystemUnitSpecificDetail> result = new List<SH.GameSystemUnitSpecificDetail>();
+            foreach (SH.GameSystemUnitSpecificDetail item in query)
             {
-                GameSystemUnitSpecificDetail gssd = new GameSystemUnitSpecificDetail();
+                SH.GameSystemUnitSpecificDetail gssd = new SH.GameSystemUnitSpecificDetail();
                 gssd.Cost = item.Cost;
                 gssd.Id = item.Id;
                 gssd.ImagePath = item.ImagePath;
@@ -386,16 +386,16 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             {
 
                 //Console.WriteLine("Found {0} rule sets for unitId {1} ", result.Count().ToString(), result[0].UnitId.ToString());
-                return new ServiceResponse<List<GameSystemUnitSpecificDetail>>
+                return new SH.ServiceResponse<List<SH.GameSystemUnitSpecificDetail>>
                 {
                     Data = result
                 };
             }
             else
             {
-                return new ServiceResponse<List<GameSystemUnitSpecificDetail>>
+                return new SH.ServiceResponse<List<SH.GameSystemUnitSpecificDetail>>
                 {
-                    Data = new List<GameSystemUnitSpecificDetail>(),
+                    Data = new List<SH.GameSystemUnitSpecificDetail>(),
                     Success = false,
                     Message = "No gamesec found"
                 };
@@ -406,26 +406,26 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
         }
 
-        public async Task<ServiceResponse<RuleSet>> GetRuleSet(int rulesetId)
+        public async Task<SH.ServiceResponse<SH.RuleSet>> GetRuleSet(int rulesetId)
         {
 
-            var result = await _http.GetFromJsonAsync<RuleSet[]>("Data/ruleSets.json");
+            var result = await _http.GetFromJsonAsync<SH.RuleSet[]>("Data/ruleSets.json");
 
             if (result != null && result.Length != 0)
             {
                 var rs = result
                     .Where(item => item.Id == rulesetId)
                     .FirstOrDefault();
-                return new ServiceResponse<RuleSet>
+                return new SH.ServiceResponse<SH.RuleSet>
                 {
                     Data = rs,
                 };
             }
             else
             {
-                return new ServiceResponse<RuleSet>
+                return new SH.ServiceResponse<SH.RuleSet>
                 {
-                    Data = new RuleSet(),
+                    Data = new SH.RuleSet(),
                     Success = false,
                     Message = "No rulesets found"
                 };
@@ -437,16 +437,16 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             //asd
         }
 
-        public async Task<ServiceResponse<List<UnitForGameSystemDTO>>> GetListofAllGameUnitsForRuleset(int rulesetId, bool onlyReturnUnitsInCollection)
+        public async Task<SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>> GetListofAllGameUnitsForRuleset(int rulesetId, bool onlyReturnUnitsInCollection)
         {
             //var result = await _http.GetFromJsonAsync<ServiceResponse<List<UnitForGameSystemDTO>>>("api/unitdetails/allunitsbyGameSystemandType/" + rulesetId + "/" + onlyReturnUnitsInCollection);
-            var CountriesJs = await _http.GetFromJsonAsync<Country[]>("Data/countries.json");
-            var UnitsJs = await _http.GetFromJsonAsync<Unit[]>("Data/units.json");
+            var CountriesJs = await _http.GetFromJsonAsync<SH.Country[]>("Data/countries.json");
+            var UnitsJs = await _http.GetFromJsonAsync<SH.Unit[]>("Data/units.json");
 
             var rawSubunit = await _http.GetStringAsync("Data/subUnitTypes.json");
             //  var message = JsonConvert.DeserializeObject<List<SubUnitType>>(rawSubunit);
 
-            var SubUnitTypesJs = JsonConvert.DeserializeObject<List<SubUnitType>>(rawSubunit,
+            var SubUnitTypesJs = JsonConvert.DeserializeObject<List<SH.SubUnitType>>(rawSubunit,
                new JsonSerializerSettings
                {
                    NullValueHandling = NullValueHandling.Ignore,
@@ -458,12 +458,12 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
             //TODO: Is the colour correct? Does it need to be 64bit int
 
-            var GameSystemUnitJs = await _http.GetFromJsonAsync<GameSystemUnitSpecificDetail[]>("Data/gameSystemSpecific.json");
+            var GameSystemUnitJs = await _http.GetFromJsonAsync<SH.GameSystemUnitSpecificDetail[]>("Data/gameSystemSpecific.json");
 
-            List<GameSystemUnitSpecificDetail> gameSpecList = GameSystemUnitJs.ToList();
-            List<Country> countryList = CountriesJs.ToList();
-            List<Unit> unitList = UnitsJs.ToList();
-            List<SubUnitType> subUnitList = SubUnitTypesJs.ToList();
+            List<SH.GameSystemUnitSpecificDetail> gameSpecList = GameSystemUnitJs.ToList();
+            List<SH.Country> countryList = CountriesJs.ToList();
+            List<SH.Unit> unitList = UnitsJs.ToList();
+            List<SH.SubUnitType> subUnitList = SubUnitTypesJs.ToList();
 
             //Get a GameSystemUnitSpecificDetail object with the Unit object
             //var _GSWithUnit = GameSystemUnitJs
@@ -532,7 +532,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
             //TODO: Add in subunit type to this, some how or add another query
 
-            List<UnitForGameSystemDTO> tempList = new List<UnitForGameSystemDTO>();
+            List<SH.UnitForGameSystemDTO> tempList = new List<SH.UnitForGameSystemDTO>();
             foreach (var item in _includeCountries)
             {
                 var ShipsSubsInClassCleaned = item.GameSystemUnitSpecificDetail.GameSystemUnitSpecificDetail.Unit.ShipsSubsInClass;
@@ -540,7 +540,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                 {
                     ShipsSubsInClassCleaned = ShipsSubsInClassCleaned.Trim();
                 }
-                UnitForGameSystemDTO ug = new UnitForGameSystemDTO()
+                SH.UnitForGameSystemDTO ug = new SH.UnitForGameSystemDTO()
                 {
                     Id = item.GameSystemUnitSpecificDetail.GameSystemUnitSpecificDetail.Unit.Id,
                     Name_ClassName = item.GameSystemUnitSpecificDetail.GameSystemUnitSpecificDetail.Unit.Name_ClassName,
@@ -556,8 +556,8 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                     AllowUnlimitedSelection = false,
                     AddButtonDisabled = false,
                     RemoveButtonDisabled = true,
-                    styleForAddButton = Settings.styleForButtonAvailable,
-                    styleForRemoveButton = Settings.styleForButonNotAvailable,
+                    styleForAddButton = SH.Settings.styleForButtonAvailable,
+                    styleForRemoveButton = SH.Settings.styleForButonNotAvailable,
                     FilterVisible = false
 
                 };
@@ -571,7 +571,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
             ////If using my collection, each ship or sub will be returned as a unique entity, so it can only be selected once
 
-            List<UnitForGameSystemDTO> listToReturn = new List<UnitForGameSystemDTO>();
+            List<SH.UnitForGameSystemDTO> listToReturn = new List<SH.UnitForGameSystemDTO>();
 
             foreach (var unit in tempList)
             {
@@ -584,10 +584,8 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
                     foreach (var ship in shipList)
                     {
-
-
                         //assign all details from returned server value
-                        UnitForGameSystemDTO newUnit = new UnitForGameSystemDTO()
+                        SH.UnitForGameSystemDTO newUnit = new SH.UnitForGameSystemDTO()
                         {
                             //TODO: The ID is problematic as it will be the same for multiple units
                             Id = unit.Id,
@@ -602,8 +600,8 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                             AllowUnlimitedSelection = false,
                             AddButtonDisabled = false,
                             RemoveButtonDisabled = true,
-                            styleForAddButton = Settings.styleForButtonAvailable,
-                            styleForRemoveButton = Settings.styleForButonNotAvailable,
+                            styleForAddButton = SH.Settings.styleForButtonAvailable,
+                            styleForRemoveButton = SH.Settings.styleForButonNotAvailable,
                             FilterVisible = false,
                             subUnitTypeObj = unit.subUnitTypeObj
                             //Country = unit.Country,
@@ -618,8 +616,8 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                 else
                 {
 
-                    unit.styleForAddButton = Settings.styleForButtonAvailable;
-                    unit.styleForRemoveButton = Settings.styleForButonNotAvailable;
+                    unit.styleForAddButton = SH.Settings.styleForButtonAvailable;
+                    unit.styleForRemoveButton = SH.Settings.styleForButonNotAvailable;
                     unit.AddButtonDisabled = false;
                     unit.RemoveButtonDisabled = true;
                     unit.FilterVisible = false;
@@ -635,9 +633,9 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                 }
             }
 
-            List<UnitForGameSystemDTO> SortedList = listToReturn.OrderBy(o => o.subUnitTypeObj.SubUnitName).ToList();
+            List<SH.UnitForGameSystemDTO> SortedList = listToReturn.OrderBy(o => o.subUnitTypeObj.SubUnitName).ToList();
 
-            ServiceResponse<List<UnitForGameSystemDTO>> SrRespone = new ServiceResponse<List<UnitForGameSystemDTO>>()
+            SH.ServiceResponse<List<SH.UnitForGameSystemDTO>> SrRespone = new SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>()
             {
                 //Data = listToReturn
                 Data = SortedList
@@ -652,7 +650,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
         private async Task<string> ReturnAllianceName(int allianceID)
         {
             //This could be made an array of this service method to stop the call to the json file
-            var alliances = await _http.GetFromJsonAsync<Alliance[]>("Data/alliances.json");
+            var alliances = await _http.GetFromJsonAsync<SH.Alliance[]>("Data/alliances.json");
 
             string name;
             foreach (var item in alliances)
@@ -675,22 +673,22 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
         }
 
-        public async Task<ServiceResponse<List<UnitWithGameSystemDetails>>> GetListofAllGameUnitsWithGameSpecDetails()
+        public async Task<SH.ServiceResponse<List<SH.UnitWithGameSystemDetails>>> GetListofAllGameUnitsWithGameSpecDetails()
         {
 
-            var gs = await _http.GetFromJsonAsync<GameSystemUnitSpecificDetail[]>("Data/gameSystemSpecific.json");
-            var units = await _http.GetFromJsonAsync<Unit[]>("Data/units.json");
+            var gs = await _http.GetFromJsonAsync<SH.GameSystemUnitSpecificDetail[]>("Data/gameSystemSpecific.json");
+            var units = await _http.GetFromJsonAsync<SH.Unit[]>("Data/units.json");
             //var countries = await _http.GetFromJsonAsync<Country[]>("Data/countries.json");
-            List<Unit> Units = units.ToList();
+            List<SH.Unit> Units = units.ToList();
             //List<Country>cnt = GetListOfCountries().Result.Data;
             //List<SubUnitType> su =  GetListOfSubUnits().Result.Data;
 
             var responseCnt = await _http.GetAsync(($"Data/countries.json"));
-            var jsonResultCnt = await responseCnt.Content.ReadFromJsonAsync<List<Country>>();
+            var jsonResultCnt = await responseCnt.Content.ReadFromJsonAsync<List<SH.Country>>();
             //Console.WriteLine("jsonResultCnt " + jsonResultCnt.ToString());
-            List<Country> cntries = jsonResultCnt.ToList();
+            List<SH.Country> cntries = jsonResultCnt.ToList();
 
-            List<SubUnitTypeDTO> su = new List<SubUnitTypeDTO>();
+            List<SH.SubUnitTypeDTO> su = new List<SH.SubUnitTypeDTO>();
             var responseSU = await GetListOfSubUnits();
             su = responseSU.Data;
 
@@ -715,11 +713,11 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             where cntr.Id == un.CountryId
             select un;
 
-            List<UnitWithGameSystemDetails> returnList = new List<UnitWithGameSystemDetails>();
+            List<SH.UnitWithGameSystemDetails> returnList = new List<SH.UnitWithGameSystemDetails>();
             //foreach (var unit in units)
             foreach (var unit in query)
             {
-                UnitWithGameSystemDetails gssd = new UnitWithGameSystemDetails();
+                SH.UnitWithGameSystemDetails gssd = new SH.UnitWithGameSystemDetails();
                 gssd.Id = unit.Id;
                 //Console.WriteLine("ID = " + gssd.Id);
                 gssd.Unit = unit;       //does this get the country object?
@@ -727,11 +725,11 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
 
                 gssd.Unit.Country = cntries.Find(x => x.Id == unit.CountryId);
                 //Console.WriteLine("Country name  = " + unit.Country.CountryName);
-                gssd.Unit.SubUnitType = new SubUnitType();
+                gssd.Unit.SubUnitType = new SH.SubUnitType();
 
 
 
-                SubUnitTypeDTO sudto = new SubUnitTypeDTO();
+                SH.SubUnitTypeDTO sudto = new SH.SubUnitTypeDTO();
                 sudto = su.Find(x => x.Id == unit.SubUnitTypeId);
                 gssd.Unit.SubUnitType.Id = sudto.Id;
                 gssd.Unit.SubUnitType.UnitTypeId = sudto.UnitTypeId;
@@ -740,7 +738,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                 color = Color.FromArgb(255, sudto.RGBDetails.R, sudto.RGBDetails.G, sudto.RGBDetails.B);
 
                 gssd.Unit.SubUnitType.PrintColour = color;
-                UnitType unitType = new UnitType();
+                SH.UnitType unitType = new SH.UnitType();
                 unitType.Name = sudto.UnitTypeName;
                 unitType.Id = sudto.UnitTypeId;
                 gssd.Unit.SubUnitType.UnitType = unitType;
@@ -754,7 +752,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                 gssd.RuleSetName = null;
 
                 //TODO: this function is not getting a ruleset object in the response ITS stuffing up the unitsDB.razor
-                List<GameSystemUnitSpecificDetail> gsusd = new List<GameSystemUnitSpecificDetail>();
+                List<SH.GameSystemUnitSpecificDetail> gsusd = new List<SH.GameSystemUnitSpecificDetail>();
                 var responseGS = await GetGameSystemUnitSpecificDetails(unit.Id);
                 gsusd = responseGS.Data;
                 gssd.GameSpecificDetailList = gsusd;
@@ -765,7 +763,7 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
                 if (gsusd.Count() == 0)
                 {
                     //Console.WriteLine("No  GameSystemUnitSpecificDetails found for " + gssd.Unit.Name_ClassName);
-                    gssd.GameSpecificDetailList = new List<GameSystemUnitSpecificDetail>();
+                    gssd.GameSpecificDetailList = new List<SH.GameSystemUnitSpecificDetail>();
                 }
 
 
@@ -789,84 +787,85 @@ namespace ShipSel3.Services.UnitsandListsServiceClient
             if (returnList != null && returnList.Count != 0)
             {
 
-                return new ServiceResponse<List<UnitWithGameSystemDetails>>
+                return new SH.ServiceResponse<List<SH.UnitWithGameSystemDetails>>
                 {
                     Data = returnList
                 };
             }
             else
             {
-                return new ServiceResponse<List<UnitWithGameSystemDetails>>
+                return new SH.ServiceResponse<List<SH.UnitWithGameSystemDetails>>
                 {
-                    Data = new List<UnitWithGameSystemDetails>(),
+                    Data = new List<SH.UnitWithGameSystemDetails>(),
                     Success = false,
                     Message = "No ships found"
                 };
             }
         }
 
-        public async Task<ServiceResponse<int>> UpdateUnit(Unit unit)
+        public async Task<SH.ServiceResponse<int>> UpdateUnit(SH.Unit unit)
         {
             var result = await _http.PutAsJsonAsync("api/UnitDetails/updateUnit", unit);
 
-            return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
+            return await result.Content.ReadFromJsonAsync<SH.ServiceResponse<int>>();
 
         }
 
-        public async Task<ServiceResponse<bool>> DeleteUnit(int unitId)
+        public async Task<SH.ServiceResponse<bool>> DeleteUnit(int unitId)
         {
             //TODO: Not tested yet
             var result = await _http.DeleteAsync("/api/unitDetails/" + unitId);
 
-            return await result.Content.ReadFromJsonAsync<ServiceResponse<bool>>();
+            return await result.Content.ReadFromJsonAsync<SH.ServiceResponse<bool>>();
         }
 
-
-        public async Task<ServiceResponse<List<OrderCard>>> GetBroadSideOrderCards()
+        public async Task<SH.ServiceResponse<List<SH.OrderCard>>> GetBroadSideOrderCards()
         {
-            var result = await _http.GetFromJsonAsync<OrderCard[]>("Data/broadsides_order_cards.json");
+            var result = await _http.GetFromJsonAsync<SH.OrderCard[]>("Data/broadsides_order_cards.json");
 
             if (result != null && result.Length != 0)
             {
 
-                return new ServiceResponse<List<OrderCard>>
+                return new SH.ServiceResponse<List<SH.OrderCard>>
                 {
                     Data = result.ToList()
                 };
             }
             else
             {
-                return new ServiceResponse<List<OrderCard>>
+                return new SH.ServiceResponse<List<SH.OrderCard>>
                 {
-                    Data = new List<OrderCard>(),
+                    Data = new List<SH.OrderCard>(),
                     Success = false,
                     Message = "No order cards found"
                 };
             }
         }
 
-        public async Task<ServiceResponse<List<DamageCardData>>> GetBroadSideDamageCards()
+        public async Task<SH.ServiceResponse<List<SH.DamageCardData>>> GetBroadSideDamageCards()
         {
-            var result = await _http.GetFromJsonAsync<DamageCardData[]>("Data/broadsides_damage_cards.json");
+            var result = await _http.GetFromJsonAsync<SH.DamageCardData[]>("Data/broadsides_damage_cards.json");
 
             if (result != null && result.Length != 0)
             {
 
-                return new ServiceResponse<List<DamageCardData>>
+                return new SH.ServiceResponse<List<SH.DamageCardData>>
                 {
                     Data = result.ToList()
                 };
             }
             else
             {
-                return new ServiceResponse<List<DamageCardData>>
+                return new SH.ServiceResponse<List<SH.DamageCardData>>
                 {
-                    Data = new List<DamageCardData>(),
+                    Data = new List<SH.DamageCardData>(),
                     Success = false,
                     Message = "No damage cards found"
                 };
             }
         }
+
+
     }
 
     class ColorConverter : JsonConverter

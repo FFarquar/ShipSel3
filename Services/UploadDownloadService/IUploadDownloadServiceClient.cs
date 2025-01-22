@@ -6,11 +6,11 @@ namespace ShipSel3.Services.UploadDownloadService
     public interface IUploadDownloadServiceClient
     {
 
-        Task<ServiceResponse<Stream>> GetFileAsStream(UnitForGameSystemDTO unit, int rulesetId);
+        Task<SH.ServiceResponse<Stream>> GetFileAsStream(SH.UnitForGameSystemDTO unit, int rulesetId);
 
         //Task<ServiceResponse<List<bool>>> DeleteFilesFromFileSystem(List<FileDetail> filesToDelete);
 
-        Task<ServiceResponse<List<UploadResult>>> UploadFiles(List<FileUploadDTO> e, int rulesetId, int countryId);
+        Task<SH.ServiceResponse<List<UploadResult>>> UploadFiles(List<FileUploadDTO> e, int rulesetId, int countryId);
 
     }
 }

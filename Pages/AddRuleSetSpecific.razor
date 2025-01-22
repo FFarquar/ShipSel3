@@ -115,12 +115,12 @@
 
     //TODO: the file attachments when editing are nto showing check the if statement above
     public int gameSpecIdToWorkOn { get; set; } = -1;
-    GameSystemUnitSpecificDetail gameSpecificRequest = new GameSystemUnitSpecificDetail();
-    private  List<RuleSet> rulesetList = new List<RuleSet>();
-    private List<GameSystemUnitSpecificDetail> unitsForSpecificGameList = new List<GameSystemUnitSpecificDetail>();
+    SH.GameSystemUnitSpecificDetail gameSpecificRequest = new SH.GameSystemUnitSpecificDetail();
+    private List<SH.RuleSet> rulesetList = new List<SH.RuleSet>();
+    private List<SH.GameSystemUnitSpecificDetail> unitsForSpecificGameList = new List<SH.GameSystemUnitSpecificDetail>();
     public List<FileUploadDTO> filesToUploadDTO = new List<FileUploadDTO>();
 
-    private ShipSel3.Models.Unit unit = new ShipSel3.Models.Unit();
+    private SH.Unit unit = new SH.Unit();
     string messageGameSpec = string.Empty;
     private bool init;
     protected override async Task OnInitializedAsync()
