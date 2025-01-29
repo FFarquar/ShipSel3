@@ -1,9 +1,9 @@
-﻿//using ShipSel3.Models;
+﻿//using ShMod = SharedLibrary.Models;
 //using Blazored.LocalStorage;
 //using SharedLibrary.Models;
 //using static System.Runtime.InteropServices.JavaScript.JSType;
 
-//namespace ShipSel3.Services.LocalStorageService
+//namespace SharedLibrary.Services.LocalStorageService
 //{
 //    public class StorageService : IStorageService
 //    {
@@ -15,11 +15,11 @@
 //        }
 
 
-//        public async Task<SH.ServiceResponse<int>> AddUnitsToStorage(List<SH.UnitForGameSystemDTO> units)
+//        public async Task<ShMod.ServiceResponse<int>> AddUnitsToStorage(List<ShMod.UnitForGameSystemDTO> units)
 //        {
-//            var exsitItems = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
+//            var exsitItems = await _localStorage.GetItemAsync<List<ShMod.UnitForGameSystemDTO>>("units");
 
-//            SH.ServiceResponse<bool> LocStorageCleared = new SH.ServiceResponse<bool>();
+//            ShMod.ServiceResponse<bool> LocStorageCleared = new ShMod.ServiceResponse<bool>();
 //            if (exsitItems != null)
 //            {
 //                //have to remove the items from the storage service
@@ -29,7 +29,7 @@
 //            if (LocStorageCleared.Success == true)
 //            {
 //                //Only saving the units selected by the units
-//                List<SH.UnitForGameSystemDTO> newUnits = new List<SH.UnitForGameSystemDTO>();
+//                List<ShMod.UnitForGameSystemDTO> newUnits = new List<ShMod.UnitForGameSystemDTO>();
 
 //                newUnits = units
 //                    .FindAll(x => x.NumberSelected > 0)
@@ -41,14 +41,14 @@
 
 //                if (countOfUnitsInStorage.Data > 0)
 //                {
-//                    return new SH.ServiceResponse<int>
+//                    return new ShMod.ServiceResponse<int>
 //                    {
 //                        Data = countOfUnitsInStorage.Data,
 //                    };
 //                }
 //                else
 //                {
-//                    return new SH.ServiceResponse<int>
+//                    return new ShMod.ServiceResponse<int>
 //                    {
 //                        Data = 0,
 //                        Message = "Items not added to storage",
@@ -60,7 +60,7 @@
 //            else
 //            {
 //                //storage wasnt deleted. Dont write the values
-//                return new SH.ServiceResponse<int>
+//                return new ShMod.ServiceResponse<int>
 //                {
 //                    Data = 0,
 //                    Success = false,
@@ -70,13 +70,13 @@
 
 //        }
 
-//        public async Task<SH.ServiceResponse<bool>> RemoveAllUnitsFromStorage()
+//        public async Task<ShMod.ServiceResponse<bool>> RemoveAllUnitsFromStorage()
 //        {
-//            var units = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
+//            var units = await _localStorage.GetItemAsync<List<ShMod.UnitForGameSystemDTO>>("units");
 
 //            if (units == null)
 //            {
-//                return new SH.ServiceResponse<bool>
+//                return new ShMod.ServiceResponse<bool>
 //                {
 //                    Data = true,
 //                };
@@ -87,39 +87,36 @@
 //                await _localStorage.ClearAsync();
 
 //                //Checking to make sure the clear worked
-//                var unitsLeft = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
+//                var unitsLeft = await _localStorage.GetItemAsync<List<ShMod.UnitForGameSystemDTO>>("units");
 //                if (unitsLeft == null)
 //                {
-//                    return new SH.ServiceResponse<bool>
+//                    return new ShMod.ServiceResponse<bool>
 //                    {
 //                        Data = true,
 //                    };
 //                }
 //                else
 //                {
-//                    return new SH.ServiceResponse<bool>
+//                    return new ShMod.ServiceResponse<bool>
 //                    {
 //                        Data = false,
 //                        Success = false,
 //                        Message = "Couldnt clear the storage"
-
 //                    };
-
 //                }
-
 //            }
 //        }
 
-//        public async Task<SH.ServiceResponse<int>> GetCountOfUnitsStored()
+//        public async Task<ShMod.ServiceResponse<int>> GetCountOfUnitsStored()
 //        {
-//            var units = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
+//            var units = await _localStorage.GetItemAsync<List<ShMod.UnitForGameSystemDTO>>("units");
 //            if (units != null)
 //            {
-//                return new SH.ServiceResponse<int> { Data = units.Count };
+//                return new ShMod.ServiceResponse<int> { Data = units.Count };
 //            }
 //            else
 //            {
-//                return new SH.ServiceResponse<int>
+//                return new ShMod.ServiceResponse<int>
 //                {
 //                    Data = 0,
 //                    Message = "Nothing found",
@@ -128,21 +125,21 @@
 //            }
 //        }
 
-//        public async Task<SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>> RetrieveAllUnits()
+//        public async Task<ShMod.ServiceResponse<List<ShMod.UnitForGameSystemDTO>>> RetrieveAllUnits()
 //        {
-//            var units = await _localStorage.GetItemAsync<List<SH.UnitForGameSystemDTO>>("units");
+//            var units = await _localStorage.GetItemAsync<List<ShMod.UnitForGameSystemDTO>>("units");
 //            if (units == null)
 //            {
-//                return new SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>
+//                return new ShMod.ServiceResponse<List<ShMod.UnitForGameSystemDTO>>
 //                {
-//                    Data = new List<SH.UnitForGameSystemDTO>(),
+//                    Data = new List<ShMod.UnitForGameSystemDTO>(),
 //                    Success = false,
 //                    Message = "No units found"
 //                };
 //            }
 //            else
 //            {
-//                return new SH.ServiceResponse<List<SH.UnitForGameSystemDTO>>
+//                return new ShMod.ServiceResponse<List<ShMod.UnitForGameSystemDTO>>
 //                {
 //                    Data = units
 //                };
@@ -150,24 +147,24 @@
 //            }
 //        }
 
-//        public async Task<SH.ServiceResponse<bool>> IsGameInProgress(string gameIdToCheck)
+//        public async Task<ShMod.ServiceResponse<bool>> IsGameInProgress(string gameIdToCheck)
 //        {
-//            string gameIdFromStorage= await _localStorage.GetItemAsync<string>("gameIdinProgress");
+//            string gameIdFromStorage = await _localStorage.GetItemAsync<string>("gameIdinProgress");
 
 //            //default response
-//            SH.ServiceResponse<bool>  vsrReturn = new SH.ServiceResponse<bool>
-//                {
-//                    Data = false,
-//                    Success = false,
-//                    Message = "No game found"
-//                };
+//            ShMod.ServiceResponse<bool> vsrReturn = new ShMod.ServiceResponse<bool>
+//            {
+//                Data = false,
+//                Success = false,
+//                Message = "No game found"
+//            };
 
 
-//            if (gameIdFromStorage!=null)
+//            if (gameIdFromStorage != null)
 //            {
 
 //                if (gameIdFromStorage == gameIdToCheck)
-//                    {
+//                {
 //                    //found the game
 //                    vsrReturn.Success = true;
 //                    vsrReturn.Data = true;
@@ -188,7 +185,7 @@
 
 
 
-//                return new SH.ServiceResponse<bool>
+//                return new ShMod.ServiceResponse<bool>
 //                {
 //                    Data = true,
 //                    Success = true,
@@ -197,7 +194,7 @@
 //            }
 //            catch (Exception)
 //            {
-//                return new SH.ServiceResponse<bool>
+//                return new ShMod.ServiceResponse<bool>
 //                {
 //                    Data = false,
 //                    Success = false,
@@ -205,31 +202,31 @@
 //                };
 
 //            }
-            
+
 //        }
 
-//        public async Task<ServiceResponse<bool>> SaveAllBroadSDS(List<SH.BroadsideSDS> broadsideSDSList)
+//        public async Task<ServiceResponse<bool>> SaveAllBroadSDS(List<ShMod.BroadsideSDS> broadsideSDSList)
 //        {
 
 //            //default response
-//            SH.ServiceResponse<bool> vsrReturn = new SH.ServiceResponse<bool>
+//            ShMod.ServiceResponse<bool> vsrReturn = new ShMod.ServiceResponse<bool>
 //            {
 //                Data = false,
 //                Success = false,
 //                Message = "Coudlnt write broadside SDS to local storage"
 //            };
 
-//            var exsitItems = await _localStorage.GetItemAsync<List<SH.BroadsideSDS>>("broadSideSDS");
+//            var exsitItems = await _localStorage.GetItemAsync<List<ShMod.BroadsideSDS>>("broadSideSDS");
 
-//            SH.ServiceResponse<bool> LocStorageCleared = new SH.ServiceResponse<bool>();
-            
+//            ShMod.ServiceResponse<bool> LocStorageCleared = new ShMod.ServiceResponse<bool>();
+
 //            if (exsitItems != null)
 //            {
 //                //have to remove any existring broadside SDS from the storage service
 //                await _localStorage.RemoveItemAsync("broadSideSDS");
 
 //                vsrReturn.Data = true;
-//                vsrReturn.Success= true;
+//                vsrReturn.Success = true;
 //                vsrReturn.Message = "SDS info saved";
 //            }
 
@@ -242,7 +239,7 @@
 
 //                throw;
 //            }
-            
+
 //            return vsrReturn;
 //        }
 //    }

@@ -125,7 +125,6 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
                 }
             }
 
-            //TODO, have to save the game spec details to the json
 
             var jsGameSpecList = await _http.GetFromJsonAsync<cutDownGameSystemSpecific[]>("Data/gameSystemSpecific.json");
             List<cutDownGameSystemSpecific> gameSpecList = jsGameSpecList.ToList();
@@ -265,7 +264,7 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
             List<ShMod.Unit> unitList = UnitJS.ToList();
 
             List<ShMod.Country> filteredCountryList = new List<ShMod.Country>();
-            //TODO: This query works well when joining 2 tables and usign a where clause to filter selections
+
             foreach (var c in fullCountryList.Data)
             {
                 var query = unitList
@@ -582,7 +581,6 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
                    }
                });
 
-            //TODO: Is the colour correct? Does it need to be 64bit int
 
             var GameSystemUnitJs = await _http.GetFromJsonAsync<ShMod.GameSystemUnitSpecificDetail[]>("Data/gameSystemSpecific.json");
 
@@ -591,12 +589,7 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
             List<ShMod.Unit> unitList = UnitsJs.ToList();
             List<ShMod.SubUnitType> subUnitList = SubUnitTypesJs.ToList();
 
-            //Get a GameSystemUnitSpecificDetail object with the Unit object
-            //var _GSWithUnit = GameSystemUnitJs
-            //        .Join(UnitsJs,
-            //                gsu => gsu.UnitId,
-            //                    u => u.Id,
-            //                        (gsu, u) => new { GameSystemUnitSpecificDetail = gsu, Unit = u});
+
 
             //this works
             var _GSWithUnit = gameSpecList
@@ -1045,7 +1038,7 @@ namespace SharedLibrary.Services.UnitsandListsServiceClient
                     if (item.UnitId == unitId)
                     {
                             await DeleteGameSystemUnitSpecifiDetails(item.Id, countryID, item.RulesetId);
-                            //TODO: Have to delete images as well
+
 
                     }
                 }

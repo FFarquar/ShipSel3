@@ -1,8 +1,11 @@
 ﻿
-@* @page "/broadsideSD" *@
-@page "/broadsideSD/{ChooseFromOwnedColleciton:bool}"
+@using SharedLibrary.LibraryServices.libraryLocalStorageService
+@implements IDisposable
+@* @page "/broadsideSD/{ChooseFromOwnedColleciton:bool}" *@
+@* gameId added in 1.1.9 to allow retrieveal of data if the page closes mid game *@
+@page "/broadsideSD/{ChooseFromOwnedColleciton:bool}/{gameId}"
 @layout NoMenuLayout
-@inject IStorageService StorServ
+@inject ILocalStorageFromLibrary StorServ
 @* @using ShipSel3.Services.UnitsandListsServiceClient *@
 
 @inject IUnitsandListsServiceClient ULSC
@@ -12,6 +15,7 @@
     Had to update VS 2022 and update to .Net 8 and then fix this project (update packages and rebuild). Surprised it actually worked.
     https://mattjameschampion.com/2023/07/04/controlling-and-preventing-navigation-events-in-blazor-using-navigationlock/
  *@
+
 
 <NavigationLock ConfirmExternalNavigation="@ConfirmExternalNavigation" OnBeforeInternalNavigation="@OnBeforeInternalNavigation"></NavigationLock> 
 
@@ -34,6 +38,11 @@
                 <label for="setting_2">Show Damage card text</label>
                 <input class="settings_input" id="setting_2" type="checkbox" @bind-value=@hideDamageCards/>
             </div>
+            <div class="settings_option">
+                <label for="setting_3">Ignore failed save warning</label>
+                <input class="settings_input" id="setting_3" type="checkbox" @bind-value=@ignoreSaveFails />
+            </div>
+
         </div>
 
     </div>
@@ -116,26 +125,28 @@
                     <div class="ship_stats">
                         <div class="rename_ship" hidden="@selectedShip.renameHidden">
                             <label for="rename_ship_input">Ship Name</label>
-                            <input class="rename_ship_input_cl" id="rename_ship_input" type="text" @bind-value=@selectedShip.ShipName />
+                            <input class="rename_ship_input_cl" id="rename_ship_input" type="text" @bind-value=@selectedShip.ShipName @onselectionchange="saveShipData" />
                         </div>
 
                         <div class="input_field">
                             <label title="The splash marker this ship is using" for="splash_label">Splash label Id</label>
-                            <input class="stat_input" id="splash_label" type="text" title="The splash marker this ship is using" @bind-value=@selectedShip.DirectedGunTag />
+                            <input class="stat_input" id="splash_label" type="text" title="The splash marker this ship is using" @bind-value=@selectedShip.DirectedGunTag @onselectionchange="saveShipData" />
                         </div>
 
                         <div class="input_field">
                             <label for="current_speed">Current Speed</label>
-                            <input class="stat_input" id="current_speed" type="number" @bind-value=@selectedShip.CurrentSpeed />
+                            <input class="stat_input" id="current_speed" type="number" @bind-value=@selectedShip.CurrentSpeed @onselectionchange="saveShipData" />
                         </div>
 
                         <div class="input_field">
                             <label for="hull_hits">Hull Hits</label>
-                            <input class="stat_input" id="hull_hits" type="number" @bind-value=@selectedShip.HullHits />
+                            @* <input class="stat_input" id="hull_hits" type="number" @bind-value=@selectedShip.HullHits @onselectionchange="saveToStorage" /> *@
+                            <input class="stat_input" id="hull_hits" type="number" @bind-value=@selectedShip.HullHits @onselectionchange="saveShipData" />
+
                         </div>
                         <div class="input_field">
                             <label title="Number of flooding hits" for="hull_hits">Flooding hits</label>
-                            <input class="stat_input" id="hull_hits" type="number" title="Number of flooding hits" @bind-value=@selectedShip.FloodingHits />
+                            <input class="stat_input" id="hull_hits" type="number" title="Number of flooding hits" @bind-value=@selectedShip.FloodingHits @onselectionchange="saveShipData" />
                         </div>
 
                     </div>
@@ -144,24 +155,24 @@
 
                         <div class="checkbox_option">
                             <label for="torpedos_fired">Torps used</label>
-                            <input class="stat_input"  id="torpedos_fired" type="checkbox" @bind=@selectedShip.torpsFired />
+                            <input class="stat_input" id="torpedos_fired" type="checkbox" @bind=@selectedShip.torpsFired @oninput="saveShipData" />
                         </div>
 
                         <div class="checkbox_option">
                             <label for="port_wing_torp_fired">Port torps used</label>
-                            <input class="stat_input" id="port_wing_torp_fired" type="checkbox" @bind=@selectedShip.portTorpsFired />
+                            <input class="stat_input" id="port_wing_torp_fired" type="checkbox" @bind=@selectedShip.portTorpsFired @oninput="saveShipData" />
                         </div>
 
                         <div class="checkbox_option">
                             <label for="starb_wing_torp_fired">Starboard torps used </label>
-                            <input class="stat_input" id="starb_wing_torp_fired" type="checkbox" @bind=@selectedShip.starTorpsFired />
+                            <input class="stat_input" id="starb_wing_torp_fired" type="checkbox" @bind=@selectedShip.starTorpsFired @oninput="saveShipData" />
                         </div>
 
                     </div>
                     <div class="ship_order">
                         <h5>Ship order</h5>
                         @* <select @bind=selectedShip.selectedOrderCard  Name="Name_of_list_box" @onclick="() => ChangeOrderImage()"> *@
-                        <select class="ship_order_select" @bind=selectedShip.selectedOrderCard Name="Name_of_list_box" @bind:after="() => ChangeOrderImage()">
+                        <select class="ship_order_select" @bind=selectedShip.selectedOrderCard Name="Name_of_list_box" @bind:after="() => ChangeOrderImage()" >
 
                             @for (int i = 0; i < @OrderCardList.Count; i++)
                             {
@@ -170,12 +181,12 @@
                         </select>
                         <div class="checkbox_option">
                             <label for="order_active">Order is active</label>
-                            <input class="stat_input" id="order_active" type="checkbox" @bind=@selectedShip.orderIsActive />
+                            <input class="stat_input" id="order_active" type="checkbox" @bind=@selectedShip.orderIsActive @oninput="saveShipData" />
                         </div>
 
                         <div class="ship_order_card_container">
                             @* <img class ="ship_order_card" src="BroadsidesCards/Orders/more_speed.jpg"/> *@
-                            <img  class="ship_order_card" src="@selectedShip.selectedOrderImagePath" />
+                            <img class="ship_order_card" src="@selectedShip.selectedOrderImagePath" @onselectionchange="saveShipData" />
                         </div>
                     </div>
 
@@ -196,7 +207,7 @@
                             <div hidden="@(!@hideDamageCards)">
                                 <label class="damage_card_text ">@item.card_text</label>
                             </div>
-                            
+
                             <PopContainer idOfelement="@item.id" ConfirmedChanged2="RemoveDamageCard" />
                         </div>
                     }
@@ -211,21 +222,35 @@
 </main>
 
 @code {
+
     [Parameter]
     public bool ChooseFromOwnedColleciton { get; set; } = false;
+
+
+    [Parameter]
+    public string gameId { get; set; }
 
     [Inject] IJSRuntime? JsRuntime { get; set; }
     private List<SH.BroadsideSDS> BroadsideSDSList = new List<SH.BroadsideSDS>();  //A list of all items that have been selected
 
-    //selectedShip is the ship that the user has selected. The first ship in the list will be selected upon creation of this list
-    private SH.BroadsideSDS selectedShip { get; set; } = new SH.BroadsideSDS();
-    private bool ConfirmExternalNavigation { get; set; } = true;
+    private bool shipDataChanged { get; set; } = false;
 
+    //selectedShip is the ship that the user has selected. The first ship in the list will be selected upon creation of this list
+
+    // private SH.BroadsideSDS selectedShip { get; set; } = new SH.BroadsideSDS(StorServ);
+    private SH.BroadsideSDS selectedShip { get; set; }
+    private bool ConfirmExternalNavigation { get; set; } = true;
 
     private List<SH.OrderCard> OrderCardList = new List<SH.OrderCard>();  //a list of order cards
 
     private List<SH.DamageCardData> DamageCardList = new List<SH.DamageCardData>();  //a list of all damage cards. Used to create DamageCardDeck
     private List<SH.DamageCard> DamageCardDeck = new List<SH.DamageCard>();   //the deck of damage cards to be drawn from
+
+    public BroadsideSD()
+    {
+
+        selectedShip = new SH.BroadsideSDS(StorServ);
+    }
 
     private bool ShowSimpleListOfShips { get; set; } = true;
     private string toggleShipViewName { get; set; } = "Show Summary";
@@ -233,16 +258,16 @@
     private bool showSettings { get; set; } = false;
     private bool hideQRSTables { get; set; } = false;
     private bool hideDamageCards { get; set; } = false;
+    private bool ignoreSaveFails { get; set; } = false;
+    private bool pageStarting { get; set; } = true;
+    PeriodicTimer periodicTimer = new(TimeSpan.FromMilliseconds(2500));
 
 
-
-    private async Task OnBeforeInternalNavigation(LocationChangingContext locationChangingContext)
+    #region Initialization code
+    protected override void OnInitialized()
     {
-        if (JsRuntime is null) return;
-        var continueNavigationEvent = await JsRuntime.InvokeAsync<bool>("confirm", $"You will loose any data enetered if you navigate away! Do you want to stuff it up?");
-        if (!continueNavigationEvent) locationChangingContext.PreventNavigation();
+        RunTimer();  // fire-and-forget
     }
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -253,19 +278,106 @@
         base.OnInitialized();
 
 
-        var SelectedUnitsResponse = await StorServ.RetrieveAllUnits();
+        //If the SDS's have already been created, retrieve that data
+        SH.ServiceResponse<bool> gameInProgress = await StorServ.IsGameInProgress(gameId);
 
-        //convert the retrieved units into BroadsideSDS objects
-        CreateSDSObjects(SelectedUnitsResponse.Data);
+        if (!gameInProgress.Data)
+        {
+            //if not, generate new SDS's
+            var SelectedUnitsResponse = await StorServ.RetrieveAllUnits();
+
+            //convert the retrieved units into BroadsideSDS objects
+            CreateSDSObjects(SelectedUnitsResponse.Data);
+
+            //save the game ID
+            SH.ServiceResponse<bool> gameIdSaved = await StorServ.SaveGameProgressID(gameId);
+
+            if (gameIdSaved.Data != true)
+            {
+                if (ignoreSaveFails == false)
+                {
+                    await JsRuntime.InvokeVoidAsync("alert", "Game Id not saved."); // Dont know how to handle if it doenst work. Pretty fked if this happens
+                }
+            }
+
+            await StorServ.SaveAllBroadSDS(BroadsideSDSList);
+        }
+        else
+        {
+            //await JsRuntime.InvokeVoidAsync("alert", "Game Id found."); Test message
+
+            loadExistingSDSObjects();
+        }
+
 
         await CreateDamageDeck();
 
+        pageStarting = false;       //initialising finished
+    }
+    #endregion 
 
+    #region Timer stuff
+    async void RunTimer()
+    {
+        while (await periodicTimer.WaitForNextTickAsync())
+        {
+            saveToStorage();
+        }
     }
 
+    public void Dispose()
+    {
+
+        periodicTimer?.Dispose();
+    }
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext locationChangingContext)
+    {
+        if (JsRuntime is null) return;
+        var continueNavigationEvent = await JsRuntime.InvokeAsync<bool>("confirm", $"You will loose any data enetered if you navigate away! Do you want to stuff it up?");
+        if (!continueNavigationEvent) locationChangingContext.PreventNavigation();
+    }
+
+    #endregion
+
+    #region Save ship data
+    private void saveShipData()
+    {
+        shipDataChanged = true;
+    }
+
+    private async void saveToStorage()
+    {
+        // System.Diagnostics.Debugger.Break();
+
+        if (pageStarting)
+        {
+            //dont start saving until initialisation is complete
+            return;
+        }
+
+        if (shipDataChanged)
+        {
+            Console.WriteLine("Saving ship data");
+            //only save if ship data has changed
+            ServiceResponse<bool> vsrReturn = await StorServ.UpdateIndividualSDS(selectedShip);
 
 
-    #region  Damage card stuff
+            if (vsrReturn != null)
+            {
+                if (vsrReturn.Success == false)
+                {
+                    //just a visual cue that shit hasnt worked properly
+                    var continueNavigationEvent = await JsRuntime.InvokeAsync<bool>("confirm", $"Warning, data not saved. These warnings can be hidden in the settings option");
+                }
+            }
+            shipDataChanged = false;
+        }
+    }
+
+    #endregion
+
+    #region Damage card code
 
     private async Task RemoveDamageCard(int response)
     {
@@ -285,9 +397,13 @@
             selectedShip.DamageCards.Remove(dcToDelete);
 
             selectedShip.setSummaryText();
+
+            saveShipData();
             ///have to delete the card from the collection. Get the id somehow
         }
     }
+
+
     private async Task CreateDamageDeck()
     {
         // Function creates a full deck of damage cards
@@ -312,7 +428,6 @@
         Console.WriteLine("Number of cards in DamageCardDeck = " + DamageCardDeck.Count);
     }
 
-
     private async Task GetListOfDamageCards()
     {
         //gets a list of all the cards and their numbers
@@ -336,11 +451,11 @@
         // Console.WriteLine("Total num damage cards = " + totalNumberOfCardsInDeck);
     }
 
-
     private async void AddDamageCard()
     {
         //draws a damage card and adds it to the active ship
 
+        saveShipData();
         selectedShip.DamageCards.Add(DrawDamageCard());
         selectedShip.setSummaryText();
         // Console.WriteLine("Card drawn = " + selectedShip.DamageCards[selectedShip.DamageCards.Count - 1].Name);
@@ -392,8 +507,133 @@
         // selectedShip.selectedOrderImagePath = "/" + OrderCardList[selectedShip.selectedOrderCard].ImagePath;
         selectedShip.selectedOrderImagePath = OrderCardList[selectedShip.selectedOrderCard].ImagePath;
         Console.WriteLine("Selected ship order image path " + selectedShip.selectedOrderImagePath);
+        saveShipData();
         StateHasChanged();
+
     }
+
+    private async void loadExistingSDSObjects(){
+
+        SH.ServiceResponse<List<SH.BroadsideSDS>> returnValue = await StorServ.LoadExisitngSDSdetails();
+        if (returnValue.Success == false)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Couldnt load saved ship data."); // Dont know how to handle if it doenst work. Pretty fked if this happens
+        }
+        else{
+            BroadsideSDSList = returnValue.Data;
+            //Even if a previous game is being played, ships could have been added or deleted, so need to check that they are either added or deleted
+            SH.ServiceResponse<List<SH.UnitForGameSystemDTO>> returnListOfUnits = await StorServ.RetrieveAllUnits();
+
+            if(returnListOfUnits.Data != null){
+                //go through each unit and see if it is the  BroadsideSDSList list
+
+                bool sdsListUpdated = false;
+                foreach (var item in returnListOfUnits.Data)
+                {
+                    bool unitInList = false;
+                    foreach (var bsSDS in BroadsideSDSList)
+                    {
+                        if (item.Id == bsSDS.unitId)
+                        {
+                            //unit is in list 
+                            unitInList = true;
+                        }
+                    }
+
+                    if (!unitInList){
+                        //unit isnt in list, create a SDS for it
+
+                        sdsListUpdated = true;
+
+                        SH.BroadsideSDS newItem = new SH.BroadsideSDS(StorServ);
+
+                        // Console.WriteLine("UnitForGameSystemDTO.ShipsSubsInClass = " + UnitForGameSystemDTO.ShipsSubsInClass);
+
+                        if ((item.ShipsSubsInClass == null) || (ChooseFromOwnedColleciton == false))
+                        {
+                            if (item.ShipsSubsInClass == null)
+                            {
+                                item.ShipsSubsInClass = "Enter ship name";
+                            }
+                            newItem.renameHidden = false;
+
+                            newItem.ShipName = item.Name_ClassName;
+                        }
+                        else
+                        {
+
+                            newItem.ShipName = item.ShipsSubsInClass;
+                        }
+
+                        newItem.ImagePath = "ShipImages/3/" + item.Countryobj.Id + "/" + item.ImagePath;
+
+                        newItem.selectedOrderImagePath = OrderCardList[0].ImagePath;
+                        newItem.unitId = item.Id;
+
+                        Console.WriteLine("Adding " + newItem.ShipName);
+                        BroadsideSDSList.Add(newItem);
+                    }
+                }
+
+                //make sure that no units had been deleted
+                for (int i = BroadsideSDSList.Count - 1; i >= 0; i--)
+                {
+                    // some code
+                    // safePendingList.RemoveAt(i);
+                    bool shipInExistingListRemoved = true;
+
+                    foreach (var item in returnListOfUnits.Data)
+                    {
+                        if (item.Id == BroadsideSDSList[i].unitId)
+                        {
+                            //unit is in list. dont remove it
+                            shipInExistingListRemoved = false;
+                        }
+                    }
+
+                    if (shipInExistingListRemoved)
+                    {
+                        sdsListUpdated = true;
+                        BroadsideSDSList.RemoveAt(i);
+                    }
+                }
+
+                // foreach (var bsSDS in BroadsideSDSList)
+                // {
+                //     bool shipInExistingListRemoved = true;
+
+                //     foreach (var item in returnListOfUnits.Data)
+                //     {
+                //         if (item.Id == bsSDS.unitId)
+                //         {
+                //             unit is in list. dont remove it 
+                //             shipInExistingListRemoved = false;
+                //         }
+                //     }
+
+                //     if (shipInExistingListRemoved)
+                //     {
+                //         sdsListUpdated = true;
+                //         BroadsideSDSList.Remove(bsSDS);
+                //     }
+
+                // }
+
+                if (sdsListUpdated)
+                {
+                    //have to update the SDS list in storage
+                    await StorServ.SaveAllBroadSDS(BroadsideSDSList);
+                }
+            }
+
+
+            selectedShip = BroadsideSDSList[0];
+            StateHasChanged();
+        }
+
+
+    }
+
     private void CreateSDSObjects(List<SH.UnitForGameSystemDTO> data)
     {
         BroadsideSDSList = new List<SH.BroadsideSDS>();
@@ -403,10 +643,10 @@
 
             for (int i = 0; i < UnitForGameSystemDTO.NumberSelected; i++)
             {
-                SH.BroadsideSDS newItem = new SH.BroadsideSDS();
+                SH.BroadsideSDS newItem = new SH.BroadsideSDS(StorServ);
 
                 Console.WriteLine("UnitForGameSystemDTO.ShipsSubsInClass = " + UnitForGameSystemDTO.ShipsSubsInClass);
-                // if (UnitForGameSystemDTO.NumberSelected >= 1)
+
                 if ((UnitForGameSystemDTO.ShipsSubsInClass == null) || (ChooseFromOwnedColleciton==false))
                 {
                     if (UnitForGameSystemDTO.ShipsSubsInClass==null)
@@ -429,6 +669,7 @@
                 newItem.ImagePath = "ShipImages/3/" + UnitForGameSystemDTO.Countryobj.Id + "/" + UnitForGameSystemDTO.ImagePath;
 
                 newItem.selectedOrderImagePath = OrderCardList[0].ImagePath;
+                newItem.unitId = UnitForGameSystemDTO.Id;
                 BroadsideSDSList.Add(newItem);
 
             }
@@ -445,6 +686,11 @@
     private async void ChangeSelectedShip(SH.BroadsideSDS unitToSelect)
     {
         // Console.WriteLine("unit to select = " + unitToSelect.ShipName);
+
+        shipDataChanged = true; //want to save in every case when ship selection changes
+        Console.WriteLine("Save ship data on ship selection change");
+        saveToStorage();
+
         selectedShip = unitToSelect;
         StateHasChanged();
     }
@@ -453,6 +699,7 @@
     {
         showSettings = !showSettings;
     }
+
     private async void ToggleAdvancedShipView()
     {
         // Console.WriteLine("in toggleadvancedShipview");

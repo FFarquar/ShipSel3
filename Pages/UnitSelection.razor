@@ -1,9 +1,11 @@
 ﻿@page "/unitselectionrules2/{rulesetid:int}"
 @* @using ShipSel3.Services.UnitsandListsServiceClient *@
 @using ShipSel3.Services.UploadDownloadService
+@using SharedLibrary.LibraryServices.libraryLocalStorageService
 @* @using SH = SharedLibrary.Models *@
 @inject IUnitsandListsServiceClient ULSC
-@inject IStorageService StorServ
+
+@inject ILocalStorageFromLibrary StorServ
 @inject NavigationManager NM
 @inject IUploadDownloadServiceClient UDSC
 @inject IJSRuntime JS
@@ -285,7 +287,7 @@
 
     private List<SH.UnitForGameSystemDTO> CompleteUnitList = new List<SH.UnitForGameSystemDTO>();  //A list of all items that are selectable
     private string imageStyle;
-
+    private string gameId;  //a unique ID to pass to the SDS page so that data can be stored and retrieved
 
     private async Task ViewFIle(SH.UnitForGameSystemDTO unit, string imageId)
     {
@@ -318,7 +320,6 @@
         }
 
     }
-
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -354,6 +355,13 @@
         var resultUnitTypes = await ULSC.GetListOfUnitTypes();
 
         UnitTypes = resultUnitTypes.Data;
+
+        //set the unique gameid
+
+        gameId = DateTime.Now.ToString("yyyyMMddHHmmss");
+        //gameId = Convert.ToInt64(DateTime.Now.ToString("yyyyMMddHHmmss"));
+
+
     }
 
     private async Task getListOfUnits()
@@ -499,7 +507,7 @@
 
     private async void CreateList()
     {
-        var result = await StorServ.AddUnitsToStorage(CompleteUnitList);
+        var result = await StorServ.AddUnitsToStorage(CompleteUnitList,false);
 
 
         // await JS.InvokeAsync<object>("open", "printpage/"+RuleSetId+"/"+@request.OnlyReturnUnitsInCollection, "_blank");
@@ -508,16 +516,35 @@
 
     private async void CreateSDS()
     {
+
+        //TODO Need to make this available only if broadsides is being used
+
         //Create a new page so that electronic Ship Displays can be used instead of paper\
         //Starting with Broadsides 
-        var result = await StorServ.AddUnitsToStorage(CompleteUnitList);
 
-        //todo Need to make this available only if broadsides is being used
+        //if there is existing data AND it is the same gameID, dont delete existing details
 
-        // await JS.InvokeAsync<object>("open", "broadsideSD" , "_blank");
 
-         // await JS.InvokeAsync<object>("open", "broadsideSD/ "+@request.OnlyReturnUnitsInCollection, "_blank");
-        await JS.InvokeVoidAsync("open", "broadsideSD/ " + @request.OnlyReturnUnitsInCollection, "_blank");
+        //TODO: This needs more thought on what needs to be added to storage for new games.
+        //IT isnt working properly. HAve to work out what is removed from RemoveAllUnitsFromStorage
+
+        SH.ServiceResponse<bool> gameInProgress = await StorServ.IsGameInProgress(gameId);
+
+        var result = await StorServ.AddUnitsToStorage(CompleteUnitList, gameInProgress.Data);
+       //  if (gameInProgress.Data == false)
+       // {
+       //      var result = await StorServ.AddUnitsToStorage(CompleteUnitList);
+       //  }
+
+        
+
+
+
+
+
+
+        // await JS.InvokeVoidAsync("open", "broadsideSD/ " + @request.OnlyReturnUnitsInCollection, "_blank");
+        await JS.InvokeVoidAsync("open", "broadsideSD/ " + @request.OnlyReturnUnitsInCollection + "/" + gameId, "_blank");
     }
 
 }

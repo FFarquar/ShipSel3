@@ -1258,5 +1258,47 @@
     "Cost": 262,
     "ImagePath": "Bayern.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 215,
+    "UnitId": 82,
+    "Cost": 297,
+    "ImagePath": "Ise.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 216,
+    "UnitId": 81,
+    "Cost": 276,
+    "ImagePath": "Fuso.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 217,
+    "UnitId": 192,
+    "Cost": 169,
+    "ImagePath": "Tegetthoff.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 218,
+    "UnitId": 193,
+    "Cost": 105,
+    "ImagePath": "Radetztky.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 219,
+    "UnitId": 194,
+    "Cost": 37,
+    "ImagePath": "Novara.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 220,
+    "UnitId": 195,
+    "Cost": 24,
+    "ImagePath": "Admiral Spaun.jpg",
+    "RulesetId": 3
   }
 ]

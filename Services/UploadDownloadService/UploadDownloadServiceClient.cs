@@ -24,7 +24,7 @@ namespace ShipSel3.Services.UploadDownloadService
         public async Task<SH.ServiceResponse<Stream>> GetFileAsStream(SH.UnitForGameSystemDTO unit, int ruleSetId)
         {
 
-            //TODO: copy the file proces sfrom the server code
+
             return new SH.ServiceResponse<Stream>
             {
                 Success = false,

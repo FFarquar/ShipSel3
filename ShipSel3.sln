@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipSel3", "ShipSel3.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_ShipDataBase", "..\WPF_ShipDataBase\WPF_ShipDataBase.csproj", "{CF5D460F-5692-40F3-ACF2-4A9807544C6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{C30C0996-2794-4FC6-8BD6-144F155FBD35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryFunctions", "SharedLibrary\LibraryFunctions.csproj", "{C30C0996-2794-4FC6-8BD6-144F155FBD35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

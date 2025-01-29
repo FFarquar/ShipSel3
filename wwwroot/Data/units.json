@@ -1422,5 +1422,37 @@
     "NumberinClass_shipSub": 1,
     "Name_ClassName": "Bayern",
     "ShipsSubsInClass": "SMS Bayern"
+  },
+  {
+    "Id": 192,
+    "SubUnitTypeId": 4,
+    "CountryId": 16,
+    "NumberinClass_shipSub": 4,
+    "Name_ClassName": "Tegetthoff",
+    "ShipsSubsInClass": "SMS Viribus Unitis, SMS Prinz Eugen, SMS Szent Istvan"
+  },
+  {
+    "Id": 193,
+    "SubUnitTypeId": 4,
+    "CountryId": 16,
+    "NumberinClass_shipSub": 3,
+    "Name_ClassName": "Radetzky",
+    "ShipsSubsInClass": "SMS Radetzky, SMS Erzherzog Franz Ferdinand, SMS Zrinyi"
+  },
+  {
+    "Id": 194,
+    "SubUnitTypeId": 7,
+    "CountryId": 16,
+    "NumberinClass_shipSub": 3,
+    "Name_ClassName": "Novara",
+    "ShipsSubsInClass": "SMS Novara, SMS Helgoland, SMS Saida"
+  },
+  {
+    "Id": 195,
+    "SubUnitTypeId": 7,
+    "CountryId": 16,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Admiral Spaun",
+    "ShipsSubsInClass": "SMS Admiral Spaun"
   }
 ]
