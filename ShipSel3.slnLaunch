@@ -1,0 +1,24 @@
+[
+  {
+    "Name": "Ship database",
+    "Projects": [
+      {
+        "Path": "ShipSel3.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\WPF_ShipDataBase\\WPF_ShipDataBase.csproj",
+        "Action": "Start"
+      }
+    ]
+  },
+  {
+    "Name": "Test WPF On its own",
+    "Projects": [
+      {
+        "Path": "..\\WPF_ShipDataBase\\WPF_ShipDataBase.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
