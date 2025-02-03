@@ -1454,5 +1454,53 @@
     "NumberinClass_shipSub": 1,
     "Name_ClassName": "Admiral Spaun",
     "ShipsSubsInClass": "SMS Admiral Spaun"
+  },
+  {
+    "Id": 196,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Salamis",
+    "ShipsSubsInClass": "SMS Salamis"
+  },
+  {
+    "Id": 197,
+    "SubUnitTypeId": 4,
+    "CountryId": 1,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "TEst",
+    "ShipsSubsInClass": "asda"
+  },
+  {
+    "Id": 198,
+    "SubUnitTypeId": 8,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 8,
+    "Name_ClassName": "Admiralty",
+    "ShipsSubsInClass": "HMS Scott"
+  },
+  {
+    "Id": 199,
+    "SubUnitTypeId": 8,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 20,
+    "Name_ClassName": "Acasta",
+    "ShipsSubsInClass": "HMS Acasta, HMS Shark, HMS Spitfire, HMS Lynx"
+  },
+  {
+    "Id": 200,
+    "SubUnitTypeId": 8,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 8,
+    "Name_ClassName": "B97",
+    "ShipsSubsInClass": "SMS B97, SMS V100, SMS B109, SMS V99"
+  },
+  {
+    "Id": 201,
+    "SubUnitTypeId": 8,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 65,
+    "Name_ClassName": "S138",
+    "ShipsSubsInClass": "SMS 138, SMS 139, SMS 140, SMS 141"
   }
 ]

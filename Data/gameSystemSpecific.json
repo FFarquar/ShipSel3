@@ -1300,5 +1300,40 @@
     "Cost": 24,
     "ImagePath": "Admiral Spaun.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 221,
+    "UnitId": 196,
+    "Cost": 200,
+    "ImagePath": "Salamis.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 222,
+    "UnitId": 198,
+    "Cost": 60,
+    "ImagePath": "Scott.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 223,
+    "UnitId": 199,
+    "Cost": 27,
+    "ImagePath": "Acasta.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 224,
+    "UnitId": 200,
+    "Cost": 39,
+    "ImagePath": "B97.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 225,
+    "UnitId": 201,
+    "Cost": 24,
+    "ImagePath": "S138.jpg",
+    "RulesetId": 3
   }
 ]
