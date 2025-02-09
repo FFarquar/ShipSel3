@@ -151,7 +151,7 @@ border:ridge;
     flex-direction:column;
 }
 .input_field[b-hnjj89poea] {
-    margin-top:2px;
+    margin-top:6px;
     height:40px;
 }
 .rename_ship_input_cl[b-hnjj89poea] {
@@ -187,17 +187,25 @@ border:ridge;
 }
 
 .checkbox_text[b-hnjj89poea]{
-    width:85%;
+    width:80%;
     vertical-align:middle
 }
 
 .stat_input[b-hnjj89poea] {
-    max-width: 60px;
+    max-width: 100px;
     float: right;
     margin-right: 0px;
     height: 30px;
+    min-width:50px;
 }
 
+.stat_input_text[b-hnjj89poea] {
+    max-width: 50px;
+    float: right;
+    margin-right: 0px;
+    height: 30px;
+    min-width: 40px;
+}
 .torp_input[b-hnjj89poea] {
 /*    max-width: 60px;*/
     height: 30px;
