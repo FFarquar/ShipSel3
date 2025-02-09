@@ -77,6 +77,10 @@
     background-color: darkslategrey;
     margin: 5px;
     margin-top:-40px;
+/*    position: fixed;
+    left:0px;
+    top:130px;*/
+        
 }
 
 .ship_sds_status_right_container {
@@ -84,6 +88,9 @@
     height: 100%;
     flex-direction: column;
     flex-wrap: wrap;
+/*   left:190px;
+   overflow-y:auto;
+   position:fixed;*/
 }
 
 .ship_button {
@@ -144,6 +151,7 @@ border:ridge;
 }
 .input_field {
     margin-top:2px;
+    height:40px;
 }
 .rename_ship_input_cl {
     width: 100%;
@@ -173,12 +181,30 @@ border:ridge;
 }
 
 .checkbox_option {
-    background-color:lightgray;
-    margin-top:2px;
-}
-.torpedos {
+    background-color: lightgray;
+    margin-top: 2px;
 }
 
+.checkbox_text{
+    width:85%;
+    vertical-align:middle
+}
+
+.stat_input {
+    max-width: 60px;
+    float: right;
+    margin-right: 0px;
+    height: 30px;
+}
+
+.torp_input {
+/*    max-width: 60px;*/
+    height: 30px;
+/*    margin-right:0px;*/
+    width:18px;
+    vertical-align:middle;
+/*    float:right;*/
+}
 .ship_order .checkbox_option{
     margin: 2px;
 }
@@ -246,12 +272,7 @@ border:ridge;
 .qrs_label {
     font-size: small;
 }
-.stat_input {
-    max-width: 50px;
-    float: right;
-    margin-right: 5px;
-    height: 20px;
-}
+
 
 .damage_cards {
     margin-top: 5px;

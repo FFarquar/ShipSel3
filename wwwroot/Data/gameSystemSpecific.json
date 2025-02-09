@@ -1335,5 +1335,33 @@
     "Cost": 24,
     "ImagePath": "S138.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 226,
+    "UnitId": 202,
+    "Cost": 184,
+    "ImagePath": "Kaiser.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 227,
+    "UnitId": 203,
+    "Cost": 131,
+    "ImagePath": "Helgoland.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 228,
+    "UnitId": 204,
+    "Cost": 109,
+    "ImagePath": "Nassau.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 229,
+    "UnitId": 205,
+    "Cost": 231,
+    "ImagePath": "Mackensen.jpg",
+    "RulesetId": 3
   }
 ]

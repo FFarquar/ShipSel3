@@ -521,7 +521,6 @@
 
         //Create a new page so that electronic Ship Displays can be used instead of paper\
         //Starting with Broadsides 
-
         //if there is existing data AND it is the same gameID, dont delete existing details
 
 
@@ -531,6 +530,7 @@
         SH.ServiceResponse<bool> gameInProgress = await StorServ.IsGameInProgress(gameId);
 
         var result = await StorServ.AddUnitsToStorage(CompleteUnitList, gameInProgress.Data);
+
        //  if (gameInProgress.Data == false)
        // {
        //      var result = await StorServ.AddUnitsToStorage(CompleteUnitList);
