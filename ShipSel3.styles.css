@@ -78,6 +78,10 @@
     background-color: darkslategrey;
     margin: 5px;
     margin-top:-40px;
+/*    position: fixed;
+    left:0px;
+    top:130px;*/
+        
 }
 
 .ship_sds_status_right_container[b-hnjj89poea] {
@@ -85,6 +89,9 @@
     height: 100%;
     flex-direction: column;
     flex-wrap: wrap;
+/*   left:190px;
+   overflow-y:auto;
+   position:fixed;*/
 }
 
 .ship_button[b-hnjj89poea] {
@@ -145,6 +152,7 @@ border:ridge;
 }
 .input_field[b-hnjj89poea] {
     margin-top:2px;
+    height:40px;
 }
 .rename_ship_input_cl[b-hnjj89poea] {
     width: 100%;
@@ -174,12 +182,30 @@ border:ridge;
 }
 
 .checkbox_option[b-hnjj89poea] {
-    background-color:lightgray;
-    margin-top:2px;
-}
-.torpedos[b-hnjj89poea] {
+    background-color: lightgray;
+    margin-top: 2px;
 }
 
+.checkbox_text[b-hnjj89poea]{
+    width:85%;
+    vertical-align:middle
+}
+
+.stat_input[b-hnjj89poea] {
+    max-width: 60px;
+    float: right;
+    margin-right: 0px;
+    height: 30px;
+}
+
+.torp_input[b-hnjj89poea] {
+/*    max-width: 60px;*/
+    height: 30px;
+/*    margin-right:0px;*/
+    width:18px;
+    vertical-align:middle;
+/*    float:right;*/
+}
 .ship_order .checkbox_option[b-hnjj89poea]{
     margin: 2px;
 }
@@ -247,12 +273,7 @@ border:ridge;
 .qrs_label[b-hnjj89poea] {
     font-size: small;
 }
-.stat_input[b-hnjj89poea] {
-    max-width: 50px;
-    float: right;
-    margin-right: 5px;
-    height: 20px;
-}
+
 
 .damage_cards[b-hnjj89poea] {
     margin-top: 5px;

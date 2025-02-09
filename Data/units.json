@@ -1502,5 +1502,37 @@
     "NumberinClass_shipSub": 65,
     "Name_ClassName": "S138",
     "ShipsSubsInClass": "SMS 138, SMS 139, SMS 140, SMS 141"
+  },
+  {
+    "Id": 202,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 5,
+    "Name_ClassName": "Kaiser",
+    "ShipsSubsInClass": "SMS Kaiser, SMS Friedrich der Grosse, SMS Kaiserin, SMS Prinzregent Luitpold, SMS K\u00F6nig Albert"
+  },
+  {
+    "Id": 203,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 4,
+    "Name_ClassName": "Helgoland",
+    "ShipsSubsInClass": "SMS Helgoland, SMS Oldenburg, SMS Ostfriesland ,SMS Th\u00FCringen."
+  },
+  {
+    "Id": 204,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 4,
+    "Name_ClassName": "Nassau",
+    "ShipsSubsInClass": "SMS Nassau, SMS Rheinland, SMS Posen, SMS Westfalen."
+  },
+  {
+    "Id": 205,
+    "SubUnitTypeId": 5,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Mackensen",
+    "ShipsSubsInClass": "SMS Mackensen"
   }
 ]
