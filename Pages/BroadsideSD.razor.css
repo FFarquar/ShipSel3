@@ -150,7 +150,7 @@ border:ridge;
     flex-direction:column;
 }
 .input_field {
-    margin-top:2px;
+    margin-top:6px;
     height:40px;
 }
 .rename_ship_input_cl {
@@ -186,17 +186,25 @@ border:ridge;
 }
 
 .checkbox_text{
-    width:85%;
+    width:80%;
     vertical-align:middle
 }
 
 .stat_input {
-    max-width: 60px;
+    max-width: 100px;
     float: right;
     margin-right: 0px;
     height: 30px;
+    min-width:50px;
 }
 
+.stat_input_text {
+    max-width: 50px;
+    float: right;
+    margin-right: 0px;
+    height: 30px;
+    min-width: 40px;
+}
 .torp_input {
 /*    max-width: 60px;*/
     height: 30px;
