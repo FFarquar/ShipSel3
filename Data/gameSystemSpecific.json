@@ -1363,5 +1363,33 @@
     "Cost": 231,
     "ImagePath": "Mackensen.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 230,
+    "UnitId": 206,
+    "Cost": 65,
+    "ImagePath": "Brandenburg.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 231,
+    "UnitId": 207,
+    "Cost": 20,
+    "ImagePath": "Mowe.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 232,
+    "UnitId": 208,
+    "Cost": 211,
+    "ImagePath": "Agincourt.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 233,
+    "UnitId": 209,
+    "Cost": 122,
+    "ImagePath": "Dreadnought.jpg",
+    "RulesetId": 3
   }
 ]

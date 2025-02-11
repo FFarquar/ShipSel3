@@ -1534,5 +1534,37 @@
     "NumberinClass_shipSub": 1,
     "Name_ClassName": "Mackensen",
     "ShipsSubsInClass": "SMS Mackensen"
+  },
+  {
+    "Id": 206,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 4,
+    "Name_ClassName": "Brandeburg",
+    "ShipsSubsInClass": "SMS Brandenburg, SMS W\u00F6rth, SMS Weissenburg, SMS Kurf\u00FCrst Friedrich Wilhelm"
+  },
+  {
+    "Id": 207,
+    "SubUnitTypeId": 18,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Mowe",
+    "ShipsSubsInClass": "SMS Mowe"
+  },
+  {
+    "Id": 208,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Agincourt",
+    "ShipsSubsInClass": "HMS Agincourt"
+  },
+  {
+    "Id": 209,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Dreadnought",
+    "ShipsSubsInClass": "HMS Dreadnought"
   }
 ]
