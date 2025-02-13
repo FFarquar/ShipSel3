@@ -6,7 +6,7 @@
 @page "/broadsideSD/{ChooseFromOwnedColleciton:bool}/{gameId}"
 @layout NoMenuLayout
 @inject ILocalStorageFromLibrary StorServ
-
+@inject IJSRuntime _js
 
 @* @using ShipSel3.Services.UnitsandListsServiceClient *@
 
@@ -57,7 +57,7 @@
         <span>
             <p style="display:inline">Window Height: @Height</p>
             <p style="display:inline">Window Width: @Width</p>
-
+            <button @onclick="GetDimensions">Get Dimensions</button>
         </span>
 
     </div>
@@ -307,6 +307,21 @@
 
     public int ViewportWidth { get; set; }
     public int ViewportHeight { get; set; }
+    
+    private class dimensions
+    {
+        public int Height { get; set; }
+        public int Width { get; set; }
+    }
+    async Task GetDimensions()
+    {
+
+        var dimension =  await _js.InvokeAsync<dimensions>("getDimensions");
+        
+        ViewportHeight = dimension.Height;
+        ViewportWidth = dimension.Width;
+    }
+
     [JSInvokable]
     public void OnResize(int width, int height)
     {
