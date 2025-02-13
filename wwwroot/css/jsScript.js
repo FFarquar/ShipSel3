@@ -9,6 +9,7 @@
     anchorElement.remove();
     URL.revokeObjectURL(url);
 }
+
 window.setImageUsingStreaming = async (imageElementId, imageStream) => {
     console.log("In set image")
     console.log("image element ID = " + imageElementId)
@@ -41,4 +42,26 @@ window.test = async (test) => {
 
 window.onbeforeunload = function () {
     return 'Are you sure you want to leave?';
+}
+
+window.getDimensions = function () {
+    return {
+        width: window.innerWidth,
+        height: window.innerHeight
+    };
+}
+
+window.registerViewportChangeCallback = (dotnetHelper) => {
+    window.addEventListener('load', () => {
+        dotnetHelper.invokeMethodAsync('OnResize', window.innerWidth, window.innerHeight);
+    });
+    window.addEventListener('resize', () => {
+        dotnetHelper.invokeMethodAsync('OnResize', window.innerWidth, window.innerHeight);
+    });
 };
+//function getDimensions() {
+//    return {
+//        width: window.innerWidth,
+//        height: window.innerHeight
+//    };
+//}

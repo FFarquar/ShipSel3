@@ -278,7 +278,7 @@
 
     private List<SH.Country> Countries = new List<SH.Country>();
     private List<SH.UnitType> UnitTypes = new List<SH.UnitType>();
-    private IJSObjectReference? _jsModule;
+    // private IJSObjectReference? _jsModule;
 
     private ViewFilter viewFilter = new ViewFilter();
 
@@ -321,14 +321,14 @@
 
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            //_jsModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/UnitSelection2.razor.js");
-            _jsModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./css/fileScripts.js");
-        }
-    }
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     if (firstRender)
+    //     {
+
+    //         // _jsModule ??= await JS.InvokeAsync<IJSObjectReference>("import", "./css/fileScripts.js");
+    //     }
+    // }
 
     protected override async Task OnInitializedAsync()
     {

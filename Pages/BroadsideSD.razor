@@ -6,6 +6,8 @@
 @page "/broadsideSD/{ChooseFromOwnedColleciton:bool}/{gameId}"
 @layout NoMenuLayout
 @inject ILocalStorageFromLibrary StorServ
+
+
 @* @using ShipSel3.Services.UnitsandListsServiceClient *@
 
 @inject IUnitsandListsServiceClient ULSC
@@ -23,6 +25,8 @@
 @* <label for="confirm-external-navigation-checkbox">Confirm External Navigation</label>
 <input id="confirm-external-navigation-checkbox" type="checkbox" @bind="@ConfirmExternalNavigation">
  *@
+
+
 <div class="nav_row">
     <div class="settings_menu_row">
 
@@ -49,11 +53,19 @@
 </div>
 
 <main class="main">
+    <div>
+        <span>
+            <p style="display:inline">Window Height: @Height</p>
+            <p style="display:inline">Window Width: @Width</p>
 
+        </span>
+
+    </div>
     <div class="main_heading">
         @* <h4>Select a Ship</h4> *@
         <h2 class="ship_name_heading">@selectedShip.ShipName</h2>
     </div>
+
 
     <div class="main_container">
         <div class="ship_list_nav_bar_left_container">
@@ -138,7 +150,7 @@
                             @* <input class="stat_input" id="current_speed" type="number" @bind-value=@selectedShip.CurrentSpeed @onselectionchange="saveShipData" /> *@
 
                             <select class="stat_input" id="current_speed" @bind=@selectedShip.CurrentSpeed @onselectionchange="saveShipData">
-                                @for (int i = 0; i <= 8; i++)
+                                @for (int i = 0; i <= 11; i++)
                                 {
                                     <option value=@i>@i</option>
                                 }
@@ -148,7 +160,7 @@
 
                         <div class="input_field">
                             <label for="hull_hits">Hull Hits</label>
-                        
+
                             @* <input class="stat_input" id="hull_hits" type="number" @bind-value=@selectedShip.HullHits @onselectionchange="saveShipData" /> *@
                             <select class="stat_input" id="hull_hits" @bind=@selectedShip.HullHits @onselectionchange="saveShipData">
                                 @for (int i = 0; i <= 12; i++)
@@ -187,7 +199,7 @@
                         <div class="checkbox_option">
 
                             <label class="checkbox_text" for="starb_wing_torp_fired">Starboard torps used</label>
-                                <input class="torp_input" id="starb_wing_torp_fired" type="checkbox" @bind=@selectedShip.starTorpsFired @oninput="saveShipData" />
+                            <input class="torp_input" id="starb_wing_torp_fired" type="checkbox" @bind=@selectedShip.starTorpsFired @oninput="saveShipData" />
                         </div>
 
                     </div>
@@ -255,6 +267,7 @@
     public string gameId { get; set; }
 
     [Inject] IJSRuntime? JsRuntime { get; set; }
+     // private IJSObjectReference? _jsModule;
     private List<SH.BroadsideSDS> BroadsideSDSList = new List<SH.BroadsideSDS>();  //A list of all items that have been selected
 
     private bool shipDataChanged { get; set; } = false;
@@ -269,6 +282,12 @@
 
     private List<SH.DamageCardData> DamageCardList = new List<SH.DamageCardData>();  //a list of all damage cards. Used to create DamageCardDeck
     private List<SH.DamageCard> DamageCardDeck = new List<SH.DamageCard>();   //the deck of damage cards to be drawn from
+
+    //variables to read window dimensions for debugging
+
+    public int Height { get; set; }
+    public int Width { get; set; }
+
 
     public BroadsideSD()
     {
@@ -286,8 +305,31 @@
     private bool pageStarting { get; set; } = true;
     PeriodicTimer periodicTimer = new(TimeSpan.FromMilliseconds(2500));
 
-
+    public int ViewportWidth { get; set; }
+    public int ViewportHeight { get; set; }
+    [JSInvokable]
+    public void OnResize(int width, int height)
+    {
+        if (ViewportWidth == width && ViewportHeight == height) return;
+        Width = width;
+        Height = height;
+        StateHasChanged();
+    }
     #region Initialization code
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // if (firstRender)
+        // {
+        //     _jsModule ??= await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./css/fileScripts.js");
+        // }
+
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("window.registerViewportChangeCallback", DotNetObjectReference.Create(this));
+        }
+    }
+
     protected override void OnInitialized()
     {
         RunTimer();  // fire-and-forget
