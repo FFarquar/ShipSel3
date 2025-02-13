@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "ShipSel3",
   "resources": {
-    "hash": "sha256-/52/0SCwsJ6OFKF70mwJMxOyFOrb1Uma1nGT9Sijq34=",
+    "hash": "sha256-J+mzWtVQu69BoAd1yldMmma/rymz+bA7ojFjZ4irZAw=",
     "jsModuleNative": {
       "dotnet.native.8.0.13.f1wj86lvfk.js": "sha256-xNQsYHtL1vcbrVTHDZAwJM4WovpoyjsrM2C6FQ8cW1w="
     },
@@ -18,7 +18,7 @@
     },
     "assembly": {
       "Blazored.LocalStorage.wasm": "sha256-OaMAAd5n7ORfyur5e3QIyEVKJ76MKIvwbg7/icnnYcU=",
-      "LibraryFunctions.wasm": "sha256-2i75499ZHkblsPsgN4YtJeMTQlDwjR9+UFgVfYWMFVI=",
+      "LibraryFunctions.wasm": "sha256-ByeLQ5AJTzUfnxSSK3ejhyPMeTKegjl33VzNy2BTc9Q=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-m1Xt0cIaYwz4wqx9TRsduGoacOcPfuWqy1NIeBrNDSk=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-SMKU4QVobHEeZ/QksYTzZf/betFzV0h9MglF3uBLmjw=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-4A2ZwWdVDEuyWOulswtTLaM5Dng8DplAZIsl2pZ8xY0=",
@@ -40,7 +40,7 @@
       "Microsoft.JSInterop.wasm": "sha256-3jx2cODpJs1lfLSCckd8biFKKFAdQFmb3K7qZWqhH7s=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-LXKI1Xk0vZqszYFxcQd7eDggR2xmrgv9gTFBtdpZ8vQ=",
       "Newtonsoft.Json.wasm": "sha256-GlXMWKvDs45M2pACoR3Y4Qh8mcrOZGljqmvJY+6JZ5s=",
-      "ShipSel3.wasm": "sha256-t0mnHF9TsMd4MYgoxkGKQt0YbE+KQ79ow/jZZbzRQSg=",
+      "ShipSel3.wasm": "sha256-FvFPip3T8Lzo27FLS+JZmVMTibnGXsTL5w8nMP9HiZ8=",
       "System.Collections.Concurrent.wasm": "sha256-osqg1COCmQChcrS2+JsZirJXyv4gNCxE+ZYIfMqc9n8=",
       "System.Collections.Immutable.wasm": "sha256-fRPUAy81Un0cKk/oJdg2r60KEzfZBIWdIZ61Lf1jz+U=",
       "System.Collections.NonGeneric.wasm": "sha256-a4neSzjwvAO/SysHWdylnsyAbM9WsgpFG75UnwGnfvo=",
