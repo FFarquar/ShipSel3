@@ -59,9 +59,4 @@ window.registerViewportChangeCallback = (dotnetHelper) => {
         dotnetHelper.invokeMethodAsync('OnResize', window.innerWidth, window.innerHeight);
     });
 };
-//function getDimensions() {
-//    return {
-//        width: window.innerWidth,
-//        height: window.innerHeight
-//    };
-//}
+
