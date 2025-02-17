@@ -1566,5 +1566,37 @@
     "NumberinClass_shipSub": 1,
     "Name_ClassName": "Dreadnought",
     "ShipsSubsInClass": "HMS Dreadnought"
+  },
+  {
+    "Id": 210,
+    "SubUnitTypeId": 5,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Tiger",
+    "ShipsSubsInClass": "HMS Tiger"
+  },
+  {
+    "Id": 211,
+    "SubUnitTypeId": 5,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 2,
+    "Name_ClassName": "Renown",
+    "ShipsSubsInClass": "HMS Repulse"
+  },
+  {
+    "Id": 212,
+    "SubUnitTypeId": 5,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 3,
+    "Name_ClassName": "Courageous",
+    "ShipsSubsInClass": "HMS Courageous"
+  },
+  {
+    "Id": 213,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 3,
+    "Name_ClassName": "St Vincent",
+    "ShipsSubsInClass": "HMS St Vincent"
   }
 ]

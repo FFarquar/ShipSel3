@@ -1391,5 +1391,33 @@
     "Cost": 122,
     "ImagePath": "Dreadnought.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 234,
+    "UnitId": 210,
+    "Cost": 218,
+    "ImagePath": "tiger.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 235,
+    "UnitId": 211,
+    "Cost": 207,
+    "ImagePath": "renown.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 236,
+    "UnitId": 212,
+    "Cost": 103,
+    "ImagePath": "courageous.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 237,
+    "UnitId": 213,
+    "Cost": 134,
+    "ImagePath": "stVincent.jpg",
+    "RulesetId": 3
   }
 ]

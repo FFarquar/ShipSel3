@@ -320,7 +320,7 @@ border:ridge;
     height:160px;
 }
 
-@media only screen and (max-width: 1130px) {
+@media only screen and (max-width: 1350px) {
     .nav_row {
         width: 950px;
     }
