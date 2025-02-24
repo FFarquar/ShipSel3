@@ -1419,5 +1419,33 @@
     "Cost": 134,
     "ImagePath": "stVincent.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 238,
+    "UnitId": 214,
+    "Cost": 197,
+    "ImagePath": "orion.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 239,
+    "UnitId": 215,
+    "Cost": 147,
+    "ImagePath": "neptune.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 240,
+    "UnitId": 216,
+    "Cost": 138,
+    "ImagePath": "Bellerophon.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 241,
+    "UnitId": 217,
+    "Cost": 105,
+    "ImagePath": "LordNelson.jpg",
+    "RulesetId": 3
   }
 ]
