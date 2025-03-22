@@ -1099,13 +1099,6 @@
     "RulesetId": 1
   },
   {
-    "Id": 192,
-    "UnitId": 6,
-    "Cost": 282,
-    "ImagePath": "Queen_Elizabeth.jpg",
-    "RulesetId": 3
-  },
-  {
     "Id": 193,
     "UnitId": 170,
     "Cost": 206,
@@ -1309,13 +1302,6 @@
     "RulesetId": 3
   },
   {
-    "Id": 222,
-    "UnitId": 198,
-    "Cost": 60,
-    "ImagePath": "Scott.jpg",
-    "RulesetId": 3
-  },
-  {
     "Id": 223,
     "UnitId": 199,
     "Cost": 27,
@@ -1446,6 +1432,125 @@
     "UnitId": 217,
     "Cost": 105,
     "ImagePath": "LordNelson.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 242,
+    "UnitId": 218,
+    "Cost": 216,
+    "ImagePath": "KGV.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 243,
+    "UnitId": 219,
+    "Cost": 244,
+    "ImagePath": "Revenge.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 244,
+    "UnitId": 220,
+    "Cost": 282,
+    "ImagePath": "Queen Elizabeth.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 245,
+    "UnitId": 221,
+    "Cost": 222,
+    "ImagePath": "IronDuke.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 246,
+    "UnitId": 222,
+    "Cost": 160,
+    "ImagePath": "Colossus.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 247,
+    "UnitId": 223,
+    "Cost": 82,
+    "ImagePath": "Swiftsure.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 248,
+    "UnitId": 224,
+    "Cost": 82,
+    "ImagePath": "Swiftsure.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 249,
+    "UnitId": 225,
+    "Cost": 79,
+    "ImagePath": "Duncan.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 250,
+    "UnitId": 226,
+    "Cost": 187,
+    "ImagePath": "Lion.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 251,
+    "UnitId": 227,
+    "Cost": 187,
+    "ImagePath": "queen_mary.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 252,
+    "UnitId": 228,
+    "Cost": 103,
+    "ImagePath": "indefatigable.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 253,
+    "UnitId": 229,
+    "Cost": 77,
+    "ImagePath": "Minotaur.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 254,
+    "UnitId": 230,
+    "Cost": 70,
+    "ImagePath": "Warrior.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 255,
+    "UnitId": 231,
+    "Cost": 70,
+    "ImagePath": "DukeofEndin.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 256,
+    "UnitId": 232,
+    "Cost": 60,
+    "ImagePath": "Scott.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 257,
+    "UnitId": 233,
+    "Cost": 23,
+    "ImagePath": "beagle.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 258,
+    "UnitId": 198,
+    "Cost": 48,
+    "ImagePath": "admiralV.jpg",
     "RulesetId": 3
   }
 ]
