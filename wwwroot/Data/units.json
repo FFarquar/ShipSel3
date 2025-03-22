@@ -1475,9 +1475,9 @@
     "Id": 198,
     "SubUnitTypeId": 8,
     "CountryId": 14,
-    "NumberinClass_shipSub": 8,
-    "Name_ClassName": "Admiralty",
-    "ShipsSubsInClass": "HMS Scott"
+    "NumberinClass_shipSub": 67,
+    "Name_ClassName": "Admiralty V",
+    "ShipsSubsInClass": "HMS Vancouver, HMS Vanity, HMS Vanoc, HMS Vectis"
   },
   {
     "Id": 199,
@@ -1630,5 +1630,133 @@
     "NumberinClass_shipSub": 2,
     "Name_ClassName": "Lord Nelson",
     "ShipsSubsInClass": "HMS Agamemnon"
+  },
+  {
+    "Id": 218,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 4,
+    "Name_ClassName": "King George V",
+    "ShipsSubsInClass": "HMS King George V, HMS Ajax, HMS Centurion, HMS Audacious"
+  },
+  {
+    "Id": 219,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 5,
+    "Name_ClassName": "Revenge",
+    "ShipsSubsInClass": "HMS Revenge, HMS Royal Oak, HMS Royal Soverign, HMS Resolution, HMS Ramillies"
+  },
+  {
+    "Id": 220,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 5,
+    "Name_ClassName": "Queen Elizabeth",
+    "ShipsSubsInClass": "HMS Queen Elizabeth, HMS Warspite, HMS Barham, HMS Valiant, HMS Malaya"
+  },
+  {
+    "Id": 221,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 4,
+    "Name_ClassName": "Iron Duke",
+    "ShipsSubsInClass": "HMS Iron Duke, HMS Benbow, HMS Emperor Of India, HMS Marlborough"
+  },
+  {
+    "Id": 222,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 2,
+    "Name_ClassName": "Colossus",
+    "ShipsSubsInClass": "HMS Colussus, HMS Hercules"
+  },
+  {
+    "Id": 223,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 2,
+    "Name_ClassName": "Swiftsure",
+    "ShipsSubsInClass": "HMS Swiftsure, HMS Triumph"
+  },
+  {
+    "Id": 224,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 6,
+    "Name_ClassName": "King Edward VII",
+    "ShipsSubsInClass": "HMS King Edward VII, HMS Hibernia, HMS Africa, HMS Zealandia, HMS Commonwealth, HMS Britannia"
+  },
+  {
+    "Id": 225,
+    "SubUnitTypeId": 4,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 5,
+    "Name_ClassName": "Duncan",
+    "ShipsSubsInClass": "HMS Duncan, HMS Albemarle, HMS Cornwallis, HMS Exmouth, HMS Russell"
+  },
+  {
+    "Id": 226,
+    "SubUnitTypeId": 5,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 2,
+    "Name_ClassName": "Lion",
+    "ShipsSubsInClass": "HMS Lion, HMS Princess Royal"
+  },
+  {
+    "Id": 227,
+    "SubUnitTypeId": 5,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 1,
+    "Name_ClassName": "Queen Mary",
+    "ShipsSubsInClass": "HMS Queen Mary"
+  },
+  {
+    "Id": 228,
+    "SubUnitTypeId": 5,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 3,
+    "Name_ClassName": "Indefatigable",
+    "ShipsSubsInClass": "HMS Australia, HMS Indefatigable, HMS New Zealand"
+  },
+  {
+    "Id": 229,
+    "SubUnitTypeId": 19,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 3,
+    "Name_ClassName": "Minotaur",
+    "ShipsSubsInClass": "HMS Minotaur, HMS Defence, HMS Shannon"
+  },
+  {
+    "Id": 230,
+    "SubUnitTypeId": 19,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 3,
+    "Name_ClassName": "Warrior",
+    "ShipsSubsInClass": "HMS Warrior, HMS Cochrane, HMS Achillies"
+  },
+  {
+    "Id": 231,
+    "SubUnitTypeId": 19,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 2,
+    "Name_ClassName": "Duke of Edinburgh",
+    "ShipsSubsInClass": ""
+  },
+  {
+    "Id": 232,
+    "SubUnitTypeId": 8,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 2,
+    "Name_ClassName": "Scott",
+    "ShipsSubsInClass": "HMS Scott, HMS Douglas"
+  },
+  {
+    "Id": 233,
+    "SubUnitTypeId": 8,
+    "CountryId": 14,
+    "NumberinClass_shipSub": 16,
+    "Name_ClassName": "Beagle",
+    "ShipsSubsInClass": "HMS Beagle, HMS Bulldog, HMS Pincher, HMS Foxhound, HMS Racoon"
   }
 ]
