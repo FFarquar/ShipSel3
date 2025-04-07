@@ -1405,7 +1405,7 @@
     "CountryId": 5,
     "NumberinClass_shipSub": 4,
     "Name_ClassName": "Konig",
-    "ShipsSubsInClass": null
+    "ShipsSubsInClass": "SMS Konig, SMS Kronprinz, SMS Grosser Kurfurst, SMS Markgraf"
   },
   {
     "Id": 190,
@@ -1758,5 +1758,45 @@
     "NumberinClass_shipSub": 16,
     "Name_ClassName": "Beagle",
     "ShipsSubsInClass": "HMS Beagle, HMS Bulldog, HMS Pincher, HMS Foxhound, HMS Racoon"
+  },
+  {
+    "Id": 234,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 5,
+    "Name_ClassName": "Braunschweig",
+    "ShipsSubsInClass": "SMS Braunschweig,  SMS Elsass,  SMS Hessen, SMS Preussen, SMS Lothringen"
+  },
+  {
+    "Id": 235,
+    "SubUnitTypeId": 5,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 3,
+    "Name_ClassName": "Derfflinger",
+    "ShipsSubsInClass": "SMS Hindenburg, SMS L\u00FCtzow, SMS Derfflinger"
+  },
+  {
+    "Id": 236,
+    "SubUnitTypeId": 4,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 5,
+    "Name_ClassName": "Deutschland",
+    "ShipsSubsInClass": "SMS Deutschland, SMS Hannover, SMS Pommern, SMS Schlesien, SMS Schleswig-Holstein"
+  },
+  {
+    "Id": 237,
+    "SubUnitTypeId": 8,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 26,
+    "Name_ClassName": "V1",
+    "ShipsSubsInClass": "SMS V1, SMS V2, SMS V3, SMS V4"
+  },
+  {
+    "Id": 238,
+    "SubUnitTypeId": 8,
+    "CountryId": 5,
+    "NumberinClass_shipSub": 71,
+    "Name_ClassName": "V25",
+    "ShipsSubsInClass": "SMS V25, SMS V26, SMS V27, SMS V28"
   }
 ]
