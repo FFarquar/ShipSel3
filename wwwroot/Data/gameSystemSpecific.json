@@ -1552,5 +1552,40 @@
     "Cost": 48,
     "ImagePath": "admiralV.jpg",
     "RulesetId": 3
+  },
+  {
+    "Id": 259,
+    "UnitId": 234,
+    "Cost": 94,
+    "ImagePath": "Lothringen.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 260,
+    "UnitId": 235,
+    "Cost": 166,
+    "ImagePath": "Derfflinger.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 261,
+    "UnitId": 236,
+    "Cost": 94,
+    "ImagePath": "Deutschland.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 262,
+    "UnitId": 237,
+    "Cost": 22,
+    "ImagePath": "v1.jpg",
+    "RulesetId": 3
+  },
+  {
+    "Id": 263,
+    "UnitId": 238,
+    "Cost": 38,
+    "ImagePath": "V25.jpg",
+    "RulesetId": 3
   }
 ]
